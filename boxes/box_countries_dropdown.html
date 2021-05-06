@@ -1,0 +1,9 @@
+{block name="box_countries_dropdown"}
+	<select name="switch_country" class="form-control" id="countries-select">
+		{foreach item=country_value key=iso_code from=$content_data.country_data}
+			{block name="box_countries_dropdown_option"}
+				<option value="{$iso_code}" {if $content_data.SELECTED_COUNTRY == $iso_code}selected{/if}>{$country_value|escape:'html'}</option>
+			{/block}
+		{/foreach}
+	</select>
+{/block}

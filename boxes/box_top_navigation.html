@@ -1,0 +1,310 @@
+{load_language_text section="top_navigation"}
+{load_language_text section="infobox" name="infobox"}
+{load_language_text section="buttons" name="buttons"}
+{load_language_text section="general" name="general"}
+
+{block name="box_top_navigation"}
+	<div id="topbar-container" class="neu-navbar-topbar">
+		{assign var="showTopSearch" value={template_setting name="gx-show-search-top-nav"}}
+		{assign var="hideSearchCol" value={template_setting name="gx-hide-search-col"}}
+		
+		{block name="box_top_navigation_mobile_top_search_if"}
+			{if $showTopSearch && 'GM_QUICK_SEARCH'|gm_get_conf == 'true' && $hideSearchCol}
+				{block name="box_top_navigation_mobile_top_search"}
+					<div class="hidden-sm hidden-md hidden-lg top-mobile-search">
+						###TOP_SEARCH###
+					</div>
+				{/block}
+			{/if}
+		{/block}
+		
+		{block name="box_top_navigation_navbar"}
+			<div class="navbar-topbar- neu-navbar-topbar-inner">
+				{block name="box_top_navigation_nav"}
+					<nav data-gambio-widget="menu link_crypter" data-menu-switch-element-position="false" data-menu-events='{literal}{"desktop": ["click"], "mobile": ["click"]}{/literal}' data-menu-ignore-class="dropdown-menu">
+						<ul class="neu-navbar-topbar-items">
+
+							{foreach name=cat_data item=content_item from=$content_data.CONTENT_LINKS_DATA}
+								{block name="box_top_navigation_content"}
+									<li class="navbar-topbar-item hidden-xs">
+										<a title="{$content_item.NAME|strip_tags}" href="{$content_item.URL}"
+												{if $content_item.URL_TARGET && $content_item.URL_TARGET != ''}
+											target="{$content_item.URL_TARGET}"
+												{/if}>
+											{$content_item.NAME}
+											<span class="fa fa-arrow-circle-right visble-xs-block"></span>
+										</a>
+									</li>
+								{/block}
+							{/foreach}
+							
+							{block name="box_top_navigation_desktop_top_search_if"}
+								{if $showTopSearch && 'GM_QUICK_SEARCH'|gm_get_conf == 'true'}
+									{block name="box_top_navigation_desktop_top_search"}
+										<li class="navbar-topbar-item topbar-search hidden-xs">
+											<a href="#" title="{$buttons.search}">
+												{$buttons.search}
+											</a>
+											
+											<ul class="level_2 dropdown-menu arrow-top">
+												<li class="arrow"></li>
+												<li class="search-dropdown">
+													###TOP_SEARCH###
+												</li>
+											</ul>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="box_top_navigation_admin_if"}
+								{if $content_data.customers_data.ID == 0}
+									{block name="box_top_navigation_admin"}
+										<li class="navbar-topbar-item first gambio-admin">
+											<a href="#" data-link_crypter-url="{crypt_link link=$content_data.admin_url crypt='2'}" title="{$buttons.click_here}">
+												{$buttons.click_here}
+											</a>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="box_top_navigation_edit_product_if"}
+								{if ""|detect_page == "ProductInfo" && $content_data.customers_data.ID == 0}
+									{block name="box_top_navigation_edit_product"}
+										<li class="navbar-topbar-item gambio-admin">
+											<a href="#" data-link_crypter-url="{crypt_link link=$content_data.edit_product_url crypt='2'}" title="{$buttons.edit_product}">
+												{$buttons.edit_product}
+											</a>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+			
+							{if $content_data.LANGUAGE_ICON || $content_data.SHOW_TOP_CURRENCY_SELECTION || $content_data.SHOW_TOP_COUNTRY_SELECTION}
+								<li class="dropdown neu-navbar-topbar-item {if $content_data.customers_data.GROUP|lower !== 'admin'} first{/if}">
+									
+									{block name="box_top_navigation_language_icon_if"}
+										{if $content_data.LANGUAGE_ICON}
+											{block name="box_top_navigation_language_icon"}
+												<a href="#" class="dropdown-toggle languages-btn" data-toggle-hover="dropdown">
+													<!-- {block name="box_top_navigation_language_icon_desktop_image"}
+														<img src="{$content_data.LANGUAGE_ICON}" title="{$language_code}" alt="{$language_code}" class="hidden-xs"/>
+													{/block} -->
+													
+													{block name="box_top_navigation_language_icon_desktop_code"}
+														<span class="neu-icon-text">{$language_code}</span>
+														<i class="fa fa-angle-down"></i>
+													{/block}
+													
+													<!-- {block name="box_top_navigation_language_icon_mobile"}
+														<span class="visible-xs-block">
+															{block name="box_top_navigation_language_icon_mobile_label"}{$general.MENU_TOP_LANGUAGE_LABEL}{/block}
+															{block name="box_top_navigation_language_icon_mobile_image"}
+																<span class="glyphicon">
+																	<img src="{$content_data.LANGUAGE_ICON}" title="{$language_code}" alt="{$language_code}"/>
+																</span>
+															{/block}
+														</span>
+													{/block} -->
+												</a>
+											{/block}
+										{elseif $content_data.SHOW_TOP_CURRENCY_SELECTION}
+											{block name="box_top_navigation_currency"}
+												<a href="#" class="dropdown-toggle" data-toggle-hover="dropdown">
+													{block name="box_top_navigation_currency_desktop"}
+														<span class="language-code hidden-xs">
+															{$content_data.CURRENT_CURRENCY}
+														</span>
+													{/block}
+													{block name="box_top_navigation_currency_mobile"}
+														<span class="visible-xs-block">
+															{$txt.title_currency}
+														</span>
+													{/block}
+												</a>
+											{/block}
+										{elseif $content_data.SHOW_TOP_COUNTRY_SELECTION}
+											{block name="box_top_navigation_country"}
+												<a href="#" class="dropdown-toggle" data-toggle-hover="dropdown">
+													{block name="box_top_navigation_country_desktop"}
+														<span class="hidden-xs">
+															{$content_data.SELECTED_COUNTRY}
+														</span>
+													{/block}
+													{block name="box_top_navigation_country_mobile"}
+														<span class="visible-xs-block">
+															{$txt.title_country}
+														</span>
+													{/block}
+												</a>
+											{/block}
+										{/if}
+									{/block}
+				
+									<ul class="level_2 dropdown-menu arrow-top">
+										<li class="arrow"></li>
+										<li>
+											{block name="box_top_navigation_form"}
+												<form action="{page_url}" method="get" class="form-horizontal">
+													
+													{block name="box_top_navigation_form_icon_if"}
+														{if $content_data.LANGUAGE_ICON}
+															{block name="box_top_navigation_form_icon"}
+																<div class="form-group">
+																	<label for="language-select">{$txt.title_language}</label>
+																	###LANGUAGES_DROPDOWN###
+																</div>
+															{/block}
+														{/if}
+													{/block}
+													
+													{block name="box_top_navigation_form_currency_if"}
+														{if $content_data.SHOW_TOP_CURRENCY_SELECTION}
+															{block name="box_top_navigation_form_currency"}
+																<div class="form-group">
+																	<label for="currencies-select">{$txt.title_currency}</label>
+																	###CURRENCIES_DROPDOWN###
+																</div>
+															{/block}
+														{/if}
+													{/block}
+													
+													{block name="box_top_navigation_form_country_if"}
+														{if $content_data.SHOW_TOP_COUNTRY_SELECTION}
+															{block name="box_top_navigation_form_country"}
+																<div class="form-group">
+																	<label for="countries-select">{$txt.title_country|escape:'html'}</label>
+																	###COUNTRIES_DROPDOWN###
+																</div>
+															{/block}
+														{/if}
+													{/block}
+													
+													{block name="box_top_navigation_form_submit"}
+														<div class="dropdown-footer row">
+															<input type="submit" class="btn btn-primary btn-block" value="{$buttons.save}" title="{$buttons.save}" />
+														</div>
+													{/block}
+													
+													{url_param_to_hidden_fields}
+					
+												</form>
+											{/block}
+										</li>
+									</ul>
+								</li>
+							{/if}
+
+							{block name="box_top_navigation_wishlist_if"}
+								{if $content_data.WISHLIST_URL}
+									{block name="box_top_navigation_wishlist"}
+										<li class="neu-navbar-topbar-item">
+											<a class="whishlist-btn" href="{$content_data.WISHLIST_URL}" title="{$txt.title_wish_list}">
+
+												<!-- {$txt.button_wish_list}
+												<span class="fa fa-thumb-tack visible-xs-block"></span> -->
+											</a>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="box_top_navigation_account_if"}
+								{if $content_data.ACCOUNT_URL}
+									{block name="box_top_navigation_account"}
+										<li class="dropdown neu-navbar-topbar-item {if $content_data.customers_data.GROUP|lower !== 'admin' && !$content_data.LANGUAGE_ICON && !$content_data.SHOW_TOP_CURRENCY_SELECTION && !$content_data.SHOW_TOP_COUNTRY_SELECTION} first{/if}">
+											{block name="box_top_navigation_account_name"}
+												<a href="{$content_data.ACCOUNT_URL}" class="dropdown-toggle account-btn" data-toggle-hover="dropdown">
+													<!-- {$content_data.customers_data.FIRST_NAME} {$content_data.customers_data.LAST_NAME}
+													<span class="fa fa-cogs visible-xs-block"></span> -->
+												</a>
+											{/block}
+											
+											{block name="box_top_navigation_account_dropdown"}
+												<ul class="dropdown-menu arrow-top">
+													<li class="arrow"></li>
+													{block name="box_top_navigation_account_dropdown_group_if"}
+														{if $content_data.customers_data.PUBLIC == '1'}
+															{block name="box_top_navigation_account_dropdown_group"}
+																<li>
+																	{if $content_data.customers_data.SHOW_ARROW}
+																		<a title="{$txt.title_customers_data}" href="{page_url}#">
+																			{$infobox.group}: {$content_data.customers_data.GROUP}
+																		</a>
+																	{else}
+																		<span class="disabled">
+																			{$infobox.group}: {$content_data.customers_data.GROUP}
+																		</span>
+																	{/if}
+																</li>
+															{/block}
+														{/if}
+													{/block}
+													
+													{block name="box_top_navigation_account_dropdown_account"}
+														<li>
+															<a href="{$content_data.ACCOUNT_URL}" title="{$txt.button_account}">
+																{$txt.button_account}
+															</a>
+														</li>
+													{/block}
+													
+													{block name="box_top_navigation_account_dropdown_login_if"}
+														{if !$content_data.ACCOUNT_URL}
+															{block name="box_top_navigation_account_dropdown_login"}
+																<li class="divider"></li>
+																<li class="login-off-item">
+																	<a title="{$txt.title_login}" href="{page_url}#">
+																		{$txt.button_login}
+																	</a>
+																</li>
+															{/block}
+														{else}
+															{block name="box_top_navigation_account_dropdown_logout"}
+																<li class="login-off-item">
+																	<a title="{$txt.title_logoff}" href="{$content_data.LOGOFF_URL}">
+																		{$txt.button_logoff}
+																	</a>
+																</li>
+															{/block}
+														{/if}
+													{/block}
+												</ul>
+											{/block}
+											
+										</li>
+									{/block}
+								{else}
+									{block name="box_top_navigation_login_dropdown"}
+										<li class="dropdown neu-navbar-topbar-item {if $content_data.customers_data.GROUP|lower !== 'admin' && !$content_data.LANGUAGE_ICON && !$content_data.SHOW_TOP_CURRENCY_SELECTION && !$content_data.SHOW_TOP_COUNTRY_SELECTION} first{/if}">
+											<a title="{$txt.title_login}" href="{page_url}#" class="dropdown-toggle account-btn" data-toggle-hover="dropdown">
+												<!-- <span>{$txt.button_login}</span>
+												<span class="fa fa-sign-in visible-xs-block"></span> -->
+											</a>
+											###LOGIN_DROPDOWN###
+										</li>
+									{/block}
+								{/if}
+							{/block}
+
+							{foreach name=cat_data item=content_item from=$content_data.CONTENT_LINKS_DATA}
+								{block name="box_top_navigation_content_link"}
+									<li class="navbar-topbar-item visible-xs">
+										<a title="{$content_item.NAME|strip_tags}" href="{$content_item.URL}"
+												{if $content_item.URL_TARGET && $content_item.URL_TARGET != ''}
+											target="{$content_item.URL_TARGET}"
+												{/if}>
+											{$content_item.NAME}
+											<span class="fa fa-arrow-circle-right visble-xs-block"></span>
+										</a>
+									</li>
+								{/block}
+							{/foreach}
+						</ul>
+					</nav>
+				{/block}
+			</div>
+		{/block}
+	</div>
+{/block}

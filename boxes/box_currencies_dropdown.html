@@ -1,0 +1,13 @@
+{block name="box_currencies_dropdown"}
+	{if $content_data.currencies_data|@count > 0}
+		{block name="box_currencies_dropdown_select"}
+			<select name="currency" class="form-control" id="currencies-select">
+				{foreach name=currencies item=currency_data from=$content_data.currencies_data}
+					{block name="box_currencies_dropdown_option"}
+						<option value="{$currency_data.id}"{if $content_data.CURRENT_CURRENCY == $currency_data.id} selected="selected"{/if}>{$currency_data.id|escape:'html'}</option>
+					{/block}
+				{/foreach}
+			</select>
+		{/block}
+	{/if}
+{/block}

@@ -1,0 +1,79 @@
+{load_language_text section="box_categories_top"}
+{load_language_text section="general" name="general"}
+
+{block name="box_content_top"}
+	{block name="box_content_top_custom_entries_if"}
+		{if $content_data.CAT_MENU_TOP}
+			{block name="box_content_top_custom_entries"}
+				<!-- li class="custom custom-entries hidden-xs" -->
+				<li class="level-1-child">
+					{foreach name=cat_data key=counter item=content_item from=$content_data.CONTENT_LINKS_DATA}
+						{block name="box_content_top_custom_entry"}
+							<a {if $content_item.SELECTED}class="active"{/if} data-id="top_custom-{$counter}"
+							   href="{$content_item.URL}"
+							   {if $content_item.URL_TARGET}target="{$content_item.URL_TARGET}"{/if}
+							   title="{$content_item.NAME|replace:'"':''|strip_tags}">
+									{block name="box_content_top_custom_entry_name"}{$content_item.NAME}{/block}
+									
+								<i class="fa fa-angle-right"></i>
+							</a>
+						{/block}
+					{/foreach}
+				</li>
+			{/block}
+			{foreach name=cat_data key=counter item=content_item from=$content_data.CONTENT_LINKS_DATA}
+				{block name="box_content_top_custom_entry2"}
+					<li class="dropdown custom topmenu-content{if $content_item.SELECTED} active{/if} visible-xs" data-id="top_custom-{$counter}">
+						{block name="box_content_top_content"}
+							<a class="dropdown-toggle"
+								   href="{$content_item.URL}"
+								   {if $content_item.URL_TARGET}target="{$content_item.URL_TARGET}"{/if}
+								   title="{$content_item.NAME|replace:'"':''|strip_tags}">
+								{block name="box_content_top_custom_entry2_name"}{$content_item.NAME}{/block}
+							</a>
+						{/block}
+					</li>
+				{/block}
+			{/foreach}
+		{elseif $content_data.CONTENT_LINKS_DATA|@count > 0}
+			{block name="box_content_top_categories"}
+				<div id="categories">
+					<div class="navbar-collapse collapse">
+						{block name="box_content_top_categories_nav"}
+							<nav class="navbar-default navbar-categories" data-gambio-widget="menu">
+								{block name="box_content_top_list"}
+									<ul class="level-1 nav navbar-nav">
+										{foreach name=cat_data key=counter item=content_item from=$content_data.CONTENT_LINKS_DATA}
+											{block name="box_content_top_list_item"}
+												<li class="level-1-child topmenu-content{if $content_item.SELECTED} active{/if}" data-id="top_custom-{$counter}">
+													{block name="box_content_top_category"}
+														<a class="dropdown-toggle" href="{$content_item.URL}" target="{$content_item.URL_TARGET}" title="{$content_item.NAME|replace:'"':''|strip_tags}">
+															{block name="box_content_top_category_name"}{$content_item.NAME}{/block}
+														</a>
+													{/block}
+												</li>
+											{/block}
+										{/foreach}
+										
+										{block name="box_content_top_list_item2"}
+											<li class="dropdown dropdown-more" style="display: none">
+												{block name="box_content_top_category2"}
+													<a class="dropdown-toggle" href="#" title="{$txt.CATEGORIES_NEXT}">
+														{$general.CATEGORIES_NEXT}
+													</a>
+												{/block}
+												{block name="box_content_top_sublist"}
+													<ul class="level-2 dropdown-menu ignore-menu"></ul>
+												{/block}
+											</li>
+										{/block}
+									</ul>
+								{/block}
+							</nav>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

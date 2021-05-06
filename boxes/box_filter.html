@@ -1,0 +1,38 @@
+{load_language_text section="box_filter"}
+{load_language_text section="messages_filter" name="error"}
+
+{block name="box_filter"}
+	{block name="box_filter_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="filter" headline=$txt.heading_filter}
+	{/block}
+
+	{block name="box_filter_content"}
+		<div id="filterbox-container">
+			{block name="box_filter_form"}
+				<form name="search_filter" method="get" action="{$content_data.FORM_ACTION_URL}" data-gambio-widget="filter"
+					  data-gambio-_widget="filter"
+					  {if $content_data.FEATURE_DATA|@count == 0} data-filter-auto-update="false"{/if}>
+					{block name="box_filter_form_content_inc"}
+						{include file="get_usermod:{$tpl_path}boxes/box_filter_form_content.html"}
+					{/block}
+			
+					{block name="box_filter_form_preloader"}
+						<div class="preloader"></div>
+					{/block}
+			
+					{block name="box_filter_form_error_box"}
+						<div class="preloader-message">
+							{block name="box_filter_form_error_message"}
+								<span>{$error.error}</span>
+							{/block}
+						</div>
+					{/block}
+				</form>
+			{/block}
+		</div>
+	{/block}
+
+	{block name="box_filter_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

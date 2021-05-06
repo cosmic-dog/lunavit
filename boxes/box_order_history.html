@@ -1,0 +1,17 @@
+{load_language_text section="box_order_history"}
+
+{block name="box_order_history_if"}
+	{if $content_data.CONTENT}
+		{block name="box_order_history"}
+			{block name="box_order_history_top"}
+				{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="order-history" headline=$txt.heading_order_history}
+			{/block}
+	
+			{block name="box_order_history_content"}{$content_data.CONTENT}{/block}
+	
+			{block name="box_order_history_bottom"}
+				{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+			{/block}
+		{/block}
+	{/if}
+{/block}

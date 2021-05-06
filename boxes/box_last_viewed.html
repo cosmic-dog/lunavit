@@ -1,0 +1,55 @@
+{load_language_text section="box_last_viewed"}
+
+{block name="box_last_viewed"}
+	{block name="box_last_viewed_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="last-viewed" headline=$txt.heading_last_viewed}
+	{/block}
+
+	{block name="box_last_viewed_content"}
+		{block name="box_last_viewed_promotion_image_if"}
+			{if $content_data.box_content.PRODUCTS_IMAGE}
+				{block name="box_last_viewed_promotion_image"}
+					<div class="promotion-box-image">
+						<a href="{$content_data.box_content.PRODUCTS_LINK}" title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}">
+							<img class="image_frame img-responsive" src="{$content_data.box_content.PRODUCTS_IMAGE}" alt="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}" title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}" />
+						</a>
+					</div>
+				{/block}
+			{/if}
+		{/block}
+		<div>
+			<br />
+			{block name="box_last_viewed_promotion_title"}
+				<span class="promotion-box-title">
+					<a href="{$content_data.box_content.PRODUCTS_LINK}"{if $content_data.box_content.PRODUCTS_META_DESCRIPTION != ''} title="{$content_data.box_content.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}"{else} title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}"{/if}>
+						{$content_data.box_content.PRODUCTS_NAME}
+					</a>
+				</span>
+			{/block}
+			<br />
+			<br />
+			{block name="box_last_viewed_promotion_price"}
+				<span class="promotion-box-price">
+					<a href="{$content_data.box_content.PRODUCTS_LINK}"{if $content_data.box_content.PRODUCTS_META_DESCRIPTION != ''} title="{$content_data.box_content.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}"{else} title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}"{/if}>
+						{$content_data.box_content.PRODUCTS_PRICE}
+					</a>
+				</span>
+			{/block}
+			<br />
+			{block name="box_last_viewed_promotion_vpe_if"}
+				{if $content_data.box_content.PRODUCTS_VPE}
+					{block name="box_last_viewed_promotion_vpe"}
+						<span class="promotion-box-vpe">
+							{$content_data.box_content.PRODUCTS_VPE}
+						</span>
+					{/block}
+					<br />
+				{/if}
+			{/block}
+		</div>
+	{/block}
+	
+	{block name="box_last_viewed_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

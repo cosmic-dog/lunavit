@@ -1,0 +1,23 @@
+{load_language_text section="box_paypal"}
+
+{block name="box_paypal"}
+	{block name="box_paypal_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="paypal" headline=$txt.paypal_title}
+	{/block}
+	
+	{block name="box_paypal_content"}
+		<table border="0" cellpadding="10" cellspacing="0" align="center">
+			<tr>
+				<td align="center">
+					<a href="{$content_data.PAYPAL_URL}" target="_blank" rel="nofollow">
+						<img src="https://www.paypalobjects.com/webstatic/de_DE/i/de-pp-logo-150px.png" alt="PayPal-Bezahlmethoden-Logo" />
+					</a>
+				</td>
+			</tr>
+		</table>
+	{/block}
+	
+	{block name="box_paypal_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

@@ -1,0 +1,36 @@
+{load_language_text section="box_content"}
+
+{block name="box_content"}
+	<div class="box box-content panel panel-default"{if $linkcrypter && $linkcrypter != ''} data-gambio-widget="link_crypter"{/if}>
+		{block name="box_content_heading"}
+			<div class="panel-heading">
+				{block name="box_content_heading_title"}
+					<span class="panel-title">{$txt.heading_content}</span>
+				{/block}
+			</div>
+		{/block}
+		{block name="box_content_body"}
+			<div class="panel-body">
+				{block name="box_content_nav"}
+					<nav>
+						{block name="box_content_list"}
+							<ul class="nav">
+								{foreach item=content_array from=$content_data.CONTENT_LINKS_DATA}
+									{block name="box_content_list_item"}
+										<li>
+											{block name="box_content_content"}
+												<a href="{$content_array.URL}"{if $content_array.URL_TARGET} target="{$content_array.URL_TARGET}"{/if} title="{$content_array.NAME|replace:'"':''|strip_tags}">
+													{block name="box_content_content_name"}{$content_array.NAME}{/block}
+												</a>
+											{/block}
+										</li>
+									{/block}
+								{/foreach}
+							</ul>
+						{/block}
+					</nav>
+				{/block}
+			</div>
+		{/block}
+	</div>
+{/block}

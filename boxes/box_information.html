@@ -1,0 +1,30 @@
+{load_language_text section="box_information"}
+
+{block name="box_information"}
+	<div class="box box-information panel panel-default"{if $linkcrypter && $linkcrypter != ''} data-gambio-widget="link_crypter"{/if}>
+		{block name="box_information_heading"}
+			<div class="panel-heading">
+				{$txt.heading_infobox}
+			</div>
+		{/block}
+		{block name="box_information_nav"}
+			<nav>
+				{block name="box_information_list"}
+					<ul class="nav">
+						{foreach item=content_array from=$content_data.CONTENT_LINKS_DATA}
+							{block name="box_information_list_item"}
+								<li>
+									{block name="box_information_information"}
+										<a href="{$content_array.URL}"{if $content_array.URL_TARGET} target="{$content_array.URL_TARGET}"{/if} title="{$content_array.NAME|escape}">
+											{$content_array.NAME|escape}
+										</a>
+									{/block}
+								</li>
+							{/block}
+						{/foreach}
+					</ul>
+				{/block}
+			</nav>
+		{/block}
+	</div>
+{/block}

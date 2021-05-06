@@ -1,0 +1,35 @@
+{load_language_text section="infobox"}
+
+{block name="box_infobox_dropbdown"}
+	<div id="infobox" style="display:none;">
+		{block name="box_infobox_dropbdown_infobox_container"}
+			<div class="infobox_container png-fix">
+				{block name="box_infobox_dropbdown_infobox_content"}
+					<div class="infobox_content">
+						{block name="box_infobox_dropbdown_lastname_if"}
+							{if $content_data.customers_data.LAST_NAME}
+								{block name="box_infobox_dropbdown_lastname"}
+									<p>{if $content_data.customers_data.GENDER == 'm'}{$txt.male}{else}{$txt.female}{/if} {$content_data.customers_data.FIRST_NAME} {$content_data.customers_data.LAST_NAME}</p>
+								{/block}
+							{/if}
+						{/block}
+						{block name="box_infobox_dropbdown_product_discount_if"}
+							{if $content_data.customers_data.PRODUCTS_DISCOUNT}
+								{block name="box_infobox_dropbdown_product_discount"}
+									<p>{$txt.products_discount}: {$content_data.customers_data.PRODUCTS_DISCOUNT}%</p>
+								{/block}
+							{/if}
+						{/block}
+						{block name="box_infobox_dropbdown_order_discount_if"}
+							{if $content_data.customers_data.ORDER_DISCOUNT}
+								{block name="box_infobox_dropbdown_order_discount"}
+									<p>{$txt.order_discount}: {$content_data.customers_data.ORDER_DISCOUNT}%</p>
+								{/block}
+							{/if}
+						{/block}
+					</div>
+				{/block}
+			</div>
+		{/block}
+	</div>
+{/block}

@@ -1,0 +1,45 @@
+{load_language_text section="box_newsletter"}
+{load_language_text section="buttons" name="button"}
+
+{block name="box_newsletter"}
+	{block name="box_newsletter_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="newsletter" headline=$txt.heading_guestnewsletter}
+	{/block}
+	
+	{block name="box_newsletter_form"}
+		<form id="{$content_data.FORM_ID}" action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}" data-jse-extensions="validator">
+			
+			{block name="box_newsletter_form_fieldset"}
+				<fieldset>
+					
+					{block name="box_newsletter_form_email_container"}
+						<div class="form-group input-container">
+							<span class="input-container">
+								{block name="box_newsletter_form_email"}
+									<input type="email" placeholder="{$txt.text_email}" class="form-control validate" id="newsletter-{$content_data.INPUT_NAME}" name="{$content_data.INPUT_NAME}" value="" data-validator-validate="required email" />
+									<i class="fa fa-envelope"></i>
+								{/block}
+							</span>
+						</div>
+					{/block}
+					
+					{block name="box_newsletter_form_submit_container"}
+						<div class="form-group">
+							{block name="box_newsletter_form_submit"}
+								<button type="submit" class="btn btn-block btn-primary btn-sm" title="{$txt.title_newsletter}">
+									{$button.login}
+								</button>
+							{/block}
+						</div>
+					{/block}
+			
+				</fieldset>
+			{/block}
+		
+		</form>
+	{/block}
+	
+	{block name="box_newsletter_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

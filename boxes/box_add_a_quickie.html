@@ -1,0 +1,43 @@
+{load_language_text section="box_add_a_quickie"}
+{load_language_text section="buttons" name="button"}
+
+{block name="box_add_a_quickie"}
+	{block name="box_add_a_quickie_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="add-a-quickie" headline=$txt.heading_add_a_quickie}
+	{/block}
+	
+	{block name="box_add_a_quickie_form"}
+		<form id="{$content_data.FORM_ID}" action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}">
+			
+			{block name="box_add_a_quickie_form_fieldset"}
+				<fieldset>
+					
+					{block name="box_add_a_quickie_form_input_form_group"}
+						<div class="form-group input-container">
+							<label class="control-label" for="{$content_data.INPUT_NAME}">
+								{$txt.text_quickie}
+							</label>
+							<div class="input-container">
+								<input type="text" class="form-control" name="{$content_data.INPUT_NAME}" id="{$content_data.INPUT_NAME}" placeholder="{$txt.input_placeholder}" />
+							</div>
+						</div>
+					{/block}
+					
+					{block name="box_add_a_quickie_form_button_form_group"}
+						<div class="form-group">
+							<button class="btn btn-primary btn-sm pull-right" type="submit" title="{$txt.title_add_a_quickie}">
+								{$button.go}
+							</button>
+						</div>
+					{/block}
+			
+				</fieldset>
+			{/block}
+		
+		</form>
+	{/block}
+
+	{block name="box_add_a_quickie_botton"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

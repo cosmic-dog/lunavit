@@ -1,0 +1,99 @@
+{load_language_text section="box_search"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="general" name="general"}
+
+{categories
+out=ARR_categories
+}
+
+{block name="box_top_search"}
+	<div class="neu-navbar-search">
+		
+		{block name="box_top_search_heading"}
+			{$headline=$txt.text_default_value|replace:'...':''}
+			<p class="navbar-search-header dropdown-header hidden">{$headline}</p>
+		{/block}
+		
+		{block name="box_top_search_form"}
+			<form action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}" data-gambio-widget="live_search">
+		
+				<div class="neu-navbar-search-inner">
+					<div class="navbar-search-input-group-btn input-group-btn custom-dropdown hidden" data-dropdown-trigger-change="false" data-dropdown-trigger-no-change="false">
+						
+						{block name="box_top_search_form_search_button"}
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="dropdown-name">{$general.MENU_TOP_SEARCH_BUTTON}</span> <span class="caret"></span>
+							</button>
+						{/block}
+						
+						{block name="box_top_search_form_dropdown_if"}
+							{if $ARR_categories|count > 0}
+								{block name="box_top_search_form_dropdown"}
+									<ul class="dropdown-menu">
+										{foreach item=category from=$ARR_categories}
+										{block name="box_top_search_form_dropdown_search_button"}
+												<li><a href="#" data-rel="0">{$general.MENU_TOP_SEARCH_BUTTON}</a></li>
+											{/block}
+											{foreach item=category_data from=$category}
+												{block name="box_top_search_form_dropdown_categories_name"}
+													<li><a href="#" data-rel="{$category_data.categories_id}">{$category_data.categories_name}</a></li>
+												{/block}
+											{/foreach}
+										{/foreach}
+									</ul>
+								{/block}
+							{/if}
+						{/block}
+						
+						{block name="box_top_search_form_categories_if"}
+							{if $ARR_categories|count > 0}
+								{block name="box_top_search_form_categories"}
+									<select name="categories_id" id="search-categories-id">
+										<option value="0">{$general.MENU_TOP_SEARCH_BUTTON}</option>
+										{foreach item=category from=$ARR_categories}
+											{foreach item=category_data from=$category}
+												{block name="box_top_search_form_categories_option"}
+													<option value="{$category_data.categories_id}">{$category_data.categories_name}</option>
+												{/block}
+											{/foreach}
+										{/foreach}
+									</select>
+								{/block}
+							{/if}
+						{/block}		
+					</div>
+
+					<!-- <input type="text" name="{$content_data.INPUT_NAME}" placeholder="{$txt.text_default_value}" class="form-control search-input" autocomplete="off" /> -->
+					<input type="text" name="{$content_data.INPUT_NAME}" placeholder="" class="form-control search-input" autocomplete="off" />
+					
+					{block name="box_top_search_form_submit"}
+						<button type="submit"></button>
+					{/block}
+					
+				</div>
+		
+				
+				{if $ARR_categories|count > 0}
+					<input type="hidden" value="1" name="inc_subcat" />
+				{/if}
+				
+				{block name="box_top_search_form_advanced"}
+					<div class="navbar-search-footer visible-xs-block">
+						{block name="box_top_search_form_advanced_button"}
+							<button class="btn btn-primary btn-block" type="submit">
+								{$txt.text_default_value}
+							</button>
+						{/block}
+						{block name="box_top_search_form_advanced_link"}
+							<a href="advanced_search.php" class="btn btn-default btn-block" title="{$general.NAVBAR_TITLE_ADVANCED_SEARCH}">
+								{$general.NAVBAR_TITLE_ADVANCED_SEARCH}
+							</a>
+						{/block}
+					</div>
+				{/block}
+				
+				<div class="search-result-container"></div>
+			</form>
+		{/block}
+	</div>
+{/block}

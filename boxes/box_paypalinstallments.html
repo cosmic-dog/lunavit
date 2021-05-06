@@ -1,0 +1,26 @@
+{load_language_text section="paypal3" name="pptxt"}
+
+{block name="box_paypalinstallments"}
+	{block name="box_paypalinstallments_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="paypal" headline=$pptxt.paypal_installments_box_title}
+	{/block}
+
+	{block name="box_paypalinstallments_content"}
+		<div class="paypalinstallmentgeneric">
+			{block name="box_paypalinstallments_introtext"}
+				<div class="introtext">{$pptxt.generic_intro}</div>
+			{/block}
+			{block name="box_paypalinstallments_powered_by_paypal"}
+				<div class="powered-by-paypal">
+					<img class="powered-by-paypal-vertical"
+						 src="{$tpl_path}/assets/images/pp_credit-german_v_rgb.png"
+						 title="{$pptxt.generic_installments} {$pptxt.powered_by} PayPal"
+						 alt="{$pptxt.img_alt_text}">				</div>
+			{/block}
+		</div>
+	{/block}
+	
+	{block name="box_paypalinstallments_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

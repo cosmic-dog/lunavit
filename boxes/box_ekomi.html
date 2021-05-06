@@ -1,0 +1,13 @@
+{load_language_text section="box_ekomi"}
+
+{block name="box_ekomi"}
+	{block name="box_ekomi_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="ekomi" headline=$txt.heading_ekomi}
+	{/block}
+
+	{block name="box_ekomi_content"}{$content_data.WIDGET_CODE}{/block}
+
+	{block name="box_ekomi_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

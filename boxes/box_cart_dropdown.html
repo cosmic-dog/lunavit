@@ -1,0 +1,118 @@
+{load_language_text section="box_cart"}
+{load_language_text section="buttons" name="button"}
+
+{block name="box_cart_dropdown"}
+	<ul class="dropdown-menu arrow-top cart-dropdown{if $empty != 'false'} cart-empty{/if}">
+		{block name="box_cart_dropdown_arrow"}
+			<li class="arrow"></li>
+		{/block}
+	
+		{block name="box_cart_dropdown_header_if"}
+			{if $empty=='false'}
+				{block name="box_cart_dropdown_header"}
+					<li class="dropdown-header">
+						{$txt.heading_cart}
+					</li>
+				{/block}
+			{/if}
+		{/block}
+	
+		{block name="box_cart_dropdown_inside"}
+			<li class="cart-dropdown-inside">
+		
+				{block name="box_cart_dropdown_checkout_info_if"}
+					{if $customer_status_allow_checkout_info}
+						{block name="box_cart_dropdown_checkout_info"}{$customer_status_allow_checkout_info}{/block}
+					{/if}
+				{/block}
+				
+				{if $empty=='false'}
+					{block name="box_car_dropdown_product_list_if"}
+						{if $products|count > 0}
+							{block name="box_car_dropdown_product_list"}
+								<ul class="products-list">
+									
+									{foreach name=aussen key=counter item=products_data from=$products}
+									
+										{block name="box_car_dropdown_product_list_item"}
+											<li class="row{if $counter == 0} first{else if $counter == $products|count - 1} last{/if}">
+												{block name="box_car_dropdown_product"}
+													<a class="" href="{$products_data.LINK}" title="{$products_data.NAME}">
+														<span class="img col-xs-3">
+															{if $products_data.IMAGE}
+																{block name="box_car_dropdown_product_image"}
+																	<img alt="{$products_data.NAME}" data-holder-rendered="true" src="{$products_data.IMAGE}" class="img-responsive" />
+																{/block}
+															{else}
+																{block name="box_car_dropdown_product_no_image"}
+																	<div class="fa fa-picture-o no-pic"></div>
+																{/block}
+															{/if}
+														</span>
+														<span class="name col-xs-5">
+															{block name="box_car_dropdown_product_quantity_and_unit"}
+																{$products_data.QTY}{if $products_data.UNIT} {$products_data.UNIT}{else}x{/if}
+															{/block}
+															{block name="box_car_dropdown_product_name"}{$products_data.NAME}{/block}
+															{block name="box_car_dropdown_product_vpe_if"}
+																{if $products_data.VPE}
+																	{block name="box_car_dropdown_product_vpe"}
+																		<br /><span class="products-vpe">{$products_data.VPE}</span>
+																	{/block}
+																{/if}
+															{/block}
+														</span>
+														<span class="price col-xs-4">
+															{block name="box_car_dropdown_product_price"}{$products_data.PRICE}{/block}
+														</span>
+													</a>
+												{/block}
+											</li>
+										{/block}
+				
+									{/foreach}
+								</ul>
+							{/block}
+						{/if}
+					
+						{block name="box_cart_dropdown_footer"}
+							<div class="dropdown-footer">
+							
+								{if $customer_status_allow_checkout == '1'}
+									<div class="total row">
+										<span class="col-xs-4">
+											{$txt.text_total}
+										</span>
+										<span class="col-xs-8">
+											{$TOTAL}
+										</span>
+									</div>
+									<div class="tax">
+										{$UST} {if $SHIPPING_INFO}{$SHIPPING_INFO}{/if}
+									</div>
+								{/if}
+								
+								{block name="box_cart_dropdown_cart_button"}
+									<div class="cart-button">
+										<a class="btn btn-block btn-primary" href="{'shopping_cart.php'|xtc_href_link}" title="{$button.to_cart}">
+											{$button.to_cart}
+										</a>
+									</div>
+								{/block}
+				
+							</div>
+						{/block}
+					{/block}
+				
+				{else}
+					{block name="box_cart_drop_down_empty_cart"}
+						<div class="cart-empty">
+							{$txt.text_empty_cart}
+						</div>
+					{/block}
+				{/if}
+				
+			</li>
+		{/block}
+	</ul>
+{/block}

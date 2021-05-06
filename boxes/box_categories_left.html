@@ -1,0 +1,47 @@
+{load_language_text section="box_categories"}
+
+{block name="box_categories_left"}
+	{if $content_data.CATEGORIES_DATA|@count > 0}
+		{block name="box_categories_left_content"}
+			<div class="box box-categories panel panel-default"{if $linkcrypter && $linkcrypter != ''} data-gambio-widget="link_crypter"{/if}>
+				{block name="box_categories_left_nav"}
+					<nav class="navbar-categories-left">
+						{block name="box_categories_left_list"}
+							<ul class="nav">
+								{foreach name=cat_data item=categories_item from=$content_data.CATEGORIES_DATA}
+									{block name="box_categories_left_list_item"}
+										<li id="menu_cat_id_{$categories_item.data.id}" class="{if $smarty.foreach.cat_data.first}category-first{elseif $smarty.foreach.cat_data.last}category-last{/if}" >
+											{block name="box_categories_left_category"}
+												<a href="{$categories_item.data.url}" class="{if $categories_item.data.icon && $categories_item.data.icon|strpos:"item_ltr" == false} has-image{/if}" {if $categories_item.data.meta_description != ''} title="{$categories_item.data.meta_description|truncate:80:"..."|replace:'"':'&quot;'|strip_tags}"{else} title="{$categories_item.data.name|replace:"&amp;":"&"|replace:"&":"&amp;"|replace:'"':''|strip_tags}"{/if}>
+													{block name="box_categories_left_category_icon_if"}
+														{if $categories_item.data.icon && $categories_item.data.icon|strpos:"item_ltr" == false}
+															{block name="box_categories_left_category_icon"}
+																<img src="{$categories_item.data.icon}" alt="" class="cat-image"/>
+															{/block}
+														{/if}
+													{/block}
+													
+													{block name="box_categories_left_category_name"}
+														{$categories_item.data.name|replace:"&amp;":"&"|replace:"&":"&amp;"}
+													{/block}
+											
+													{block name="box_categories_left_category_count_if"}
+														{if $categories_item.data.products_count}
+															{block name="box_categories_left_category_count"}
+																({$categories_item.data.products_count})
+															{/block}
+														{/if}
+													{/block}
+												</a>
+											{/block}
+										</li>
+									{/block}
+								{/foreach}
+							</ul>
+						{/block}
+					</nav>
+				{/block}
+			</div>
+		{/block}
+	{/if}
+{/block}

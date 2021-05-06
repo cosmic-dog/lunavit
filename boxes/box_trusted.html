@@ -1,0 +1,31 @@
+{load_language_text section="box_ts_seal"}
+
+{block name="box_trusted"}
+	{block name="box_trusted_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="trusted" headline="Trusted Shops"}
+	{/block}
+
+	{block name="box_trusted_form"}
+		<form name="formSiegel" action="{$txt.form_url}" method="post" target="_blank">
+			<input name="shop_id" type="hidden" value="{$content_data.TSID}" />
+			<br />
+			{block name="box_trusted_form_heading"}
+				<a href="{$txt.heading_url}" target="_blank" rel="nofollow">{$txt.heading_text}</a><br />
+				<br />
+			{/block}
+			{block name="box_trusted_form_image"}
+				<input type="image" src="{$smarty.const.DIR_WS_IMAGES}trusted_siegel.gif" title="{$txt.seal_title}" name="Seal" align="middle" /><br />
+				<br />
+			{/block}
+			{block name="box_trusted_form_profile"}
+				<a href="{$txt.profile_url}{$content_data.SHOPNAME}_{$content_data.TSID}.html" target="_blank" rel="nofollow">
+					{$txt.profile_text}
+				</a>
+			{/block}
+		</form>
+	{/block}
+	
+	{block name="box_trusted_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

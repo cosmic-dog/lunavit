@@ -1,0 +1,55 @@
+{load_language_text section="box_login_dropdown"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="box_login" name="login"}
+
+{block name="box_login_dropdown"}
+	<ul class="dropdown-menu dropdown-menu-login arrow-top">
+		{block name="box_login_dropdown_arrow"}
+			<li class="arrow"></li>
+		{/block}
+		
+		{block name="box_login_dropdown_heading"}
+			<li class="dropdown-header hidden-xs">{$login.heading_login}</li>
+		{/block}
+		
+		{block name="box_login_dropdown_form"}
+			<li>
+				<form action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}" class="form-horizontal">
+					{block name="box_login_dropdown_form_username"}
+						<div class="form-group">
+							<input type="email" id="login-username" class="form-control" placeholder="{$txt.text_email}" name="{$content_data.FIELD_EMAIL_NAME}" />
+						</div>
+					{/block}
+					{block name="box_login_dropdown_form_password"}
+						<div class="form-group">
+							<input type="password" id="login-password" class="form-control" placeholder="{$txt.text_pwd}" name="{$content_data.FIELD_PWD_NAME}" />
+						</div>
+					{/block}
+					{block name="box_login_dropdown_form_options"}
+						<div class="dropdown-footer row">
+							{block name="box_login_dropdown_form_submit"}
+								<input type="submit" class="btn btn-primary btn-block" value="{$button.login}" />
+							{/block}
+							<ul>
+								{block name="box_login_dropdown_form_create_account"}
+									<li>
+										<a title="{$txt.text_create_account}" href="{$content_data.LINK_CREATE_ACCOUNT}">
+											{$txt.text_create_account}
+										</a>
+									</li>
+								{/block}
+								{block name="box_login_dropdown_form_lost_password"}
+									<li>
+										<a title="{$txt.text_password_forgotten}" href="{$content_data.LINK_LOST_PASSWORD}">
+											{$txt.text_password_forgotten}
+										</a>
+									</li>
+								{/block}
+							</ul>
+						</div>
+					{/block}
+				</form>
+			</li>
+		{/block}
+	</ul>
+{/block}

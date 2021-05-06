@@ -1,0 +1,50 @@
+{load_language_text section="box_search"}
+{load_language_text section="buttons" name="button"}
+
+{block name="box_search"}
+	{block name="box_search_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="search" headline=$txt.heading_search}
+	{/block}
+
+	{block name="box_search_form"}
+		<form id="{$content_data.FORM_ID}" action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}">
+			
+			{block name="box_search_input_container"}
+				<div class="form-group">
+					<div class="input-container">
+						{block name="box_search_input"}
+							<input type="text" class="form-control" name="{$content_data.INPUT_NAME}" id="{$content_data.INPUT_NAME}" title="{$txt.heading_search}"  placeholder="{$txt.heading_search}" />
+						{/block}
+					</div>
+				</div>
+			{/block}
+			
+			{block name="box_search_submit_container"}
+				<div class="form-group">
+					{block name="box_search_submit"}
+						<button type="submit" class="btn btn-sm btn-block btn-primary" title="{$txt.title_search}">
+							{$button.go}
+						</button>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="box_search_advanced_container"}
+				<ul class="list-group">
+					<li class="list-group-item">
+						{block name="box_search_advanced"}
+							<a class="btn btn-sm btn-block btn-default" title="{$txt.text_advanced_search}" href="{$content_data.LINK_ADVANCED}">
+								{$txt.text_advanced_search}
+							</a>
+						{/block}
+					</li>
+				</ul>
+			{/block}
+			
+		</form>
+	{/block}
+	
+	{block name="box_search_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}

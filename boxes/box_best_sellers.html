@@ -1,0 +1,65 @@
+{load_language_text section="box_best_sellers"}
+
+{block name="box_best_sellers"}
+	{if $content_data.PRODUCTS_DATA}
+		{block name="box_best_sellers_top"}
+			{include file="get_usermod:{$tpl_path}snippets/box/default/top.html" class="bestsellers" headline=$txt.heading_best_sellers}
+		{/block}
+
+		{block name="box_best_sellers_content_if"}
+			{if $content_data.PRODUCTS_DATA|count > 0}
+				{block name="box_best_sellers_content"}
+					<ol>
+						{foreach name=aussen item=products_item from=$content_data.PRODUCTS_DATA}
+							<li class="row">
+								{block name="box_best_sellers_product"}
+									<a href="{$products_item.PRODUCTS_LINK}"{if $products_item.PRODUCTS_META_DESCRIPTION != ''} title="{$products_item.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}"{else} title="{$products_item.PRODUCTS_NAME}"{/if}>
+										{block name="box_best_sellers_product_image"}
+											<span class="col-xs-4">
+												{block name="box_best_sellers_product_image_thumbnail_if"}
+													{if $products_item.PRODUCTS_IMAGE && $products_item.PRODUCTS_IMAGE != ''}
+														{block name="box_best_sellers_product_image_thumbnail"}
+															<span class="img-thumbnail">
+																<span class="align-helper"></span>
+																<img src="{$products_item.PRODUCTS_IMAGE}" class="img-responsive" alt="{$products_item.PRODUCTS_NAME}" />
+															</span>
+														{/block}
+													{else}
+														{block name="box_best_sellers_product_image_no_thumbnail"}&nbsp;{/block}
+													{/if}
+												{/block}
+											</span>
+										{/block}
+										{block name="box_best_sellers_product_info"}
+											<span class="col-xs-8">
+												{block name="box_best_sellers_product_info_name"}{$products_item.PRODUCTS_NAME}{/block}
+												<br />
+												<span class="price">
+													{block name="box_best_sellers_product_info_price"}
+														{$products_item.PRODUCTS_PRICE}
+														{block name="box_best_sellers_product_info_vpe_if"}
+															{if $products_item.PRODUCTS_VPE}
+																{block name="box_best_sellers_product_info_vpe"}
+																	<br />
+																	<span class="products-vpe">{$products_item.PRODUCTS_VPE}</span>
+																{/block}
+															{/if}
+														{/block}
+													{/block}
+												</span>
+											</span>
+										{/block}
+									</a>
+								{/block}
+							</li>
+						{/foreach}
+					</ol>
+				{/block}
+			{/if}
+		{/block}
+		
+		{block name="box_best_sellers_bottom"}
+			{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+		{/block}
+	{/if}
+{/block}

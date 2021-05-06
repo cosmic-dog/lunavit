@@ -1,0 +1,55 @@
+{load_language_text section="box_specials"}
+
+{block name="box_specials"}
+	{block name="box_specials_top"}
+		{include file="get_usermod:{$tpl_path}snippets/box/headline_link/top.html" class="specials" headline=$txt.heading_specials link=$content_data.SPECIALS_LINK title=$txt.heading_specials icon_right="arrow-circle-right "}
+	{/block}
+	
+	{block name="box_specials_content"}
+		{if $content_data.box_content.PRODUCTS_IMAGE}
+			{block name="box_specials_promotion_image_container"}
+				<div class="promotion-box-image">
+					<a href="{$content_data.box_content.PRODUCTS_LINK}" title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}">
+						{block name="box_specials_promotion_image"}
+							<img class="img-responsive" src="{$content_data.box_content.PRODUCTS_IMAGE}" alt="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}" title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}" />
+						{/block}
+					</a>
+				</div>
+			{/block}
+		{/if}
+		<div>
+			{block name="box_specials_promotion_title"}
+				<br />
+				<span class="promotion-box-title">
+					<a href="{$content_data.box_content.PRODUCTS_LINK}"{if $content_data.box_content.PRODUCTS_META_DESCRIPTION != ''} title="{$content_data.box_content.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}"{else} title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}"{/if}>
+						{$content_data.box_content.PRODUCTS_NAME}
+					</a>
+				</span>
+				<br />
+			{/block}
+			
+			{block name="box_specials_promotion_price"}
+				<br />
+				<span class="promotion-box-price">
+					<a href="{$content_data.box_content.PRODUCTS_LINK}"{if $content_data.box_content.PRODUCTS_META_DESCRIPTION != ''} title="{$content_data.box_content.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}"{else} title="{$content_data.box_content.PRODUCTS_IMAGE_ALT|default:$content_data.box_content.PRODUCTS_NAME}"{/if}>
+						{$content_data.box_content.PRODUCTS_PRICE}
+					</a>
+				</span>
+				<br />
+			{/block}
+			
+			{if $content_data.box_content.PRODUCTS_VPE}
+				{block name="box_specials_promotion_vpe"}
+					<span class="promotion-box-vpe">
+						{$content_data.box_content.PRODUCTS_VPE}
+					</span>
+					<br />
+				{/block}
+			{/if}
+		</div>
+	{/block}
+	
+	{block name="box_specials_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/box/default/bottom.html"}
+	{/block}
+{/block}
