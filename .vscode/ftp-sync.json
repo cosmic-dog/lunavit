@@ -1,0 +1,27 @@
+{
+    "remotePath": "/web/templates/Honeygrid",
+    "host": "hosting03.rohwerder-isp.de",
+    "username": "wille_lunavit__neu_03",
+    "password": "W8fsgFeA5s#E",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}
