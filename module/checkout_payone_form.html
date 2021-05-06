@@ -1,0 +1,21 @@
+{load_language_text section="payone" name="p1txt"}
+
+{block name="module_checkout_payone_form"}
+	{block name="module_checkout_payone_form_title"}
+		<h1>{$p1txt.action_form_heading}</h1>
+	{/block}
+
+	{block name="module_checkout_payone_form_form"}
+		<form action="{$content_data.FORM_ACTION}" method="POST" class="autosubmit">
+			{block name="module_checkout_payone_form_autosubmit_note"}
+				<p>{$p1txt.note_autosubmit}</p>
+			{/block}
+			{foreach from=$content_data.PARAMS item=value key=name}
+				<input type="hidden" name="{$name}" value="{$value}">
+			{/foreach}
+			{block name="module_checkout_payone_form_autosubmit_submit"}
+				<input type="submit" value="{$p1txt.send_autosubmit}">
+			{/block}
+		</form>
+	{/block}
+{/block}

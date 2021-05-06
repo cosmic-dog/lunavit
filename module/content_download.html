@@ -1,0 +1,13 @@
+{block name="module_content_download"}
+	{block name="module_content_download_title_if"}
+		{if $content_data.content.content_heading|trim|strip_tags != ''}
+			{block name="module_content_download_title"}
+				<span style="font-size: 12px;"><b><u>{$content_data.content.content_heading}</u></b></span><br />
+				<br />
+			{/block}
+		{/if}
+	{/block}
+	{block name="module_content_download_text"}
+		{$content_data.content.content_text}
+	{/block}
+{/block}

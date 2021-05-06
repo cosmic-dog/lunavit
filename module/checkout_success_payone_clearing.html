@@ -1,0 +1,53 @@
+{block name="module_checkout_success_payone_clearing"}
+	<table class="payone_clearingdata">
+		{block name="module_checkout_success_payone_clearing_intro"}
+			<tr>
+				<td class="p1_clearing_intro" colspan="2">
+					##clearing_intro
+				</td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_accountholder"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_accountholder</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankaccountholder'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_account"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_account</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankaccount'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_bankcode"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_bankcode</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankcode'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_iban"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_iban</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankiban'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_bic"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_bic</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankbic'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_bank"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_bank</td>
+				<td class="p1_clearing_data"><?php echo $clearing_data['bankname'].", ".$clearing_data['bankcity'] ?></td>
+			</tr>
+		{/block}
+		{block name="module_checkout_success_payone_clearing_amount"}
+			<tr>
+				<td class="p1_clearing_label">##clearing_amount</td>
+				<td class="p1_clearing_data"><?php echo $order->info['total'] ?></td>
+			</tr>
+		{/block}
+	</table>
+{/block}

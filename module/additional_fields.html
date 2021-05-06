@@ -1,0 +1,18 @@
+{block name="module_additional_fields_if"}
+	{if $additional_fields_data_array}
+		{block name="module_additional_fields"}
+			{foreach key=key item=item from=$additional_fields_data_array}
+				{block name="module_additional_fields_list"}
+					{block name="module_additional_fields_list_item_if"}
+						{if $item.value}
+							{block name="module_additional_fields_list_item"}
+								<dt class="col-xs-4 text-left">{$item.title}:</dt>
+								<dd class="col-xs-8">{$item.value}</dd>
+							{/block}
+						{/if}
+					{/block}
+				{/block}
+			{/foreach}
+		{/block}
+	{/if}
+{/block}

@@ -1,0 +1,260 @@
+{load_language_text section="account"}
+{load_language_text section="downloads" name="downloads"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="general" name="general"}
+{load_language_text section="gift_cart" name="gift_cart"}
+
+{block name="module_account"}
+	{block name="module_account_title"}
+		<h1>{$txt.heading_account}</h1>
+	{/block}
+
+	{block name="module_account_alert"}
+		{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error_message type="danger"}
+	{/block}
+	
+	{block name="module_account_welcome"}
+		<p>
+			{$txt.text_welcome}
+		</p>
+	{/block}
+	
+	<div class="row">
+		{block name="module_account_options"}
+			<div class="col-xs-12 {if 'MODULE_CENTER_SINGLESIGNON_INSTALLED'|gm_get_conf == true}col-md-6{/if} account-options-container">
+				{block name="module_account_options_title"}
+					<h3>{$txt.title_account}</h3>
+				{/block}
+				
+					<ul>
+						{block name="module_account_options_edit"}
+							<li>
+								<a href="{$LINK_EDIT}" title="{$txt.text_edit}">
+									{$txt.text_edit}
+								</a>
+							</li>
+						{/block}
+						{block name="module_account_options_address"}
+							<li>
+								<a href="{$LINK_ADDRESS}" title="{$txt.text_address}">
+									{$txt.text_address}
+								</a>
+							</li>
+						{/block}
+						{block name="module_account_options_no_guest_if"}
+							{if $NO_GUEST == 1}
+								{block name="module_account_options_password"}
+									<li>
+										<a href="{$LINK_PASSWORD}" title="{$txt.text_password}">
+											{$txt.text_password}
+										</a>
+									</li>
+								{/block}
+								{block name="module_account_options_delete"}
+									<li>
+										<a href="{$LINK_DELETE_ACCOUNT}" title="{$txt.text_delete_account}">
+											{$txt.text_delete_account}
+										</a>
+									</li>
+								{/block}
+							{/if}
+						{/block}
+						{block name="module_account_options_upload_if"}
+							{if $CUSTOMER_UPLOAD == 1}
+								{block name="module_account_options_upload"}
+									<li>
+										<a href="{$LINK_CUSTOMER_UPLOAD}" title="{$txt.text_customer_upload}">
+											{$txt.text_customer_upload}
+										</a>
+									</li>
+								{/block}
+							{/if}
+						{/block}
+						{block name="module_account_options_newsletter_if"}
+							{if $LINK_NEWSLETTER}
+								{block name="module_account_options_newsletter"}
+									<li>
+										<a href="{$LINK_NEWSLETTER}" title="{$txt.text_newsletter}">
+											{$txt.text_newsletter}
+										</a>
+									</li>
+								{/block}
+							{/if}
+						{/block}
+						{block name="module_account_options_gift_cart_if"}
+							{if $LINK_GIFT_CART}
+								{block name="module_account_options_gift_cart"}
+									<li>
+										<a href="{$LINK_GIFT_CART}" title="{$gift_cart.box_send_to_friend_without_strong}">
+											{$gift_cart.box_send_to_friend_without_strong}
+										</a><br />
+										{$gift_cart.current_balance} {$gvDepositCurrency}
+									</li>
+								{/block}
+							{/if}
+						{/block}
+					</ul>
+			</div>
+		{/block}
+	</div>
+
+	{if $order_content}
+		{block name="module_account_orders_title"}
+			<h3>{$txt.title_orders}</h3>
+		{/block}
+
+		{block name="module_account_orders"}
+			<table class="table table-responsive">
+				
+				{block name="module_account_orders_thead"}
+					<thead>
+						<tr>
+							{block name="module_account_orders_thead_date"}
+								<th>{$txt.text_date|replace:":":""}</th>
+							{/block}
+							{block name="module_account_orders_thead_nr"}
+								<th>{$txt.order_nr|replace:":":""}</th>
+							{/block}
+							{block name="module_account_orders_thead_status"}
+								<th>{$txt.order_status|replace:":":""}</th>
+							{/block}
+							{block name="module_account_orders_thead_total"}
+								<th>{$txt.order_total|replace:":":""}</th>
+							{/block}
+							{block name="module_account_orders_thead_download"}
+								<th>&nbsp;</th>
+							{/block}
+							{block name="module_account_orders_thead_show"}
+								<th>&nbsp;</th>
+							{/block}
+						</tr>
+					</thead>
+				{/block}
+				
+				{block name="module_account_orders_tbody"}
+					<tbody>
+						
+						{foreach name=aussen item=order_data from=$order_content}
+							<tr>
+								{block name="module_account_orders_tbody_date"}
+									<td>
+										<a href="{$order_data.ORDER_LINK}" title="{$order_data.ORDER_DATE}">
+											{$order_data.ORDER_DATE}
+										</a>
+									</td>
+								{/block}
+								{block name="module_account_orders_tbody_nr"}
+									<td>
+										{$order_data.ORDER_ID}
+									</td>
+								{/block}
+								{block name="module_account_orders_tbody_status"}
+									<td>
+										{$order_data.ORDER_STATUS}
+									</td>
+								{/block}
+								{block name="module_account_orders_tbody_total"}
+									<td>
+										{$order_data.ORDER_TOTAL}
+									</td>
+								{/block}
+								
+								{block name="module_account_orders_tbody_download"}
+									<td class="downloads">
+										{block name="module_account_orders_downloads_if"}
+											{if $order_data.downloads_data}
+												{block name="module_account_orders_downloads"}
+													<ul class="download-products-list">
+														{foreach name=innen item=download_data from=$order_data.downloads_data}
+															{block name="module_account_orders_download"}
+																<li>
+																	{if $download_data.DELAY_MESSAGE == ''}
+																		{block name="module_account_orders_download_delay"}
+																			<a href="{$download_data.LINK}"
+																			   target="_blank"
+																			   title="{$download_data.PRODUCTS_NAME}">
+																				{$download_data.PRODUCTS_NAME}
+																			</a>
+																		{/block}
+																	{else}
+																		{block name="module_account_orders_download_no_delay"}
+																			{$download_data.PRODUCTS_NAME}
+																		{/block}
+																	{/if}
+							
+																	{if $download_data.DELAY_MESSAGE == ''}
+																		{block name="module_account_orders_download_info"}
+																			<span class="download-info"> {$downloads.text_download_count} {$download_data.COUNT} {$downloads.text_download_date} {$download_data.DATE_SHORT} </span>
+																		{/block}
+																	{/if}
+							
+																	{if $download_data.DELAY_MESSAGE != ''}
+																		{block name="module_account_orders_download_delay_message"}
+																			{$download_data.DELAY_MESSAGE}
+																		{/block}
+																	{elseif $download_data.LINK != '' && $download_data.COUNT > 0}
+																		{block name="module_account_orders_download_link"}
+																			<a href="{$download_data.LINK}"
+																			   target="_blank"
+																			   title="{$button.download}"
+																			   class="btn btn-xs btn-default">
+																				{$button.download}
+																			</a>
+																		{/block}
+																	{/if}
+																</li>
+															{/block}
+														{/foreach}
+													</ul>
+												{/block}
+											{else}
+												{block name="module_account_orders_no_downloads"}
+													&nbsp;
+												{/block}
+											{/if}
+										{/block}
+									</td>
+								{/block}
+								
+								{block name="module_account_orders_tbody_show"}
+									<td>
+										<a href="{$order_data.ORDER_LINK}" class="btn btn-xs btn-default pull-right">{$button.show}</a>
+									</td>
+								{/block}
+							</tr>
+						{/foreach}
+			
+					</tbody>
+				{/block}
+		
+			</table>
+		{/block}
+
+		{block name="module_account_orders_show_all"}
+			<div class="row">
+				<div class="col-xs-12">
+					{block name="module_account_orders_show_all_link"}
+						<a href="{$LINK_ALL}" title="{$general.SHOW_ALL}" class="btn btn-primary pull-right">
+							{$general.SHOW_ALL}
+						</a>
+					{/block}
+				</div>
+			</div>
+		{/block}
+	{/if}
+	
+	{block name="module_account_product_history_if"}
+		{if $products_history}
+			{block name="module_account_product_history"}
+				<div data-gambio-widget="product_hover">
+					{block name="module_account_product_history_title"}
+						<h3>{$txt.title_viewed_products}</h3>
+					{/block}
+					{block name="module_account_product_history_listing"}
+						{product_listing products=$products_history id="products-history" truncate=$TRUNCATE_PRODUCTS_NAME template="snippets/product_listing/product_listing.html" showManufacturerImages=$showManufacturerImages showProductRibbons=$showProductRibbons showRating=$showRating}
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

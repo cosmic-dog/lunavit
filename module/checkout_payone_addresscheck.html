@@ -1,0 +1,205 @@
+{load_language_text section="payone" name="p1txt"}
+
+{block name="module_checkout_payone_addresscheck"}
+	{block name="module_checkout_payone_addresscheck_title"}
+		<h1 class="p1_ac">{$p1txt.heading_address_check}</h1>
+	{/block}
+
+	{block name="module_checkout_payone_addresscheck_error_if"}
+		{if $content_data.billto_errorcode}
+			{block name="module_checkout_payone_addresscheck_error"}
+				<p>{$content_data.billto_errorcode} {$content_data.billto_errormessage}</p>
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="module_checkout_payone_addresscheck_changed_if"}
+		{if $content_data.note_address_changed}
+			{block name="module_checkout_payone_addresscheck_changed"}
+				<p class="p1_note">{$content_data.note_address_changed}</p>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_checkout_payone_addresscheck_form"}
+		<form action="{$content_data.form_action}" method="POST">
+			{block name="module_checkout_payone_addresscheck_billto_corrected_street_if"}
+				{if $content_data.billto_corrected_street}
+					{block name="module_checkout_payone_addresscheck_billto_corrected_street"}
+						<table class="p1address">
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_customermessage_if"}
+								{if $content_data.billto_customermessage}
+									{block name="module_checkout_payone_addresscheck_billto_corrected_street_customermessage"}
+										<tr>
+											<td colspan="2" class="customermessage">
+												{$content_data.billto_customermessage}
+											</td>
+										</tr>
+									{/block}
+								{/if}
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_customername"}
+								<tr>
+									<td class="label">{$p1txt.lastnamefirstname}:</td>
+									<td>{$content_data.billto_address.entry_lastname}, {$content_data.billto_address.entry_firstname}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_address"}
+								<tr>
+									<td class="label">{$p1txt.streetaddress}:</td>
+									<td>{$content_data.billto_address.entry_street_address}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_address_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}</td>
+									<td>
+										<input type="text" name="billto[street_address]" value="{$content_data.billto_corrected_street}">
+									</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_housenr_if"}
+								{if $content_data.billto_corrected_house_number}
+									{block name="module_checkout_payone_addresscheck_billto_corrected_street_housenr"}
+										<tr>
+											<td class="label">{$p1txt.house_number}:</td>
+											<td>{$content_data.billto_address.entry_house_number}</td>
+										</tr>
+									{/block}
+									{block name="module_checkout_payone_addresscheck_billto_corrected_street_housenr_correction"}
+										<tr class="correction">
+											<td class="label">{$p1txt.correction}</td>
+											<td>
+												<input type="text" name="billto[house_number]" value="{$content_data.billto_corrected_house_number}">
+											</td>
+										</tr>
+									{/block}
+								{/if}
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_postcode"}
+								<tr>
+									<td class="label">{$p1txt.postcode}:</td>
+									<td>{$content_data.billto_address.entry_postcode}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_postcode_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}</td>
+									<td>
+										<input type="text" name="billto[postcode]" value="{$content_data.billto_corrected_zip}">
+									</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_city"}
+								<tr>
+									<td class="label">{$p1txt.city}:</td>
+									<td>{$content_data.billto_address.entry_city}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_billto_corrected_street_city_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}:</td>
+									<td>
+										<input type="text" name="billto[city]" value="{$content_data.billto_corrected_city}">
+									</td>
+								</tr>
+							{/block}
+						</table>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payone_addresscheck_sendto_corrected_if"}
+				{if $content_data.sendto_corrected_street}
+					{block name="module_checkout_payone_addresscheck_sendto_corrected"}
+						<table class="p1address">
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_customermessage_if"}
+								{if $content_data.sendto_customermessage}
+									{block name="module_checkout_payone_addresscheck_sendto_corrected_customermessage"}
+										<tr>
+											<td colspan="2" class="customermessage">
+												{$content_data.sendto_customermessage}
+											</td>
+										</tr>
+									{/block}
+								{/if}
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_customername"}
+								<tr>
+									<td class="label">{$p1txt.lastnamefirstname}:</td>
+									<td>{$content_data.sendto_address.entry_lastname}, {$content_data.sendto_address.entry_firstname}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_address"}
+								<tr>
+									<td class="label">{$p1txt.streetaddress}:</td>
+									<td>{$content_data.sendto_address.entry_street_address}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_address_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}</td>
+									<td>
+										<input type="text" name="sendto[street_address]" value="{$content_data.sendto_corrected_street}">
+									</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_housenr_if"}
+								{if $content_data.sendto_corrected_house_number}
+									{block name="module_checkout_payone_addresscheck_sendto_corrected_housenr"}
+										<tr>
+											<td class="label">{$p1txt.house_number}:</td>
+											<td>{$content_data.sendto_address.entry_house_number}</td>
+										</tr>
+									{/block}
+									{block name="module_checkout_payone_addresscheck_sendto_corrected_housenr_correction"}
+										<tr class="correction">
+											<td class="label">{$p1txt.correction}</td>
+											<td>
+												<input type="text" name="sendto[house_number]" value="{$content_data.sendto_corrected_house_number}">
+											</td>
+										</tr>
+									{/block}
+								{/if}
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_postcode"}
+								<tr>
+									<td class="label">{$p1txt.postcode}:</td>
+									<td>{$content_data.sendto_address.entry_postcode}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_correctedpostcode_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}</td>
+									<td>
+										<input type="text" name="sendto[postcode]" value="{$content_data.sendto_corrected_zip}">
+									</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_corrected_city"}
+								<tr>
+									<td class="label">{$p1txt.city}:</td>
+									<td>{$content_data.sendto_address.entry_city}</td>
+								</tr>
+							{/block}
+							{block name="module_checkout_payone_addresscheck_sendto_correctedcity_correction"}
+								<tr class="correction">
+									<td class="label">{$p1txt.correction}:</td>
+									<td>
+										<input type="text" name="sendto[city]" value="{$content_data.sendto_corrected_city}">
+									</td>
+								</tr>
+							{/block}
+						</table>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payone_addresscheck_submit"}
+				<p style="text-align: center;">
+					<input type="submit" value="{$p1txt.submit_addresses}">
+				</p>
+			{/block}
+		</form>
+	{/block}
+{/block}

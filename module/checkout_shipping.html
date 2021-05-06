@@ -1,0 +1,115 @@
+{load_language_text section="checkout_shipping"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="postfinder" name="postfinder"}
+{load_language_text section="parcelshopfinder" name="parcelshopfinder"}
+{load_language_text section="general" name="general"}
+
+{block name="module_checkout_shipping"}
+	{block name="module_checkout_shipping_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=2}
+	{/block}
+	
+	{if $error!=''}
+		{block name="module_checkout_shipping_alert"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+		{/block}
+	{/if}
+
+	{block name="module_checkout_shipping_form"}
+		<form action="{$FORM_ACTION_URL}" method="post" class="form-horizontal">
+			<input type="hidden" name="action" value="process" />
+			
+			{block name="module_checkout_shipping_form_address"}
+				<fieldset>
+					{block name="module_checkout_shipping_form_address_legend"}
+						<legend>{$txt.title_address}</legend>
+					{/block}
+					
+					{block name="module_checkout_shipping_form_address_amazon_if"}
+						{if $smarty.cookies.amazon_Login_accessToken && $smarty.session.payment === 'amazonadvpay'}
+							{block name="module_checkout_shipping_form_address_amazon_login"}
+								<div id="amzPayAddressBook"
+									 data-gambio-widget="amazon_loginpay"
+									 data-amazon_loginpay-placeholder-id="amzPayAddressBook"
+									 data-amazon_loginpay-seller-id="{$amz_seller_id}"
+									 data-amazon_loginpay-client-id="{$amz_client_id}"
+									 data-amazon_loginpay-widgets-src="{$amz_widgets_src}"
+									 data-amazon_loginpay-countrytxt="{$amz_country_txt}"
+								>
+									<img src="{$tpl_path}/assets/images/loading.gif" alt="loading">
+								</div>
+								<input type="hidden" name="amz-orderrefid" id="amz-orderrefid" value="">
+							{/block}
+						{elseif $amazon_checkout_address}
+							{block name="module_checkout_shipping_form_address_amazon"}
+								{amazon_payment id='addressBookWidgetDiv'}
+							{/block}
+						{else}
+							{block name="module_checkout_shipping_form_address_no_amazon"}
+								<div class="row">
+									<div class="col-md-12 indent-sm-1">
+										{block name="module_checkout_shipping_form_address_no_amazon_label"}
+											<address>{$ADDRESS_LABEL}</address>
+										{/block}
+									</div>
+									<div class="col-md-12 indent-sm-1 space-1">
+										{block name="module_checkout_shipping_form_address_no_amazon_address_change"}
+											<a class="btn btn-default btn-sm" href="{'checkout_shipping_address.php'|xtc_href_link:'':'SSL'}">
+												{$txt.text_address_change}
+											</a>
+										
+											{if $url_pfinder}
+												<a class="btn btn-default btn-sm" href="{$url_pfinder}">{$postfinder.btn_pfinder}</a>
+											{/if}
+										
+											{block name="module_checkout_shipping_form_address_no_amazon_parcelshopfinder_if"}
+												{if $url_parcelshopfinder}
+													{block name="module_checkout_shipping_form_address_no_amazon_parcelshopfinder"}
+														<span class="parcel-finder-notice">
+															{$parcelshopfinder.note_for_button_to_psf}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										{/block}
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_shipping_form_shipping"}
+				<fieldset data-gambio-widget="radio_selection" data-radio_selection-init="true">
+					{block name="module_checkout_shipping_form_shipping_legend"}
+						<legend>{$txt.title_shipping}</legend>
+					{/block}
+					
+					<div class="row">
+						<div class="col-xs-12 indent-sm-1">
+							{block name="module_checkout_shipping_form_shipping_block"}
+								{$SHIPPING_BLOCK}
+							{/block}
+						</div>
+					</div>
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_shipping_form_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-3 col-md-3 btn-back">
+						{block name="module_checkout_shipping_form_buttons_back"}
+							<a href="{'shopping_cart.php'|xtc_href_link }" class="btn btn-default btn-block">{$button.back}</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-3 col-md-3 col-md-offset-{if $amazon_checkout_address && !$smarty.session.amz_loginpay}1{else}6{/if} text-right btn-continue">
+						{block name="module_checkout_shipping_form_buttons_submit"}
+							<input type="submit" class="btn btn-primary btn-block" value="{$button.continue}">
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</form>
+	{/block}
+{/block}

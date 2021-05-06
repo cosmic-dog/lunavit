@@ -1,0 +1,144 @@
+{load_language_text section="address_book"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="postfinder" name="postfinder"}
+{load_language_text section="parcelshopfinder" name="parcelshopfinder"}
+
+{block name="module_address_book"}
+	{block name="module_address_book_title"}
+		<h1>{$txt.heading_address}</h1>
+	{/block}
+
+	{block name="module_address_book_alert"}
+		{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+	{/block}
+
+	{block name="module_address_book_standard"}
+		{block name="module_address_book_standard_title"}
+			<h3>{$txt.title_standard}</h3>
+		{/block}
+		{block name="module_address_book_standard_address"}
+			<p class="space-0">
+				{$txt.text_standard}<br /> <br />
+				{$ADDRESS_DEFAULT}
+			</p>
+		{/block}
+	{/block}
+
+	{block name="module_address_book_entries"}
+		{block name="module_address_book_entries_title"}
+			<h3>{$txt.title_addresses}</h3>
+		{/block}
+		
+		{foreach name=aussen item=addresses from=$addresses_data}
+			{block name="module_address_book_entry"}
+				<dl>
+					{block name="module_address_book_entry_summary"}
+						<dt>
+							{block name="module_address_book_entry_iterator"}
+								{$smarty.foreach.aussen.iteration}.
+							{/block}
+							{block name="module_address_book_entry_image"}
+								{if $addresses.ADDRESS_CLASS|in_array:['packstation_2', 'postfiliale_2', 'parcelshop']}
+									<img src="{$tpl_path}assets/images/DHL_rgb_BG_100px.png" height="12" style="background-color: #ffcc00;">
+								{/if}
+							{/block}
+							{block name="module_address_book_entry_address"}
+								{$addresses.NAME}
+								{if $addresses.PRIMARY=='1'}
+									({$txt.title_standard})
+								{/if}
+								{if $addresses.IS_IMMUTABLE}
+									{if $addresses.ADDITIONAL_INFO}
+										, {$addresses.ADDITIONAL_INFO}
+									{/if}
+									, {$addresses.STREET}
+									{if $addresses.HOUSENUMBER}
+										{$addresses.HOUSENUMBER}
+									{/if}
+									, {$addresses.POSTCODE} {$addresses.CITY}
+								{/if}
+							{/block}
+						</dt>
+					{/block}
+					{block name="module_address_book_entry_buttons"}
+						<dd class="button-container row">
+							{block name="module_address_book_entry_buttons_edit"}
+								<a class="btn btn-primary col-xs-3 {if $addresses.IS_IMMUTABLE}disabled{/if}"
+								   href="{if $addresses.IS_PACKSTATION != 1 && $addresses.IS_POSTFILIALE != 1}{$addresses.BUTTON_EDIT_URL}{else}#{/if}"
+								   title="{$button.edit}">
+									{$button.edit}
+								</a>
+							{/block}
+							
+							{block name="module_address_book_entry_buttons_pfinder_if"}
+								{if $addresses.BUTTON_PFINDER_URL}
+									{block name="module_address_book_entry_buttons_pfinder"}
+										<a class="btn btn-default col-xs-4"
+										   href="{$addresses.BUTTON_PFINDER_URL}"
+										   title="{$postfinder.btn_pfinder}">
+											{$postfinder.btn_pfinder}
+										</a>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_address_book_entry_buttons_delete"}
+								<a class="btn btn-default col-xs-3 {if $addresses.PRIMARY == '1'}disabled{/if}"
+								   href="{if $addresses.PRIMARY != '1'}{$addresses.BUTTON_DELETE_URL}{else}#{/if}"
+								   title="{$button.delete}">
+									{$button.delete}
+								</a>
+							{/block}
+						</dd>
+					{/block}
+				</dl>
+			{/block}
+		{/foreach}
+	{/block}
+
+	{block name="module_address_book_buttons"}
+		<div class="row navigation-buttons">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				{block name="module_address_book_buttons_back"}
+					<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+						{$button.back}
+					</a>
+				{/block}
+			</div>
+			<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+				{block name="module_address_book_buttons_new"}
+					<a class="btn btn-primary btn-block" href="{$BUTTON_NEW_URL}" title="{$button.new_address}">
+						{$button.new_address}
+					</a>
+				{/block}
+			</div>
+		</div>
+	{/block}
+
+	{block name="module_address_book_pfinder_if"}
+		{if $BUTTON_PARCELSHOPFINDER_URL}
+			{block name="module_address_book_pfinder"}
+				<div class="row navigation-buttons">
+					<div class="col-md-9">
+						{block name="module_address_book_pfinder_note"}
+							{$parcelshopfinder.note_for_button_to_psf}
+						{/block}
+					</div>
+					<div class="col-md-3">
+						{block name="module_address_book_pfinder_link"}
+							<a style="background-color: #ffcc00;" class="btn btn-default btn-block" href="{$BUTTON_PARCELSHOPFINDER_URL}" title="{$parcelshopfinder.button_to_psf}">
+								<img src="{$tpl_path}assets/images/DHL_rgb_BG_100px.png" alt="{$parcelshopfinder.button_to_psf}">
+							</a>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_address_book_address_count"}
+		<div class="row address-notification">
+			{$ADDRESS_COUNT}
+		</div>
+	{/block}
+{/block}

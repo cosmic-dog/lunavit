@@ -1,0 +1,94 @@
+{load_language_text section="checkout_payment"}
+
+{block name="module_checkout_payment_block"}
+	{assign var="paypal_position" value=$module_content|recursive_array_search:'paypal3'}
+
+	{block name="module_checkout_payment_block_paypalplus_if"}
+		{if $use_paypal_plus === 'true' || $module_content[$paypal_position].id === 'paypal3' && $module_content[$paypal_position].module === ''}
+			{block name="module_checkout_payment_block_paypalplus"}
+				{include file="get_usermod:{$tpl_path}snippets/checkout_paypal_plus_payment_block.html"}
+			{/block}
+		{else}
+			{block name="module_checkout_payment_block_list"}
+				<ul class="list-group" data-gambio-widget="radio_selection" data-radio_selection-init="true">
+					{foreach name=aussen item=module_data from=$module_content}
+						{block name="module_checkout_payment_block_item"}
+							<li class="list-group-item {$module_data.id} {if $module_content|count <= 1}active{/if}">
+								<div class="row">
+									<div class="col-xs-12 title radio  payment_item button_checkout_module {if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}has-form{/if}">
+										{block name="module_checkout_payment_block_item_label"}
+											<label class="payment-module-container">
+												{block name="module_checkout_payment_block_item_data_selection"}
+													<span class="payment-module-selection">
+														{$module_data.selection}
+													</span>
+												{/block}
+	
+												{block name="module_checkout_payment_block_item_data_info"}
+													<span class="col-xs-12 col-sm-7 payment-module-info">
+														{block name="module_checkout_payment_block_item_data_title"}
+															<span class="payment-module-title">
+																{$module_data.module}
+															</span>
+														{/block}
+		
+														{block name="module_checkout_payment_block_item_data_costs"}
+															{if $module_data.module_cost}
+																<span class="payment-module-cost">
+																	({$module_data.module_cost})
+																</span>
+															{/if}
+														{/block}
+		
+														{block name="module_checkout_payment_block_item_data_description"}
+															{if $module_data.description}
+																<span class="payment-module-description">{$module_data.description}</span>
+															{/if}
+														{/block}
+		
+														{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}
+															{block name="module_checkout_payment_block_item_data_fields"}
+																<div class="checkout-payment-form">
+																	<div class="well">
+																		{foreach name=aussen item=method_data from=$module_data.fields}
+																			{block name="module_checkout_payment_block_item_data_field"}
+																				<div class="form-group">
+																					{if $method_data.title && $method_data.title != ''}
+																						{block name="module_checkout_payment_block_item_data_field_title"}
+																							<label class="control-label col-xs-12 col-md-4">{$method_data.title}</label>
+																						{/block}
+																					{/if}
+			
+																					{block name="module_checkout_payment_block_item_data_field_label"}
+																						{assign var="label" value=$method_data.title|replace:":":""}
+																						<div class="col-xs-12 col-md-8">
+																							{$method_data.field|replace:"class=\"gm_class_input\"":"class=\"form-control input-sm\" placeholder=\"$label\""|replace:"style=\"width:200px\"":""}
+																						</div>
+																					{/block}
+																				</div>
+																			{/block}
+																		{/foreach}
+																	</div>
+																</div>
+															{/block}
+														{/if}
+													</span>
+												{/block}
+	
+												{block name="module_checkout_payment_block_item_icon"}
+													<span class="hidden-xs col-sm-5 payment-module-icon">
+														<img src="{$module_data.logo_url}" alt="{$module_data.logo_alt|strip_tags}" class="img-responsive">
+													</span>
+												{/block}
+											</label>
+										{/block}
+									</div>
+								</div>
+							</li>
+						{/block}
+					{/foreach}
+				</ul>
+			{/block}
+		{/if}
+	{/block}
+{/block}

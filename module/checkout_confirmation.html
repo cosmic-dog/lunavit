@@ -1,0 +1,341 @@
+{load_language_text section="checkout_confirmation"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_checkout_confirmation"}
+	{block name="module_checkout_confirmation_process_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=4}
+	{/block}
+
+	{block name="module_checkout_confirmation_form"}
+		<form action="{$CHECKOUT_FORM_ACTION_URL}" method="post" class="form-horizontal">
+
+			{block name="module_checkout_confirmation_alert_if"}
+				{if $ERROR}
+					{block name="module_checkout_confirmation_alert_danger"}
+						{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$ERROR type="danger"}
+					{/block}
+				{else}
+					{block name="module_checkout_confirmation_alert_info"}
+						{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$txt.text_confirm_information type="info"}
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_list"}
+				<ul class="list-reset">
+
+					{block name="module_checkout_confirmation_list_privacy_if"}
+						{if $PRIVACY_CONFIRMATION_URL}
+							{block name="module_checkout_confirmation_list_privacy"}
+								<li>
+									<a href="{$PRIVACY_CONFIRMATION_URL}" class="js-open-modal" data-modal-type="iframe" data-modal-settings='{literal}{{/literal}"title": "{$txt.title_privacy}"{literal}}{/literal}' target="_blank" title="{$PRIVACY_CONFIRMATION_TEXT}">
+										<span class="gm-chevron-right"></span> {$PRIVACY_CONFIRMATION_TEXT}
+									</a>
+								</li>
+							{/block}
+						{/if}
+					{/block}
+
+					{block name="module_checkout_confirmation_list_conditions_if"}
+						{if $CONDITIONS_CONFIRMATION_URL}
+							{block name="module_checkout_confirmation_list_conditions"}
+								<li>
+									<a href="{$CONDITIONS_CONFIRMATION_URL}" class="js-open-modal" data-modal-type="iframe" data-modal-settings='{literal}{{/literal}"title": "{$txt.title_conditions}"{literal}}{/literal}' target="_blank" title="{$CONDITIONS_CONFIRMATION_TEXT}">
+										<span class="gm-chevron-right"></span> {$CONDITIONS_CONFIRMATION_TEXT}
+									</a>
+								</li>
+							{/block}
+						{/if}
+					{/block}
+
+					{block name="module_checkout_confirmation_list_withdrawal_if"}
+						{if $WITHDRAWAL_CONFIRMATION_URL}
+							{block name="module_checkout_confirmation_list_withdrawal"}
+								<li>
+									<a href="{$WITHDRAWAL_CONFIRMATION_URL}" class="js-open-modal" data-modal-type="iframe" data-modal-settings='{literal}{{/literal}"title": "{$txt.title_withdrawal}"{literal}}{/literal}' target="_blank" title="{$WITHDRAWAL_CONFIRMATION_TEXT}">
+										<span class="gm-chevron-right"></span> {$WITHDRAWAL_CONFIRMATION_TEXT}
+									</a>
+								</li>
+							{/block}
+						{/if}
+					{/block}
+
+				</ul>
+			{/block}
+
+			<p>&nbsp;</p>
+
+			{block name="module_checkout_confirmation_confirm_ip_if"}
+				{if $GM_LOG_IP =='1' && ($GM_CONFIRM_IP =='1' || $GM_SHOW_IP =='1')}
+					{if $GM_CONFIRM_IP =='1'}
+						{block name="module_checkout_confirmation_confirm_ip"}
+							<fieldset data-gambio-widget="radio_selection" data-radio_selection-selection="div.checkbox" >
+								<div class="checkbox alert alert-warning">
+									<label>
+										<input type="checkbox" name="gm_log_ip" id="gm_log_ip" value="save">
+										{$txt.text_confirm_log_ip} {$CUSTOMERS_IP}
+									</label>
+								</div>
+							</fieldset>
+						{/block}
+					{/if}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_address_if"}
+				{if $smarty.session.amz_loginpay && $smarty.session.payment === 'amazonadvpay'}
+					{block name="module_checkout_confirmation_amazon_loginpay_checkout_address_if"}
+						{if $smarty.session.cart->content_type != 'virtual'}
+							{block name="module_checkout_confirmation_amazon_loginpay_checkout_address"}
+								<div class="row">
+									<h3>{$txt.text_shipping_address}</h3>
+									<div class="space-0" id="amzPayAddressBook"
+										 data-gambio-widget="amazon_loginpay"
+										 data-amazon_loginpay-mode="readonly"
+										 data-amazon_loginpay-readonly-addressbook="amzPayAddressBook"
+										 data-amazon_loginpay-readonly-wallet="amzPayWallet"
+										 data-amazon_loginpay-seller-id="{$amz_seller_id}"
+										 data-amazon_loginpay-client-id="{$amz_client_id}"
+										 data-amazon_loginpay-widgets-src="{$amz_widgets_src}"
+										 data-amazon_loginpay-order-reference-id="{$smarty.session.amazonadvpay_order_ref_id}"
+									>
+										<img src="{$tpl_path}/assets/images/loading.gif" alt="loading">
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+				{elseif $amazon_checkout_address}
+					{block name="module_checkout_confirmation_amazon_checkout_address_if"}
+						{if $smarty.session.cart->content_type != 'virtual'}
+							{block name="module_checkout_confirmation_amazon_checkout_address"}
+								<div class="row">
+									<h3>{$txt.text_shipping_address}</h3>
+									<p class="space-0">{amazon_payment id='readOnlyAddressBookWidgetDiv'}</p>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+				{else}
+					{block name="module_checkout_confirmation_address"}
+						<div class="row">
+							{block name="module_checkout_confirmation_address_delivery_fieldset"}
+								<fieldset class="col-md-5">
+									{block name="module_checkout_confirmation_address_delivery_legend"}
+										<legend>
+											{$txt.text_shipping_address}
+											<a href="{$SHIPPING_ADDRESS_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+										</legend>
+									{/block}
+									<div class="row">
+										<div class="col-md-12 indent-sm-1">
+											{block name="module_checkout_confirmation_address_delivery_content"}
+												<address>
+													{$DELIVERY_LABEL}
+												</address>
+											{/block}
+										</div>
+									</div>
+								</fieldset>
+							{/block}
+
+							{block name="module_checkout_confirmation_address_billing_fieldset"}
+								<fieldset class="col-md-5 col-md-offset-2">
+									{block name="module_checkout_confirmation_address_billing_legend"}
+										<legend>
+											{$txt.text_payment_address}
+											<a href="{$BILLING_ADDRESS_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+										</legend>
+									{/block}
+									<div class="row">
+										<div class="col-md-12 indent-sm-1">
+											{block name="module_checkout_confirmation_address_billing_content"}
+												<address>
+													{$BILLING_LABEL}
+												</address>
+											{/block}
+										</div>
+									</div>
+								</fieldset>
+							{/block}
+						</div>
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_payment_method_fieldset_if"}
+				{if $smarty.session.amz_loginpay && $smarty.session.payment === 'amazonadvpay'}
+					{block name="module_checkout_confirmation_amazon_loginpay_checkout_payment"}
+						<div class="row">
+							<h3>{$txt.text_payment_info}</h3>
+							<div class="space-0" id="amzPayWallet">
+								<img src="{$tpl_path}/assets/images/loading.gif" alt="loading">
+							</div>
+							<br>
+						</div>
+					{/block}
+				{elseif $amazon_checkout_payment}
+					{block name="module_checkout_confirmation_amazon_checkout_payment"}
+						<div class="row">
+							<h3>{$txt.text_payment_info}</h3>
+							<p class="space-0">{amazon_payment id='readOnlyWalletWidgetDiv'}</p>
+						</div>
+					{/block}
+				{else}
+					{if $PAYMENT_METHOD != '' && $BILLING_LABEL}
+						{block name="module_checkout_confirmation_payment_method_fieldset"}
+							<fieldset>
+								{block name="module_checkout_confirmation_payment_method_legend"}
+									<legend>
+										{$txt.text_payment_method}
+										<a href="{$PAYMENT_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+									</legend>
+								{/block}
+								<div class="row">
+									<div class="col-md-12 indent-sm-1">
+										{block name="module_checkout_confirmation_payment_method_content"}
+											<address>
+												{$PAYMENT_METHOD}
+											</address>
+										{/block}
+									</div>
+								</div>
+							</fieldset>
+						{/block}
+					{/if}
+
+					{block name="module_checkout_confirmation_payment_title_fieldset_if"}
+						{if $PAYMENT_TITLE != '' && $BILLING_LABEL}
+							{block name="module_checkout_confirmation_payment_title_fieldset"}
+								<fieldset {if !empty($payment_information_data)}class="payment-information-data"{/if}>
+									{block name="module_checkout_confirmation_payment_title_legend"}
+										<legend>
+											{$txt.text_payment_info}
+											<a href="{$PAYMENT_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+										</legend>
+									{/block}
+									{block name="module_checkout_confirmation_payment_title_content"}
+										<div class="row">
+											<div class="col-md-12 indent-sm-1">
+												<address>
+													{$PAYMENT_TITLE}
+												</address>
+											</div>
+										</div>
+									{/block}
+								</fieldset>
+
+								{if !empty($payment_information_data)}
+									{block name="module_checkout_confirmation_payment_title_payment_information"}
+										{include file="get_usermod:{$tpl_path}snippets/checkout_payment_information.html"}
+									{/block}
+								{/if}
+							{/block}
+						{/if}
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_ts_excellence"}
+				{$MODULE_ts_excellence}
+			{/block}
+
+			{block name="module_checkout_confirmation_order_comments_if"}
+				{if $ORDER_COMMENTS != ''}
+					{block name="module_checkout_confirmation_order_comments"}
+						<fieldset>
+							{block name="module_checkout_confirmation_order_comments_legend"}
+								<legend>
+									{$txt.text_comments}
+									<a href="{$PAYMENT_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+								</legend>
+							{/block}
+							{block name="module_checkout_confirmation_order_comments_content"}
+								<address>
+									{$ORDER_COMMENTS}
+								</address>
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_total"}
+				<fieldset>
+					{block name="module_checkout_confirmation_total_legend"}
+						<legend>
+							{$txt.text_products}
+							<a href="{$PRODUCTS_EDIT}" title="{$txt.text_edit|replace:"(":""|replace:")":""}"><span class="fa fa-pencil"></span></a>
+						</legend>
+					{/block}
+
+					{block name="module_checkout_confirmation_total_table"}
+						{$PRODUCTS_TABLE_PART}
+					{/block}
+
+					{block name="module_checkout_confirmation_total_confirmation"}
+						{include file="get_usermod:{$tpl_path}snippets/order/order_total_confirmation.html"}
+					{/block}
+				</fieldset>
+			{/block}
+
+			{block name="module_checkout_confirmation_info_if"}
+				{if $COD_INFO|strip_tags:true|trim}
+					{block name="module_checkout_confirmation_info"}
+						<div class="row">
+							<div class="col-sm-12">
+								{$COD_INFO}
+							</div>
+						</div>
+					{/block}
+				{/if}
+			{/block}
+
+			<br/>
+
+			{block name="module_checkout_confirmation_info2_if"}
+				{if $CONFIRMATION_INFO|strip_tags:true|trim}
+					{block name="module_checkout_confirmation_info2"}
+						<div class="row">
+							<div class="col-sm-12">
+								{$CONFIRMATION_INFO}
+							</div>
+						</div>
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_preform"}
+				{$CHECKOUT_FORM_PREFORM}
+			{/block}
+
+			<input type="hidden" name="ie11bugfix" value="1" />
+
+			{block name="module_checkout_confirmation_module_buttons_if"}
+				{if $MODULE_BUTTONS != ''}
+					{block name="module_checkout_confirmation_module_buttons"}
+						{$MODULE_BUTTONS}
+					{/block}
+				{/if}
+			{/block}
+
+			{block name="module_checkout_confirmation_buttons"}
+				{assign var="leftColActive" value={template_setting name="gx-checkout-full-width"}}
+
+				<div class="row">
+					<div class="col-xs-12 {if $leftColActive}col-sm-5 col-sm-push-7{else}col-sm-7 col-md-5 col-sm-push-5 col-md-push-7{/if}">
+						{block name="module_checkout_confirmation_buttons_submit"}
+							<input type="submit" class="btn btn-primary btn-block checkout-confirmation-submit" value="{$button.send_order}" onclick="ga('send', 'event', 'order', 'place_order', 'new_order', 1);">
+						{/block}
+					</div>
+					<div class="col-xs-12 col-sm-5 col-sm-pull-5 text-right hidden">
+						{block name="module_checkout_confirmation_buttons_back"}
+							<a href="{'checkout_payment.php'|xtc_href_link:'':'SSL'}" class="btn btn-default btn-block checkout-confirmation-back-button">{$button.back}</a>
+						{/block}
+					</div>
+				</div>
+			{/block}
+
+		</form>
+	{/block}
+{/block}

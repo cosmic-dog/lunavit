@@ -1,0 +1,111 @@
+{load_language_text section="cart_shipping_costs"}
+{load_language_text name="order_details" section="order_details"}
+
+{block name="module_cart_shipping_costs_selection"}
+	{assign var="content_data.show_shipping_weight_info" value=1}
+	
+	<div id="shipping-information-layer" class="hidden">
+		{block name="module_cart_shipping_costs_selection_form"}
+			<form action="#" method="post">
+				<div class="form-horizontal shipping-calculation" data-gambio-_widget="shipping_calculator">
+					
+					{block name="module_cart_shipping_costs_selection_country"}
+						<div class="form-group">
+							{block name="module_cart_shipping_costs_selection_country_label"}
+								<label class="control-label col-xs-12 col-sm-3" for="cart-shipping-country">
+									{$txt.delivery_country}:
+								</label>
+							{/block}
+							
+							{block name="module_cart_shipping_costs_selection_country_container"}
+								<span class="shipping-calculator-country col-xs-12 col-sm-9">
+									{if count($content_data.shipping_countries) == 1}
+										{foreach item=country_data from=$content_data.shipping_countries}
+											{block name="module_cart_shipping_costs_selection_country_only_one"}
+												{$country_data.countries_name}
+												<input type="hidden" name="cart_shipping_country" value="{$country_data.countries_id}" />
+											{/block}
+										{/foreach}
+									{else}
+										{block name="module_cart_shipping_costs_selection_country_selection"}
+											<select id="cart-shipping-country" name="cart_shipping_country" class="form-control">
+												{foreach item=country_data from=$content_data.shipping_countries}
+													{block name="module_cart_shipping_costs_selection_country_option"}
+														<option value="{$country_data.countries_id}" {if $country_data.countries_id == $content_data.selected_country}selected="selected"{/if} title="{$country_data.countries_name}">
+														{$country_data.countries_name|truncate:80:"...":true}
+														</option>
+													{/block}
+												{/foreach}
+											</select>
+										{/block}
+									{/if}
+								</span>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_cart_shipping_costs_selection_shipping"}
+						<div class="form-group">
+							{block name="module_cart_shipping_costs_selection_shipping_label"}
+								<label class="control-label col-xs-12 col-sm-3" for="cart-shipping-module">
+									{$txt.shipping_module}:
+								</label>
+							{/block}
+							
+							{block name="module_cart_shipping_costs_selection_shipping_selection"}
+								{include file="get_usermod:{$tpl_path}module/cart_shipping_costs_shipping_module_selection.html"}
+							{/block}
+						</div>
+					{/block}
+		
+					{if $content_data.show_shipping_weight == 1}
+						{block name="module_cart_shipping_costs_selection_shipping_weight"}
+							<div class="form-group">
+								{block name="module_cart_shipping_costs_selection_shipping_weight_label"}
+									<label class="control-label col-xs-12 col-sm-3">
+										{$order_details.shipping_weight}:
+									</label>
+								{/block}
+								
+								{block name="module_cart_shipping_costs_selection_shipping_weight_information"}
+									{include file="get_usermod:{$tpl_path}module/cart_shipping_costs_shipping_weight_information.html"}
+								{/block}
+							</div>
+						{/block}
+					{/if}
+		
+					{if count($content_data.shipping_modules) > 0}
+						{block name="module_cart_shipping_costs_selection_shipping_costs"}
+							<div class="form-group">
+								{block name="module_cart_shipping_costs_selection_shipping_costs_label"}
+									<label class="control-label col-xs-12 col-sm-3">
+										{$txt.shipping_costs}:
+									</label>
+								{/block}
+								
+								{block name="module_cart_shipping_costs_selection_shipping_costs_text"}
+									<span class="shipping-calculator-shipping-costs col-xs-12 col-sm-9 text-bold">
+										{$content_data.shipping_costs}
+									</span>
+								{/block}
+								
+								{if $content_data.shipping_costs_error != ''}
+									{block name="module_cart_shipping_costs_selection_shipping_costs_alert"}
+										{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$content_data.shipping_costs_error type="danger"}
+									{/block}
+								{/if}
+								
+								{block name="module_cart_shipping_costs_selection_shipping_costs_gambioultra"}
+									<span class="shipping-calculator-gambioultra-info col-xs-12 col-sm-9 col-sm-offset-3">
+										{$content_data.ot_gambioultra_info_html|replace:"<br />":""}
+									</span>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+		
+				</div>
+			</form>
+		{/block}
+	</div>
+{/block}

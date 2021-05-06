@@ -1,0 +1,42 @@
+{load_language_text section="buttons" name="button"}
+
+{if $content_data.active && !$content_data.cookieAlreadySet}
+	{block name="module_cookie_bar"}
+		<div class="row cookie-bar {$content_data.position}"
+			 style="background-color: {$content_data.background_color|escape}; opacity: {$content_data.background_opacity}"
+			 data-gambio-widget="cookie_bar">
+			{block name="module_cookie_bar_content"}
+				<span class="col-sm-9 col-md-10 content">
+					{block name="module_cookie_bar_content_text"}
+						{$content_data.text}
+					{/block}
+				</span>
+			{/block}
+			
+			{block name="module_cookie_bar_close"}
+				<span class="col-sm-3 col-md-2 close-button">
+					{block name="module_cookie_bar_content_button"}
+						<a href="{if $content_data.button_link}{$content_data.button_link}{else}#{/if}"
+						   style="background-color: {$content_data.button_background_color|escape}; color: {$content_data.button_text_color}; {if $content_data.close_button_active}margin-right: 15px;{/if}"
+						   class="btn btn-default btn-sm close-button">
+							{if $content_data.button_text && $content_data.button_text != ''}
+								{$content_data.button_text}
+							{else}
+								{$button.ok}
+							{/if}
+						</a>
+					{/block}
+
+					{block name="module_cookie_bar_close_if"}
+						{if $content_data.close_button_active}
+							<span class="fa-stack">
+								<i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+								<i class="fa fa-close fa-stack-1x"></i>
+							</span>
+						{/if}
+					{/block}
+				</span>
+			{/block}
+		</div>
+	{/block}
+{/if}

@@ -1,0 +1,247 @@
+{load_language_text section="payone"}
+
+{block name="module_checkout_payone"}
+	<div id="payone_checkout">
+		
+		{block name="module_checkout_payone_title"}
+			<h1>Payone</h1>
+		{/block}
+		
+		{block name="module_checkout_payone_payment_selection"}
+			<div class="payment_selection">
+				{foreach from=$content_data.PAYMENT_GENRES item=pgenre key=pgkey}
+					{block name="module_checkout_payone_payment_selection_genre"}
+						<div class="payselect_item psi_{$pgrenre.genre}">
+							{block name="module_checkout_payone_payment_selection_genre_link"}
+								<a href="{$content_data.PAGE_URL}?pgenre={$pgkey}">
+									<strong>{$pgenre.name}</strong>
+								</a>
+							{/block}
+						</div>
+					{/block}
+				{/foreach}
+			</div>
+		{/block}
+		
+		{block name="module_checkout_payone_payment_creditcard_if"}
+			{if $content_data.PAYMENTGENRE == 'creditcard'}
+				{block name="module_checkout_payone_payment_creditcard"}
+					{block name="module_checkout_payone_payment_creditcard_title"}
+						<h2 class="payone_pghead">{$txt.text_creditcard}</h2>
+					{/block}
+			
+					<div class="payone_data">
+						{block name="module_checkout_payone_payment_creditcard_form"}
+							<form class="payone_data_form" action="{$content_data.FORM_ACTION}" method="POST">
+								{block name="module_checkout_payone_payment_creditcard_basic_params"}
+									{$content_data.BASIC_PARAMS}
+								{/block}
+								
+								{block name="module_checkout_payone_payment_creditcard_basic_table"}
+									<table>
+										{block name="module_checkout_payone_payment_creditcard_basic_table_cardowner"}
+											<tr>
+												<td>{$txt.text_cardowner}</td>
+												<td>
+													<input name="cardholder" type="text" value="{$content_data.VALUE_CARDOWNER}">
+												</td>
+											</tr>
+										{/block}
+										{block name="module_checkout_payone_payment_creditcard_basic_table_cardtype"}
+											<tr>
+												<td>{$txt.text_cardtype}</td>
+												<td>
+													<select name="cardtype">
+														{foreach item=ctype from=$content_data.CCTYPES name=cardtypes}
+															<option value="{$ctype.shorttype}">{$ctype.typename}</option>
+														{/foreach}
+													</select>
+												</td>
+											</tr>
+										{/block}
+										{block name="module_checkout_payone_payment_creditcard_basic_table_cardno"}
+											<tr>
+												<td>{$txt.text_cardno}</td>
+												<td>
+													<input name="cardpan" type="text" value="">
+												</td>
+											</tr>
+										{/block}
+										{block name="module_checkout_payone_payment_creditcard_basic_table_cardexpires"}
+											<tr>
+												<td>{$txt.text_cardexpires}</td>
+												<td>
+													<select name="cardexpires_month">
+														{foreach from=$content_data.CCEXPIRES_MONTHS item=month}
+															<option value="{$month}">{$month}</option>
+														{/foreach}
+													</select>
+													<select name="cardexpires_year">
+														{foreach from=$content_data.CCEXPIRES_YEARS item=year}
+															<option value="{$year}">{$year}</option>
+														{/foreach}
+													</select>
+													<input type="hidden" name="cardexpiredate" value="0000">
+												</td>
+											</tr>
+										{/block}
+										{block name="module_checkout_payone_payment_creditcard_basic_table_cardchecknum"}
+											<tr>
+												<td>{$txt.text_cardchecknum}</td>
+												<td>
+													<input name="cardcvc2" type="text" value="">
+												</td>
+											</tr>
+										{/block}
+										{block name="module_checkout_payone_payment_creditcard_basic_table_submit"}
+											<tr>
+												<td colspan="2">
+													<input type="submit" value="{$txt.text_confirmpayment}" name="confirm_cc">
+												</td>
+											</tr>
+										{/block}
+									</table>
+								{/block}
+							</form>
+						{/block}
+					</div>
+				{/block}
+			{/if}
+		{/block}
+		
+		{block name="module_checkout_payone_payment_accountbased_if"}
+			{if $content_data.PAYMENTGENRE == 'accountbased'}
+				{block name="module_checkout_payone_payment_accountbased"}
+					{block name="module_checkout_payone_payment_accountbased_title"}
+						<h2 class="payone_pghead">Lastschrift (ELV)</h2>
+					{/block}
+					<div class="payone_data">
+						{block name="module_checkout_payone_payment_accountbased_table"}
+							<table>
+								{block name="module_checkout_payone_payment_accountbased_table_accountowner"}
+									<tr>
+										<td>{$txt.text_accountowner}</td>
+										<td>
+											<input name="accountowner" type="text" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_accountbased_table_bankcode"}
+									<tr>
+										<td>{$txt.text_bankcode}</td>
+										<td>
+											<input name="bankcode" type="text" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_accountbased_table_accountnumber"}
+									<tr>
+										<td>{$txt.text_accountnumber}</td>
+										<td>
+											<input name="accountnumber" type="text" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_accountbased_table_submit"}
+									<tr>
+										<td colspan="2">
+											<form class="payone_data_form" action="" method="POST">
+												<input type="submit" value="{$txt.text_confirmpayment}" name="confirm_elv">
+											</form>
+										</td>
+									</tr>
+								{/block}
+							</table>
+						{/block}
+					</div>
+				{/block}
+			{/if}
+		{/block}
+		
+		{block name="module_checkout_payone_payment_onlinetransfer_if"}
+			{if $content_data.PAYMENTGENRE == 'onlinetransfer'}
+				{block name="module_checkout_payone_payment_onlinetransfer"}
+					{block name="module_checkout_payone_payment_onlinetransfer_title"}
+						<h2 class="payone_pghead">{$txt.text_onlinetranfer}</h2>
+					{/block}
+			
+					<div class="payone_data">
+						{block name="module_checkout_payone_payment_onlinetransfer_table"}
+							<table>
+								{block name="module_checkout_payone_payment_onlinetransfer_table_type"}
+									<tr>
+										<td>{$txt.onlinetransfer_type}</td>
+										<td>
+											<select name="onlinetransfer_type">
+												{foreach from=$content_data.ONLINETRANSFER_TYPES item=ottype name=ottype_name}
+													<option value="{$ottype.type}">{$ottype.name}</option>
+												{/foreach}
+											</select>
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_onlinetransfer_table_accountowner"}
+									<tr>
+										<td>{$txt.text_accountowner}</td>
+										<td>
+											<input type="text" name="onlinetransfer_accountowner" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_onlinetransfer_table_bankcode"}
+									<tr class="ot_others">
+										<td>{$txt.text_bankcode}</td>
+										<td>
+											<input name="onlinetransfer_bankcode" type="text" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_onlinetransfer_table_accountnumber"}
+									<tr class="ot_others">
+										<td>{$txt.text_accountnumber}</td>
+										<td>
+											<input name="onlinetransfer_accountnumber" type="text" value="">
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_onlinetransfer_table_bankgroup"}
+									<tr class="ot_epsideal">
+										<td>{$txt.text_bankgroup}</td>
+										<td>
+											<select name="onlinetransfer_bankgroup">
+												{foreach from=$content_data.ONLINETRANSFER_BANKGROUPS_EPS key=bgroupkey item=bgroup name=otbg}
+													<option value="{$bgroupkey}" class="bankgroup_eps">{$bgroup}</option>
+												{/foreach}
+												{foreach from=$content_data.ONLINETRANSFER_BANKGROUPS_IDEAL key=bgroupkey item=bgroup name=otbg}
+													<option value="{$bgroupkey}" class="bankgroup_ideal">{$bgroup}</option>
+												{/foreach}
+											</select>
+										</td>
+									</tr>
+								{/block}
+								{block name="module_checkout_payone_payment_onlinetransfer_table_submit"}
+									<tr>
+										<td colspan="2">
+											<form class="payone_data_form" action="" method="POST">
+												<input type="submit" value="{$txt.text_confirmpayment}" name="confirm_ot">
+											</form>
+										</td>
+									</tr>
+								{/block}
+							</table>
+						{/block}
+					</div>
+				{/block}
+			{/if}
+		</div>
+	{/block}
+
+	{block name="module_checkout_payone_payment_ajaxmode_if"}
+		{if $AJAXMODE}
+			{block name="module_checkout_payone_payment_ajaxmode"}
+				<script src="https://secure.pay1.de/client-api/js/ajax.js"></script>
+				<script src="<?php echo GM_HTTP_SERVER.DIR_WS_CATALOG ?>/ext/payone/js/client_api.js"></script>
+			{/block}
+		{/if}
+	{/block}
+{/block}

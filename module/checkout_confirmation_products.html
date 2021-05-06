@@ -1,0 +1,119 @@
+{load_language_text section="account_history_info"}
+{load_language_text section="checkout_confirmation" name="info"}
+
+{block name="module_checkout_confirmation_products"}
+	<div class="order-wishlist">
+		{block name="module_checkout_confirmation_products_table"}
+			<table class="table table-responsive">
+				{block name="module_checkout_confirmation_products_thead"}
+					<thead>
+						{include file="get_usermod:{$tpl_path}snippets/order/order_item.html"
+							is_wishlist=false
+							is_tablehead=true
+						}
+					</thead>
+				{/block}
+				
+				{block name="module_checkout_confirmation_products_tbody"}
+					<tbody>
+						{block name="module_checkout_confirmation_products_item_foreach"}
+							{foreach name=products_data item=products_item_array from=$content_data.products_data}
+
+								{block name="module_checkout_confirmation_products_item_STR_attributes"}
+									{assign var="STR_attributes" value=""}
+
+									{block name="module_checkout_confirmation_products_item_STR_attributes_assign_foreach"}
+										{foreach item=attribute from=$products_item_array.attributes}
+											{block name="module_checkout_confirmation_products_item_STR_attributes_assign_if"}
+												{if isset($attribute.option) && $attribute.option != ''}
+													{block name="module_checkout_confirmation_products_item_STR_attributes_assign"}
+														{assign var="STR_attributes" value=$STR_attributes|cat:$attribute.option|cat:": "|cat:$attribute.value|cat:"<br />"}
+													{/block}
+												{/if}
+											{/block}
+										{/foreach}
+									{/block}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_STR_properties"}
+									{assign var="STR_properties" value=""}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_STR_properties_assign_foreach"}
+									{foreach item=property from=$products_item_array.properties_array}
+										{block name="module_checkout_confirmation_products_item_STR_properties_assign"}
+											{assign var="STR_properties" value=$STR_properties|cat:$property.properties_name|cat:": "|cat:$property.values_name|cat:"<br />"}
+										{/block}
+									{/foreach}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_p_shipping_time"}
+									{assign var="p_shipping_time" value=""}
+
+									{block name="module_checkout_confirmation_products_item_p_shipping_time_assign_if"}
+										{if $products_item_array.shipping_time && $products_item_array.shipping_time != ''}
+											{block name="module_checkout_confirmation_products_item_p_shipping_time_assign"}
+												{assign var="p_shipping_time" value=$info.text_shipping_time|cat:": "|cat:$products_item_array.shipping_time}
+											{/block}
+										{/if}
+									{/block}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_p_model"}
+									{assign var="p_model" value=""}
+
+									{block name="module_checkout_confirmation_products_item_p_model_assign_if"}
+										{if $products_item_array.products_model && $products_item_array.products_model != ''}
+											{block name="module_checkout_confirmation_products_item_p_model_assign"}
+												{assign var="p_model" value=$info.text_model|cat:": "|cat:$products_item_array.products_model}
+											{/block}
+										{/if}
+									{/block}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_p_weight"}
+									{assign var="p_weight" value=""}
+
+									{block name="module_checkout_confirmation_products_item_p_weight_assign_if"}
+										{if $products_item_array.products_weight && $products_item_array.products_weight != ''}
+											{block name="module_checkout_confirmation_products_item_p_weight_assign"}
+												{assign var="p_weight" value=$info.text_weight|cat:": "|cat:$products_item_array.products_weight|cat:" "|cat:$info.text_weight_unit}
+											{/block}
+										{/if}
+									{/block}
+								{/block}
+
+								{block name="module_checkout_confirmation_products_item_order_item_include"}
+									{include file="get_usermod:{$tpl_path}snippets/order/order_item.html"
+										is_wishlist=false
+										is_confirmation=true
+										is_checkout=true
+										show_p_model="true"
+										p_attributes=$STR_attributes
+										p_properties=$STR_properties
+										p_name=$products_item_array.products_name
+										p_checkout_info=$products_item_array.checkout_information
+										p_details_url=$products_item_array.products_url
+										p_details_text=$info.text_detail_information
+										p_price_single=$products_item_array.price
+										p_price_final=$products_item_array.final_price
+										last=($smarty.foreach.products_data.last) ? "true" : "false"
+										image_src={($products_item_array.products_image && $products_item_array.products_image != "") ? $products_item_array.products_image : ""}
+										image_alt={($products_item_array.products_alt && $products_item_array.products_alt != "") ? $products_item_array.products_alt : $products_item_array.products_name}
+										image_title={($products_item_array.products_alt && $products_item_array.products_alt != "") ? $products_item_array.products_alt : $products_item_array.products_name}
+										p_price_vpe={($products_item_array.products_vpe_array.vpe_text && $products_item_array.products_vpe_array.vpe_text != '') ? $products_item_array.products_vpe_array.vpe_text : ""}
+										p_unit={($products_item_array.unit && $products_item_array.unit != '') ? $products_item_array.unit : ""}
+										p_qty={($products_item_array.quantity && $products_item_array.quantity != '') ? $products_item_array.quantity : ""}
+										p_shipping_time=$p_shipping_time
+										p_model=$p_model
+										p_weight=$p_weight
+									}
+								{/block}
+							{/foreach}
+						{/block}
+					</tbody>
+				{/block}
+			</table>
+		{/block}
+	</div>
+{/block}

@@ -1,0 +1,22 @@
+{load_language_text section="also_purchased"}
+
+{block name="module_also_purchased_if"}
+	{if $module_content != ''}
+		{block name="module_also_purchased"}
+			{block name="module_also_purchased_title"}
+				<h3>{$txt.heading_text}</h3>
+			{/block}
+			{block name="module_also_purchased_product_listing"}
+				{assign var="fullscreenPage" value={template_setting name="gx-product-info-full-width"}}
+				{product_listing
+					products=$module_content
+					id="also_purchased"
+					truncate=$TRUNCATE_PRODUCTS_NAME
+					showManufacturerImages=$showManufacturerImages
+					showProductRibbons=$showProductRibbons
+					showRating=$showRating
+					fullscreenPage=$fullscreenPage}
+			{/block}
+		{/block}
+	{/if}
+{/block}

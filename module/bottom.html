@@ -1,0 +1,24 @@
+{block name="module_bottom"}
+			{block name="module_bottom_page_up"}
+				{include file="get_usermod:{$tpl_path}snippets/navigation/page_up.html" key="pageup"}
+			{/block}
+			{block name="module_bottom_modal"}
+				{include file="get_usermod:{$tpl_path}snippets/modal.html" key="layer"}
+			{/block}
+
+			{block name="module_bottom_content"}{$content_data.CONTENT}{/block}
+
+			{block name="module_bottom_parse_time_if"}
+				{if $content_data.PARSE_TIME}
+					{block name="module_bottom_parse_time"}{$content_data.PARSE_TIME}{/block}
+				{/if}
+			{/block}
+
+			{block name="module_bottom_debug_bar_body"}
+				{if $content_data.debug_bar}
+					{$content_data.debug_bar_body_content nofilter}
+				{/if}
+			{/block}
+		</body>
+	</html>
+{/block}

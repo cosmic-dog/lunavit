@@ -1,0 +1,550 @@
+{load_language_text section="address_book_process"}
+{load_language_text section="create_account" name="account"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_address_book_details"}
+	{block name="module_address_book_details_fieldset"}
+		<fieldset class="form-horizontal" data-gambio-widget="zones_handler">
+			{block name="module_address_book_details_legend"}
+				<legend>
+					{$txt.title_address}
+				</legend>
+			{/block}
+			
+			{block name="module_address_book_details_gender_if"}
+				{if $gender == '1'}
+					{block name="module_address_book_details_gender"}
+						<div class="form-group{if $form_data.gender.required == '1'} mandatory{/if}{if $error_gender} has-feedback has-error{/if}">
+							{block name="module_address_book_details_gender_label"}
+								<label class="control-label col-sm-3">
+									{$txt.label_gender}
+								</label>
+							{/block}
+							
+							{block name="module_address_book_details_gender_container"}
+								<div class="col-sm-9 input-container">
+									{block name="module_address_book_details_gender_m_span"}
+										<span class="radio-inline">
+											<label for="{$form_data.gender.name}-m">
+												{block name="module_address_book_details_gender_m_radio"}
+													<input type="radio" id="{$form_data.gender.name}-m"  name="{$form_data.gender.name}" value="{$form_data.gender.m.value|htmlspecialchars}"{if $form_data.gender.m.checked} checked{/if}/>
+													{$txt.gender_male}
+												{/block}
+											</label>
+										</span>
+									{/block}
+									<span>&nbsp;</span>
+									{block name="module_address_book_details_gender_f_span"}
+										<span class="radio-inline">
+											<label for="{$form_data.gender.name}-f">
+												{block name="module_address_book_details_gender_f_radio"}
+													<input type="radio" id="{$form_data.gender.name}-f"  name="{$form_data.gender.name}" value="{$form_data.gender.f.value|htmlspecialchars}"{if $form_data.gender.f.checked} checked{/if}/>
+													{$txt.gender_female}
+												{/block}
+											</label>
+										</span>
+									{/block}
+								</div>
+							{/block}
+							
+							{block name="module_address_book_details_gender_error_if"}
+								{if $error_gender}
+									{block name="module_address_book_details_gender_error"}
+										<div class="help-block">
+												<span class="col-sm-3">
+													&nbsp;
+												</span>
+												<span class="col-sm-9 help-block">
+													{$error_gender}
+												</span>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+				
+						</div>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_firstname"}
+				<div class="form-group{if $form_data.firstname.required == '1'} mandatory{/if}{if $error_first_name} has-feedback has-error{/if}">
+					{block name="module_address_book_details_firstname_label"}
+						<label for="{$form_data.firstname.name}" class="control-label col-sm-3">
+							{$txt.label_firstname}
+						</label>
+					{/block}
+					
+					{block name="module_address_book_details_firstname_container"}
+						<div class="col-sm-9 col-lg-6 input-container">
+							{block name="module_address_book_details_firstname_input"}
+								<input type="text"
+									   placeholder="{$txt.label_firstname}"
+									   id="{$form_data.firstname.name}"
+									   name="{$form_data.firstname.name}"
+									   class="form-control"
+									   value="{$form_data.firstname.value|htmlspecialchars}" />
+							{/block}
+							
+							{block name="module_address_book_details_firstname_error_if"}
+								{if $error_first_name}
+									{block name="module_address_book_details_firstname_error"}
+										<span class="help-block">
+											{$error_first_name}
+										</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_lastname"}
+				<div class="form-group{if $form_data.lastname.required == '1'} mandatory{/if}{if $error_last_name} has-feedback has-error{/if}">
+					{block name="module_address_book_details_lastname_label"}
+						<label for="{$form_data.lastname.name}" class="control-label col-sm-3">
+							{$txt.label_lastname}
+						</label>
+					{/block}
+					
+					{block name="module_address_book_details_lastname_container"}
+						<div class="col-sm-9 col-lg-6 input-container">
+							{block name="module_address_book_details_lastname_input"}
+								<input type="text"
+									   placeholder="{$txt.label_lastname}"
+									   id="{$form_data.lastname.name}"
+									   name="{$form_data.lastname.name}"
+									   class="form-control"
+									   value="{$form_data.lastname.value|htmlspecialchars}" />
+							{/block}
+							
+							{block name="module_address_book_details_lastname_error_if"}
+								{if $error_last_name}
+									{block name="module_address_book_details_lastname_error"}
+										<span class="help-block">
+												{$error_last_name}
+											</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_company_if"}
+				{if $company=='1'}
+					{block name="module_address_book_details_company"}
+						<div class="form-group{if $form_data.company.required == '1'} mandatory{/if}{if $error_company} has-feedback has-error{/if}">
+							{block name="module_address_book_details_company_label"}
+								<label for="{$form_data.company.name}" class="control-label col-sm-3">
+									{$txt.label_company}
+								</label>
+							{/block}
+							
+							{block name="module_address_book_details_company_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_address_book_details_company_input"}
+										<input type="text"
+											   placeholder="{$txt.label_company}"
+											   id="{$form_data.company.name}"
+											   name="{$form_data.company.name}"
+											   class="form-control"
+											   value="{$form_data.company.value|htmlspecialchars}" />
+									{/block}
+									
+									{block name="module_address_book_details_company_error_if"}
+										{if $error_company}
+											{block name="module_address_book_details_company_error"}
+												<span class="help-block">
+													{$error_company}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_street"}
+				<div class="form-group{if $form_data.street_address.required == '1' || $form_data.house_number.required == '1'} mandatory{/if}">
+					{if $split_street_information == '1'}
+						<div {if $error_street || $error_house_number}class="has-feedback has-error"{/if}>
+							{block name="module_address_book_details_street_split_label"}
+								<label for="{$form_data.street_address.name}" class="control-label col-sm-3">
+									{$txt.label_street_number}
+								</label>
+							{/block}
+						</div>
+				
+						{block name="module_address_book_details_street_split_street_container"}
+							<div class="col-sm-6 col-lg-4 input-container {if $error_street} has-feedback has-error{/if}">
+								{block name="module_address_book_details_street_split_street_input"}
+									<input type="text"
+										   placeholder="{$txt.label_street}"
+										   id="{$form_data.street_address.name}"
+										   name="{$form_data.street_address.name}"
+										   class="form-control"
+										   value="{$form_data.street_address.value|htmlspecialchars}" />
+								{/block}
+								
+								{block name="module_address_book_details_street_split_street_error_if"}
+									{if $error_street}
+										{block name="module_address_book_details_street_split_street_error"}
+											<span class="help-block">{$error_street}</span>
+										{/block}
+									{/if}
+								{/block}
+							</div>
+						{/block}
+						
+						{block name="module_address_book_details_street_split_house_container"}
+							<div class="col-sm-3 col-lg-2 input-container {if $error_house_number} has-feedback has-error{/if}">
+								{block name="module_address_book_details_street_split_house_input"}
+									<input type="text"
+										   placeholder="{$txt.label_house_number}"
+										   id="{$form_data.house_number.name}"
+										   name="{$form_data.house_number.name}"
+										   class="form-control"
+										   value="{$form_data.house_number.value|htmlspecialchars}" />
+								{/block}
+								
+								{block name="module_address_book_details_street_split_house_error_if"}
+									{if $error_house_number}
+										{block name="module_address_book_details_street_split_house_error"}
+											<span class="help-block">{$error_house_number}</span>
+										{/block}
+									{/if}
+								{/block}
+							</div>
+						{/block}
+					{else}
+						<div {if $error_street}class="has-feedback has-error"{/if}>
+							{block name="module_address_book_details_street_label"}
+								<label for="{$form_data.street_address.name}" class="control-label col-sm-3">
+									{$txt.label_street_number}
+								</label>
+							{/block}
+						</div>
+			
+						{block name="module_address_book_details_street_container"}
+							<div class="col-sm-9 col-lg-6 input-container {if $error_street} has-feedback has-error{/if}">
+								{block name="module_address_book_details_street_input"}
+									<input type="text"
+										   placeholder="{$txt.label_street_number}"
+										   id="{$form_data.street_address.name}"
+										   name="{$form_data.street_address.name}"
+										   class="form-control"
+										   value="{$form_data.street_address.value|htmlspecialchars}" />
+								{/block}
+								
+								{block name="module_address_book_details_street_error_if"}
+									{if $error_street}
+										{block name="module_address_book_details_street_error"}
+											<span class="help-block">
+												{$error_street}
+											</span>
+										{/block}
+									{/if}
+								{/block}
+							</div>
+						{/block}
+					{/if}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_additional_if"}
+				{if $additional_address_info=='1'}
+					{block name="module_address_book_details_additional"}
+						<div class="form-group">
+							{block name="module_address_book_details_additional_label"}
+								<label for="{$form_data.additional_address_info.name}" class="control-label col-sm-3">
+									{$account.text_additional_info}
+								</label>
+							{/block}
+							
+							{block name="module_address_book_details_additional_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_address_book_details_additional_input"}
+										<textarea id="{$form_data.additional_address_info.name}"
+												  class="form-control"
+												  name="{$form_data.additional_address_info.name}"
+												  placeholder="{$account.text_additional_info}">{$form_data.additional_address_info.value|htmlspecialchars}</textarea>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_suburb_if"}
+				{if $suburb=='1'}
+					{block name="module_address_book_details_suburb"}
+						<div class="form-group{if $form_data.suburb.required == '1'} mandatory{/if}">
+							{block name="module_address_book_details_suburb_label"}
+								<label for="{$form_data.suburb.name}" class="control-label col-sm-3">
+									{$txt.label_suburb}
+								</label>
+							{/block}
+							
+							{block name="module_address_book_details_suburb_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_address_book_details_suburb_input"}
+										<input type="text"
+											   placeholder="{$txt.label_suburb}"
+											   id="{$form_data.suburb.name}"
+											   name="{$form_data.suburb.name}"
+											   class="form-control"
+											   value="{$form_data.suburb.value|htmlspecialchars}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_postcode_city"}
+				<div class="element-set form-group{if ($form_data.city.required == '1') || ($form_data.postcode.required == '1')} mandatory{/if}{if $error_post_code || $error_city} has-feedback has-error{/if}">
+					{block name="module_address_book_details_postcode_city_label"}
+						<label for="{$form_data.postcode.name}" class="control-label col-sm-3">
+							{$txt.label_code} / {$txt.label_city}
+						</label>
+					{/block}
+					
+					{block name="module_address_book_details_postcode_container"}
+						<div class="col-sm-3 col-lg-2 input-container">
+							{block name="module_address_book_details_postcode_input"}
+								<input type="text" placeholder="{$txt.label_code}" id="{$form_data.postcode.name}" name="{$form_data.postcode.name}" class="form-control" value="{$form_data.postcode.value|htmlspecialchars}" />
+							{/block}
+							
+							{block name="module_address_book_details_postcode_error_if"}
+								{if $error_post_code}
+									{block name="module_address_book_details_postcode_error"}
+										<span class="help-block">{$error_post_code}</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_address_book_details_city_container"}
+						<div class="col-sm-6 col-lg-4 input-container">
+							{block name="module_address_book_details_city_input"}
+								<input type="text" placeholder="{$txt.label_city}" id="{$form_data.city.name}" name="{$form_data.city.name}" class="form-control" value="{$form_data.city.value|htmlspecialchars}" />
+							{/block}
+							
+							{block name="module_address_book_details_city_error_if"}
+								{if $error_city}
+									{block name="module_address_book_details_city_error"}
+										<span class="help-block">{$error_city}</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_state"}
+				<div class="form-group{if $form_data.state.required == '1'} mandatory{else} hidden{/if}{if $error_state} has-error{/if}">
+					{block name="module_address_book_details_state_label"}
+						<label for="{$form_data.state.name}" class="control-label col-sm-3">
+							{$txt.label_state}
+						</label>
+					{/block}
+					
+					{block name="module_address_book_details_state_container"}
+						<div class="col-sm-9 col-lg-6 input-container">
+							{block name="module_address_book_details_state_input"}
+								<input type="hidden" name="selected_zone_id" value="{$form_data.state.value|htmlspecialchars}" />
+								<select id="{$form_data.state.name}" name="{$form_data.state.name}" class="form-control">
+									<!-- Will be dynamically filled (see zones_handler.js). -->
+								</select>
+							{/block}
+							
+							{block name="module_address_book_details_state_error_if"}
+								{if $error_state}
+									{block name="module_address_book_details_state_error"}
+										<span class="help-block">{$error_state}</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_country"}
+				<div class="form-group{if $form_data.country.required == '1'} mandatory{/if}{if $error_country} has-error{/if}">
+					{block name="module_address_book_details_country_label"}
+						<label for="{$form_data.country.name}" class="control-label col-sm-3">
+							{$txt.label_country}
+						</label>
+					{/block}
+					
+					{block name="module_address_book_details_country_container"}
+						<div class="col-sm-9 col-lg-6 input-container">
+							{block name="module_address_book_details_country_input"}
+								<select id="{$form_data.country.name}" name="{$form_data.country.name}" class="form-control">
+									{foreach key=countries item=country_data from=$countries_data}
+										{block name="module_address_book_details_country_input_option"}
+											<option value="{$country_data.countries_id}"{if $country_data.countries_id == $form_data.country.value} selected="selected"{/if}>{$country_data.countries_name}</option>
+										{/block}
+									{/foreach}
+								</select>
+							{/block}
+							
+							{block name="module_address_book_details_country_error_if"}
+								{if $error_country}
+									{block name="module_address_book_details_country_error"}
+										<span class="help-block">{$error_country}</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{block name="module_address_book_details_b2b_if"}
+				{if $show_b2b_status}
+					{block name="module_address_book_details_b2b"}
+						<div class="form-group{if $form_data.b2b_status.required == '1'} mandatory{/if}">
+							{block name="module_address_book_details_b2b_label"}
+								<label class="control-label col-sm-3">
+									{$txt.text_b2b_status}
+								</label>
+							{/block}
+							
+							{block name="module_address_book_details_b2b_container"}
+								<div class="col-sm-9 input-container">
+									{block name="module_address_book_details_b2b_1_span"}
+										<span class="radio-inline">
+											<label for="{$form_data.b2b_status.name}-1">
+												{block name="module_address_book_details_b2b_1_input"}
+													<input type="radio" id="{$form_data.b2b_status.name}-1"  name="{$form_data.b2b_status.name}" value="1"{if $form_data.b2b_status.checked == '1'} checked="checked"{/if} />
+													{$txt.text_yes}
+												{/block}
+											</label>
+										</span>
+									{/block}
+									<span>&nbsp;</span>
+									{block name="module_address_book_details_b2b_0_span"}
+										<span class="radio-inline">
+											<label for="{$form_data.b2b_status.name}-0">
+												{block name="module_address_book_details_b2b_0_input"}
+													<input type="radio" id="{$form_data.b2b_status.name}-0"  name="{$form_data.b2b_status.name}" value="0"{if $form_data.b2b_status.checked == '0'} checked="checked"{/if} />
+													{$txt.text_no}
+												{/block}
+											</label>
+										</span>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				{else}
+					{block name="module_address_book_details_no_b2b"}
+						<input type="hidden" name="{$form_data.b2b_status.name}" value="{$form_data.b2b_status.checked}" />
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_standard_if"}
+				{if $new=='1'}
+					{block name="module_address_book_details_standard"}
+						<div class="form-group">
+							<div class="checkbox clearfix">
+								{block name="module_address_book_details_standard_label"}
+									<label for="{$checkbox_primary_data.ID}" class="control-label col-sm-3">
+										&nbsp;
+									</label>
+								{/block}
+								
+								{block name="module_address_book_details_standard_container"}
+									<div class="col-sm-9">
+										<label class="control-label">
+											{block name="module_address_book_details_standard_input"}
+												<input type="checkbox" value="{$checkbox_primary_data.VALUE}" id="{$checkbox_primary_data.ID}" name="{$checkbox_primary_data.NAME}" />
+												{$txt.label_standard}
+											{/block}
+										</label>
+									</div>
+								{/block}
+							</div>
+						</div>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_address_book_details_privacy_if"}
+				{if $GM_PRIVACY_LINK != '0'}
+					{block name="module_address_book_details_privacy"}
+						<div{if $error_privacy} class="has-error"{/if}>
+							{block name="module_address_book_details_privacy_checkbox_if"}
+								{if $show_privacy_checkbox}
+									{block name="module_address_book_details_privacy_checkbox"}
+										<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $form_data.privacy_accepted.value} checked="checked"{/if}/>
+										<label for="privacy_accepted">{$GM_PRIVACY_LINK}</label>
+									{/block}
+								{else}
+									{block name="module_address_book_details_privacy_link"}
+										<span>{$GM_PRIVACY_LINK}</span>
+									{/block}
+								{/if}
+							{/block}
+			
+							{block name="module_address_book_details_privacy_error_if"}
+								{if $error_privacy}
+									{block name="module_address_book_details_privacy_error"}
+										<span class="help-block">
+											{$error_privacy}
+										</span>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				{/if}
+			{/block}
+		
+			<input type="hidden" name="{$HIDDEN_FIELD_NAME}" value="{$HIDDEN_FIELD_VALUE}" />
+		
+		</fieldset>
+	{/block}
+
+	{block name="module_address_book_details_buttons"}
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				{block name="module_address_book_details_buttons_back"}
+					<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+						{$button.back}
+					</a>
+				{/block}
+			</div>
+			<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+				{block name="module_address_book_details_buttons_submit"}
+					<button type="submit" class="btn btn-primary btn-block" title="{$button.save}">
+						{$button.save}
+					</button>
+				{/block}
+			</div>
+		</div>
+	{/block}
+	
+	{block name="module_address_book_details_mandatory_if"}
+		{if $delete!='1'}
+			{block name="module_address_book_details_mandatory"}
+				<p class="mandatory-info">
+					{$txt.text_must}
+				</p>
+			{/block}
+		{/if}
+	{/block}
+{/block}

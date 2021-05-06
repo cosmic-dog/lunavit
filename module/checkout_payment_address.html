@@ -1,0 +1,103 @@
+{load_language_text section="checkout_payment_address"}
+{load_language_text section="checkout_navigation" name="nav"}
+{load_language_text section="general" name="general"}
+
+{block name="module_checkout_payment_address"}
+	{block name="module_checkout_payment_address_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=3}
+	{/block}
+
+	{block name="module_checkout_payment_address_form"}
+		<form action="{$FORM_ACTION_URL}" method="post" id="checkout_address" class="form-horizontal">
+			{block name="module_checkout_payment_address_alert"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+			{/block}
+			
+			{block name="module_checkout_payment_address_current_fieldset"}
+				<fieldset>
+					{block name="module_checkout_payment_address_current_legend"}
+						<legend>{$txt.title_current_address}</legend>
+					{/block}
+					
+					<div class="row">
+						<div class="col-md-12 indent-sm-1">
+							{block name="module_checkout_payment_address_current_label"}
+								<p>{$txt.text_current_address}</p>
+							{/block}
+							
+							{block name="module_checkout_payment_address_current_address"}
+								<address>{$ADDRESS_LABEL}</address>
+							{/block}
+						</div>
+					</div>
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_payment_address_fieldset_if"}
+				{if $addresses_data}
+					{block name="module_checkout_payment_address_fieldset"}
+						<fieldset>
+							{block name="module_checkout_payment_address_legend"}
+								<legend>{$txt.title_old_addresses}</legend>
+							{/block}
+							
+							{block name="module_checkout_payment_address_list"}
+								<ul class="list-group" data-gambio-widget="radio_selection" data-radio_selection-init="true">
+									{foreach item=address_data from=$addresses_data}
+										{block name="module_checkout_payment_address_sublist"}
+											<ul class="list-group-item">
+												<div class="row">
+													<div class="col-xs-9 title radio">
+														{block name="module_checkout_payment_address_sublist_label"}
+															<label for="ab_{$address_data.address_book_id}">
+																<input type="radio" id="ab_{$address_data.address_book_id}" name="address" value="{$address_data.address_book_id}"{if $address_data.address_book_id == $CURRENT_ADDRESS_BOOK_ID} checked="checked"{/if} />
+																<strong>{$address_data.firstname} {$address_data.lastname}</strong><br />
+																{$address_data.address}
+															</label>
+														{/block}
+													</div>
+												</div>
+											</ul>
+										{/block}
+									{/foreach}
+								</ul>
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payment_address_new_address_if"}
+				{if $MODULE_new_address}
+					{block name="module_checkout_payment_address_new_address"}
+						{$MODULE_new_address}
+					{/block}
+				{/if}
+			{/block}
+			
+			<input type="hidden" name="action" value="submit" />
+			
+			{block name="module_checkout_payment_address_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_checkout_payment_address_buttons_back"}
+							<a href="{$BUTTON_BACK_LINK}" class="btn btn-default btn-block">{$nav.text_button_back}</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_checkout_payment_address_buttons_submit"}
+							<input type="submit" class="btn btn-primary btn-block" value="{$nav.text_button_more}">
+						{/block}
+					</div>
+				</div>
+			{/block}
+			
+			{block name="module_checkout_payment_address_mandatory"}
+				<p class="mandatory-info">
+					{$price_offer.text_required}
+				</p>
+			{/block}
+		
+		</form>
+	{/block}
+{/block}

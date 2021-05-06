@@ -1,0 +1,32 @@
+{load_language_text section="cart_shipping_costs"}
+
+{block name="module_cart_shipping_costs_shipping_module_selection"}
+	<span class="shipping-calculator-shipping-modules col-xs-12 col-sm-9">
+		{block name="module_cart_shipping_costs_shipping_module_selection_no_available_if"}
+			{if count($content_data.shipping_modules) == 0}
+				{block name="module_cart_shipping_costs_shipping_module_selection_no_available"}
+					{$txt.no_shipping_module_available}
+				{/block}
+			{elseif count($content_data.shipping_modules) == 1}
+				{foreach key=module_code item=module_data from=$content_data.shipping_modules}
+					{block name="module_cart_shipping_costs_shipping_module_selection_only_one"}
+						{$module_data|strip_tags}
+						<input type="hidden" name="cart_shipping_module" value="{$module_code}" />
+					{/block}
+				{/foreach}
+			{else}
+				{block name="module_cart_shipping_costs_shipping_module_selection_select"}
+					<select class="form-control" id="cart-shipping-module" name="cart_shipping_module">
+						{foreach key=module_code item=module_data from=$content_data.shipping_modules}
+							{block name="module_cart_shipping_costs_shipping_module_selection_option"}
+								<option value="{$module_code}" {if $module_code == $content_data.selected_module}selected="selected"{/if} title="{$module_data|strip_tags}">
+									{$module_data|strip_tags|truncate:80:"...":true}
+								</option>
+							{/block}
+						{/foreach}
+					</select>
+				{/block}
+			{/if}
+		{/block}
+	</span>
+{/block}

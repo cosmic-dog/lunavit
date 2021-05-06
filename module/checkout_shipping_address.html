@@ -1,0 +1,133 @@
+{load_language_text section="checkout_shipping_address"}
+{load_language_text section="checkout_navigation" name="nav"}
+{load_language_text section="price_offer" name="price_offer"}
+{load_language_text section="general" name="general"}
+{load_language_text section="parcelshopfinder" name="parcelshopfinder"}
+
+{block name="module_checkout_shipping_address"}
+	{block name="module_checkout_shipping_address_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=2}
+	{/block}
+	
+	{block name="module_checkout_shipping_address_title"}
+		<h1>{$general.YOUR_ORDER}</h1>
+		
+		<br/>
+	{/block}
+	
+	{block name="module_checkout_shipping_address_form"}
+		<form action="{$FORM_ACTION_URL}" method="post" id="checkout_address" class="form-horizontal">
+			{block name="module_checkout_shipping_address_form_current_address"}
+				<fieldset>
+					{block name="module_checkout_shipping_address_form_current_address_legend"}
+						<legend>{$txt.title_current_address}</legend>
+					{/block}
+					
+					<div class="row">
+						<div class="col-md-12 indent-sm-1">
+							{block name="module_checkout_shipping_address_form_current_address_label"}
+								<address>{$ADDRESS_LABEL}</address>
+							{/block}
+						</div>
+					</div>
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_shipping_address_form_old_address_if"}
+				{if $addresses_data}
+					{block name="module_checkout_shipping_address_form_old_address"}
+						<fieldset>
+							{block name="module_checkout_shipping_address_form_old_address_legend"}
+								<legend>{$txt.title_old_addresses}</legend>
+							{/block}
+							
+							{block name="module_checkout_shipping_address_form_old_address_list"}
+								<ul class="list-group" data-gambio-widget="radio_selection" data-radio_selection-init="true">
+									{foreach item=address_data from=$addresses_data}
+										<ul class="list-group-item">
+											<div class="row">
+												<div class="col-xs-9 title radio">
+													{block name="module_checkout_shipping_address_form_old_address_list_label"}
+														<label for="ab_{$address_data.address_book_id}">
+															<input type="radio" id="ab_{$address_data.address_book_id}" name="address" value="{$address_data.address_book_id}"{if $address_data.address_book_id == $CURRENT_ADDRESS_BOOK_ID} checked="checked"{/if} />
+															{if $address_data.address_class|in_array:['packstation_2', 'postfiliale_2', 'parcelshop']}
+															<img style="background-color: #ffcc00;" src="{$tpl_path}assets/images/DHL_rgb_BG_100px.png" height="12">&nbsp;{/if}
+															<strong>{$address_data.firstname} {$address_data.lastname}</strong><br />
+															{$address_data.address}
+														</label>
+													{/block}
+												</div>
+											</div>
+										</ul>
+									{/foreach}
+								</ul>
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_shipping_address_form_parcelshopfinder_if"}
+				{if $BUTTON_PARCELSHOPFINDER_URL}
+					{block name="module_checkout_shipping_address_form_parcelshopfinder"}
+						<fieldset>
+							{block name="module_checkout_shipping_address_form_parcelshopfinder_legend"}
+								<legend>
+									{$parcelshopfinder.heading_csa}
+								</legend>
+							{/block}
+							<div class="row">
+								<div class="col-md-5">
+									{block name="module_checkout_shipping_address_form_parcelshopfinder_link"}
+									<a class="btn btn-default btn-block" href="{$BUTTON_PARCELSHOPFINDER_URL}" title="{$parcelshopfinder.button_to_psf}">
+										<img style="background-color: #ffcc00;" src="{$tpl_path}assets/images/DHL_rgb_BG_100px.png" alt="{$parcelshopfinder.button_to_psf}">
+										&nbsp;
+										{$parcelshopfinder.button_find_parcelshops}
+									</a>
+									{/block}
+								</div>
+								<div class="col-md-7">&nbsp;</div>
+							</div>
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_shipping_address_form_new_address_if"}
+				{if $MODULE_new_address}
+					{block name="module_checkout_shipping_address_form_new_address"}
+						{$MODULE_new_address}
+					{/block}
+				{/if}
+			{/block}
+		
+			<input type="hidden" name="action" value="submit" />
+			
+			{block name="module_checkout_shipping_address_form_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_checkout_shipping_address_form_buttons_back"}
+							<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$nav.text_button_back}">
+								{$nav.text_button_back}
+							</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_checkout_shipping_address_form_buttons_submit"}
+							<button type="submit" class="btn btn-primary btn-block" title="{$nav.text_button_more}">
+								{$nav.text_button_more}
+							</button>
+						{/block}
+					</div>
+				</div>
+			{/block}
+			
+			{block name="module_checkout_shipping_address_form_mandatory"}
+				<p class="mandatory-info">
+					{$price_offer.text_required}
+				</p>
+			{/block}
+		
+		</form>
+	{/block}
+{/block}

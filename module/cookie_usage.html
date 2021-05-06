@@ -1,0 +1,34 @@
+{load_language_text section="cookie_usage"}
+
+{block name="module_cookie_usage"}
+    {block name="module_cookie_usage_title"}
+        <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>{$txt.heading_cookie_usage}</strong></font>
+    {/block}
+
+    <br />
+    <br />
+
+    {block name="module_cookie_usage_table"}
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="main">{$txt.text_information}</td>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    {block name="module_cookie_usage_infobox_title"}
+                        <tr>
+                            <td class="infoboxheading" width="250">{$txt.title_infobox}</td>
+                        </tr>
+                    {/block}
+                    {block name="module_cookie_usage_infobox_text"}
+                        <tr>
+                            <td class="main" >{$txt.text_infobox}</td>
+                        </tr>
+                    {/block}
+                </table></td>
+            </tr>
+        </table>
+    {/block}
+
+    {block name="module_cookie_usage_bottom_continue"}
+        <p align="right">{$BUTTON_CONTINUE}</p>
+    {/block}
+{/block}

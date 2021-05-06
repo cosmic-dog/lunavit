@@ -1,0 +1,147 @@
+{load_language_text section="checkout_success"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_checkout_success"}
+	{block name="module_checkout_success_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=5}
+	{/block}
+	
+	{block name="module_checkout_success_thankyou"}
+		<div class="alert alert-success">
+		
+			<strong>{$txt.text_thankyou}</strong><br>
+			<br>
+			{$txt.text_success}
+		
+		</div>
+	{/block}
+
+	{block name="module_checkout_success_margin"}
+		<p>&nbsp;</p>
+	{/block}
+	
+	{block name="module_checkout_success_form"}
+		<form action="{$FORM_ACTION_URL}" method="post" class="form-horizontal">
+			{block name="module_checkout_success_fieldset"}
+				<fieldset>
+					{block name="module_checkout_success_legend"}
+						<legend>
+							{$txt.heading_success}
+						</legend>
+					{/block}
+					
+					{block name="module_checkout_success_printorder"}
+						<div class="row">
+							<div class="col-sm-8">
+								<p>{$txt.text_printorder}</p>
+							</div>
+							<div class="col-sm-4">
+								<a href="{$BUTTON_PRINT_URL}" class="btn btn-primary btn-block lightbox_iframe">{$button.print}</a>
+							</div>
+						</div>
+					{/block}
+					
+					{block name="module_checkout_success_end_shopping_if"}
+						{if $smarty.session.customers_status.customers_status_id == 1}
+							{block name="module_checkout_success_end_shopping"}
+								<div class="row end-shopping">
+									<div class="col-sm-4 col-sm-offset-8">
+										<a href="{$LOGOFF_URL}" class="btn btn-default btn-block">{$txt.text_end_shopping}</a>
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_checkout_success_ts_rating_if"}
+						{if $TS_RATING && $TS_RATING != ''}
+							{block name="module_checkout_success_ts_rating"}
+								<div class="row">
+									<label class="control-label col-sm-3">&nbsp;</label>
+					
+									<div class="col-sm-9 input-container">
+										<p>{$TS_RATING}</p>
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_checkout_success_gv_send_link_if"}
+						{if $GV_SEND_LINK && $GV_SEND_LINK != ''}
+							{block name="module_checkout_success_gv_send_link"}
+								<div class="row">
+									<label class="control-label col-sm-3">&nbsp;</label>
+					
+									<div class="col-sm-9 input-container">
+										<p>{$txt.gv_has_vouchera}{$GV_SEND_LINK}{$txt.gv_has_voucherb}</p>
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_checkout_success_downloads_content_if"}
+						{if $downloads_content != ''}
+							{block name="module_checkout_success_downloads_content"}
+								{$downloads_content}
+							{/block}
+						{/if}
+					{/block}
+					
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_success_google_tracking_code_if"}
+				{if $google_tracking && $google_tracking == 'true'}
+					{block name="module_checkout_success_google_tracking_code"}
+						{$tracking_code}
+					{/block}
+				{/if}
+			{/block}
+			
+		</form>
+	{/block}
+	
+	{block name="module_checkout_success_success_info"}
+		{$NC_SUCCESS_INFO}
+	{/block}
+	
+	{block name="module_checkout_success_extender_html"}
+		{foreach name=extender_html item=extender_html from=$extender_html_array}
+			{$extender_html}
+		{/foreach}
+	{/block}
+	
+	{block name="module_checkout_success_trusted_block_if"}
+		{if $TRUSTED_BLOCK}
+			{block name="module_checkout_success_trusted_block"}
+				{$TRUSTED_BLOCK}
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="module_checkout_success_google_conversion_block_if"}
+		{if $GOOGLE_CONVERSION}
+			{block name="module_checkout_success_google_conversion_block"}
+				{$GOOGLE_CONVERSION_BLOCK}
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="module_checkout_success_google_analytivs_code_if"}
+		{if $GOOGLE_ANALYTICS_CODE != '0'}
+			{block name="module_checkout_success_google_analytivs_code"}
+				{$GOOGLE_ANALYTICS_CODE}
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="module_checkout_success_module_yoochoose_if"}
+		{if $MODULE_yoochoose_checkout_tracking}
+			{block name="module_checkout_success_module_yoochoose"}
+				{$MODULE_yoochoose_checkout_tracking}
+			{/block}
+		{/if}
+	{/block}
+{/block}

@@ -1,0 +1,270 @@
+{load_language_text section="checkout_shipping"}
+
+{block name="module_checkout_shipping_block"}
+	{block name="module_checkout_shipping_block_title"}
+		<p class="space-1">{$txt.text_shipping}</p>
+	{/block}
+
+	{block name="module_checkout_shipping_block_free_shipping_if"}
+		{if $FREE_SHIPPING && !$module_content}
+			{block name="module_checkout_shipping_block_free_shipping"}
+				<ul class="list-group">
+					<li class="list-group-item free">
+						<div class="row">
+							<div class="col-xs-12 title">
+								{block name="module_checkout_shipping_block_free_shipping_container"}
+									<div class="shipping-module-container">
+										{block name="module_checkout_shipping_block_free_shipping_info"}
+											<span class="col-xs-12 col-sm-7 shipping-module-info">
+												{block name="module_checkout_shipping_block_free_shipping_title"}
+													<span class="shipping-module-title">
+														{$FREE_SHIPPING_TITLE}
+													</span>
+												{/block}
+												
+												{block name="module_checkout_shipping_block_free_shipping_description"}
+													<span class="shipping-module-description">
+														{if $module_data.module}
+															<span id="shipping_error">{$module_data.module}</span>
+															<br>
+														{/if}
+														
+														{$FREE_SHIPPING_DESCRIPTION}
+													</span>
+												{/block}
+											</span>
+										{/block}
+										
+										{block name="module_checkout_shipping_block_free_shipping_icon"}
+											<span class="hidden-xs col-sm-5 shipping-module-icon">
+												<img src="images/icons/shipping/freeamount.png"
+													 alt="{$module_data.logo_alt|strip_tags}"
+													 class="img-responsive">
+											</span>
+										{/block}
+									</div>
+								{/block}
+							</div>
+						</div>
+					</li>
+				</ul>
+			{/block}
+		{else}
+			{block name="module_checkout_shipping_block_list"}
+				<ul class="list-group">
+					{foreach name=aussen item=module_data from=$module_content}
+						{if $module_data.methods && $module_data.methods|@count > 0}
+							{block name="module_checkout_shipping_block_item"}
+								<li class="list-group-item {if $module_data.error}error{/if}">
+									{foreach key=$counter name=aussen item=method_data from=$module_data.methods}
+										<div class="row">
+											{block name="module_checkout_shipping_block_item_if"}
+												{if $module_data.methods && $module_data.methods|@count == 1 && !$module_data.error}
+													{block name="module_checkout_shipping_block_item_method"}
+														<div class="col-xs-12 title radio">
+															{block name="module_checkout_shipping_block_item_method_label"}
+																<label class="shipping-module-container" for="{$method_data.id}">
+																	{block name="module_checkout_shipping_block_item_method_selection"}
+																		<span class="shipping-module-selection">
+																			{$method_data.radio_field}
+																		</span>
+																	{/block}
+
+																	{block name="module_checkout_shipping_block_item_method_module_info"}
+																		<span class="col-xs-12 col-sm-7 shipping-module-info">
+																			{block name="module_checkout_shipping_block_item_method_module_info_title"}
+																				<span class="shipping-module-title">
+																					{$module_data.module}
+																				</span>
+																			{/block}
+
+																			{block name="module_checkout_shipping_block_item_method_module_info_price_if"}
+																				{if $method_data.price}
+																					{block name="module_checkout_shipping_block_item_method_module_info_price"}
+																						<span class="shipping-module-cost">
+																							({$method_data.price|ltrim})
+																						</span>
+																					{/block}
+																				{/if}
+																			{/block}
+
+																			{block name="module_checkout_shipping_block_item_method_module_info_description"}
+																				<span class="shipping-module-description">
+																					{$method_data.title}
+																				</span>
+																			{/block}
+																		</span>
+																	{/block}
+
+																	{block name="module_checkout_shipping_block_item_method_icon"}
+																		<span class="hidden-xs col-sm-5 shipping-module-icon">
+																			<img src="{$module_data.logo_url}" 
+																				 alt="{$module_data.logo_alt|strip_tags}" 
+																				 class="img-responsive">
+																		</span>
+																	{/block}
+																</label>
+															{/block}
+														</div>
+													{/block}
+												{elseif $module_data.error}
+													{block name="module_checkout_shipping_block_item_error"}
+														<div class="col-xs-12 title">
+															{block name="module_checkout_shipping_block_item_error_label"}
+																<label class="shipping-module-container">
+																	{block name="module_checkout_shipping_block_item_error_selection"}
+																		<span class="shipping-module-selection">
+																			<input type="radio" disabled>
+																		</span>
+																	{/block}
+
+																	{block name="module_checkout_shipping_block_item_error_module_info"}
+																		<span class="col-xs-12 col-sm-7 shipping-module-info">
+																			{block name="module_checkout_shipping_block_item_error_module_info_title"}
+																				<span class="shipping-module-title">
+																					{$module_data.module}
+																				</span>
+																			{/block}
+
+																			{block name="module_checkout_shipping_block_item_error_module_info_description"}
+																				<span id="shipping_error" class="shipping-module-description">
+																					{$module_data.error}
+																				</span>
+																			{/block}
+																		</span>
+																	{/block}
+
+																	{block name="module_checkout_shipping_block_item_error_icon"}
+																		<span class="hidden-xs col-sm-5 shipping-module-icon">
+																			<img src="{$module_data.logo_url}" 
+																				 alt="{$module_data.logo_alt|strip_tags}" 
+																				 class="img-responsive">
+																		</span>
+																	{/block}
+																</label>
+															{/block}
+														</div>
+													{/block}
+												{else}
+													{block name="module_checkout_shipping_block_item_group"}
+														{if $smarty.foreach.aussen.first}
+															<div class="col-xs-12 shipping-submodule-title title">
+																{block name="module_checkout_shipping_block_item_group_first_label"}
+																	<label class="shipping-module-container" for="{$method_data.id}">
+																		{block name="module_checkout_shipping_block_item_group_first_selection"}
+																			<span class="shipping-module-selection">
+																				<input type="radio" class="placeholder-radio">
+																			</span>
+																		{/block}
+
+																		{block name="module_checkout_shipping_block_item_group_first_module_info"}
+																			<span class="col-xs-12 col-sm-7 shipping-module-info">
+																				{block name="module_checkout_shipping_block_item_group_first_module_info_title"}
+																					<span class="shipping-module-title">
+																						{$module_data.module}
+																					</span>
+																				{/block}
+																			</span>
+																		{/block}
+																		
+																		{block name="module_checkout_shipping_block_item_group_first_icon"}
+																			<span class="hidden-xs col-sm-5 shipping-module-icon">
+																				<img src="{$module_data.logo_url}" 
+																					 alt="{$module_data.logo_alt|strip_tags}"
+																					 class="img-responsive">
+																			</span>
+																		{/block}
+																	</label>
+																{/block}
+															</div>
+														{/if}
+														<div class="shipping-submodule shipping_item_box button_checkout_module">
+															<div class="col-xs-12 title radio">
+																{block name="module_checkout_shipping_block_item_group_label"}
+
+																	{block name="module_checkout_shipping_block_item_group_selection"}
+																		<span class="shipping-submodule-selection">{$method_data.radio_field}</span>
+																	{/block}
+
+																	{block name="module_checkout_shipping_block_item_group_module_container"}
+																		<label class="shipping-module-container" for="{$method_data.id}">
+																			{block name="module_checkout_shipping_block_item_group_module_info"}
+																				<span class="col-xs-12 col-sm-7 shipping-module-info">
+																					{block name="module_checkout_shipping_block_item_group_module_info_title"}
+																						<span class="shipping-module-title">
+																							{$method_data.title}
+																						</span>
+																					{/block}
+
+																					{block name="module_checkout_shipping_block_item_group_module_info_price_if"}
+																						{if $method_data.price}
+																							{block name="module_checkout_shipping_block_item_group_module_info_price"}
+																								<span class="shipping-module-cost">
+																									({$method_data.price|ltrim})
+																								</span>
+																							{/block}
+																						{/if}
+																					{/block}
+																				</span>
+																			{/block}
+																		</label>
+																	{/block}
+																{/block}
+															</div>
+														</div>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/foreach}
+								</li>
+							{/block}
+						{else}
+							{block name="module_checkout_shipping_block_no_method"}
+								<li class="list-group-item error">
+									<div class="row">
+										<div class="col-xs-12 title">
+											{block name="module_checkout_shipping_block_no_method_label"}
+												<label class="shipping-module-container">
+													{block name="module_checkout_shipping_block_no_method_selection"}
+														<span class="shipping-module-selection">
+															<input type="radio" disabled>
+														</span>
+													{/block}
+
+													{block name="module_checkout_shipping_block_no_method_module_info"}
+														<span class="col-xs-12 col-sm-7 shipping-module-info">
+															{block name="module_checkout_shipping_block_no_method_module_info_title"}
+																<span class="shipping-module-title">
+																	{$module_data.module}
+																</span>
+															{/block}
+
+															{block name="module_checkout_shipping_block_no_method_module_info_description"}
+																<span id="shipping_error" class="shipping-module-description">
+																	{$module_data.error}
+																</span>
+															{/block}
+														</span>
+													{/block}
+
+													{block name="module_checkout_shipping_block_no_method_icon"}
+														<span class="hidden-xs col-sm-5 shipping-module-icon">
+															<img src="{$module_data.logo_url}"
+																 alt="{$module_data.logo_alt|strip_tags}"
+																 class="img-responsive">
+														</span>
+													{/block}
+												</label>
+											{/block}
+										</div>
+									</div>
+								</li>
+							{/block}
+						{/if}
+					{/foreach}
+				</ul>
+			{/block}
+		{/if}
+	{/block}
+{/block}

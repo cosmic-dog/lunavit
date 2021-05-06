@@ -1,0 +1,385 @@
+{load_language_text section="checkout_payment"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="withdrawal" name="withdrawal"}
+{load_language_text section="amazonadvancedpayment" name="amzadvpay"}
+{load_language_text section="general" name="general"}
+
+{block name="module_checkout_payment"}
+	{block name="module_checkout_payment_process_funnel"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=3}
+	{/block}
+
+	{block name="module_checkout_payment_alert_if"}
+		{if $error != ''}
+			{block name="module_checkout_payment_alert"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_checkout_payment_form"}
+		<form id="checkout_payment" action="{$FORM_ACTION_URL}" method="post" class="form-horizontal">
+			
+			{block name="module_checkout_payment_address_label"}
+				<fieldset>
+					{block name="module_checkout_payment_address_label_legend"}
+						<legend>{$txt.title_address}</legend>
+					{/block}
+					
+					{block name="module_checkout_payment_address_label_container"}
+						{if $amazonadvpay_active}
+							{block name="module_checkout_payment_address_label_amazonpay"}
+								{$amzadvpay.note_billing_address}
+							{/block}
+						{else}
+							{block name="module_checkout_payment_address_label_no_amazonpay"}
+								<div class="row">
+									<div class="col-md-12 indent-sm-1">
+										{block name="module_checkout_payment_address_label_no_amazonpay_address"}
+											<address>{$ADDRESS_LABEL}</address>
+										{/block}
+									</div>
+									<div class="col-md-12 indent-sm-1 space-1">
+										{block name="module_checkout_payment_address_label_no_amazonpay_change"}
+											<a class="btn btn-default btn-sm" href="{'checkout_payment_address.php'|xtc_href_link:'':'SSL'}">{$button.address_change}</a>
+										{/block}
+									</div>
+								</div>
+							{/block}
+						{/if}
+					{/block}
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_payment_payment_block"}
+				<fieldset>
+					{block name="module_checkout_payment_payment_block_legend"}
+						<legend>{$txt.heading_payment}</legend>
+					{/block}
+					
+					{block name="module_checkout_payment_payment_block_container"}
+						<div class="row">
+							<div class="col-xs-12 indent-sm-1 items">
+								{block name="module_checkout_payment_payment_block_gc_cover_if"}
+									{if $GV_COVER != 'true'}
+										{if $smarty.session.amz_loginpay && $smarty.session.payment === 'amazonadvpay'}
+											{block name="module_checkout_payment_payment_block_amazonpay_login"}
+												<div id="amzPayWallet"
+													 data-gambio-widget="amazon_loginpay"
+													 data-amazon_loginpay-placeholder-id="amzPayWallet"
+													 data-amazon_loginpay-mode="wallet"
+													 data-amazon_loginpay-seller-id="{$amz_seller_id}"
+													 data-amazon_loginpay-client-id="{$amz_client_id}"
+													 data-amazon_loginpay-widgets-src="{$amz_widgets_src}"
+													 data-amazon_loginpay-order-reference-id="{$smarty.session.amazonadvpay_order_ref_id}"
+												>
+													<img src="{$tpl_path}/assets/images/loading.gif" alt="loading">
+												</div>
+												<a class="btn btn-default" href="checkout_shipping.php?amazonpay=stop">{$amzadvpay.use_different_payment}</a>
+											{/block}
+										{elseif $amazonadvpay_active}
+											{block name="module_checkout_payment_payment_block_amazonpay"}
+												<input type="hidden" name="payment" value="amazonadvpay">
+												{amazon_payment id='walletWidgetDiv'}
+											{/block}
+										{else}
+											{block name="module_checkout_payment_payment_block_no_amazonpay"}
+												<p class="space-1">{$txt.text_payment}</p>
+												{$PAYMENT_BLOCK}
+											{/block}
+										{/if}
+									
+										{block name="module_checkout_payment_payment_block_gift"}
+											{$module_gift}
+										{/block}
+									{else}
+										{block name="module_checkout_payment_payment_block_gc_cover"}
+											<input type="hidden" name="cot_gv" value="on" />
+											<p>{$txt.text_gccover}</p>
+										{/block}
+									{/if}
+								{/block}
+							</div>
+						</div>
+					{/block}
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_payment_comment"}
+				<fieldset>
+					{block name="module_checkout_payment_comment_legend"}
+						<legend>{$txt.title_comments}</legend>
+					{/block}
+					
+					{block name="module_checkout_payment_comment_container"}
+						<div class="form-group">
+							<div class="col-sm-12 indent-sm-1">
+								{block name="module_checkout_payment_comment_label"}
+									<label for="{$COMMENTS_NAME}">{$txt.text_comments}</label>
+								{/block}
+								
+								{block name="module_checkout_payment_comment_input"}
+									<textarea placeholder="{$txt.text_comments}" id="{$COMMENTS_NAME}" name="{$COMMENTS_NAME}" class="form-control" wrap="{$COMMENTS_WRAP}">{$COMMENTS_VALUE}</textarea>
+								{/block}
+							</div>
+						</div>
+					{/block}
+					
+					<input type="hidden" name="{$COMMENTS_HIDDEN_NAME}" value="{$COMMENTS_HIDDEN_VALUE}" />
+				</fieldset>
+			{/block}
+			
+			{block name="module_checkout_payment_withdrawal_if"}
+				{if $SHOW_WITHDRAWAL || $show_abandonment_download || $show_abandonment_service}
+					{block name="module_checkout_payment_withdrawal"}
+						<fieldset data-gambio-widget="radio_selection" data-radio_selection-selection="div.checkbox" >
+							{block name="module_checkout_payment_withdrawal_legend"}
+								<legend>
+									{$txt.title_withdrawal} <a href="request_port.php?module=ShopContent&action=download&coID={gm_get_conf get="GM_WITHDRAWAL_CONTENT_ID"}" title="{$withdrawal.download_as_pdf}"><span class="fa fa-download"></span><span class="hidden-xs"> {$withdrawal.download_as_pdf}</span></a>
+								</legend>
+							{/block}
+							
+							{foreach key=index from=$withdrawal_array item=withdrawal_data}
+								{block name="module_checkout_payment_withdrawal_content_if"}
+									{if $withdrawal_data.data_type == 'content'}
+										{block name="module_checkout_payment_withdrawal_content"}
+											<div class="form-group">
+												<div class="col-sm-12 indent-sm-1">
+													{block name="module_checkout_payment_withdrawal_content_label"}
+														<label>{($SHOW_CHECKBOX_WITHDRAWAL && $index == 0) ? $txt.text_withdrawal : "" }</label>
+													{/block}
+													
+													{block name="module_checkout_payment_withdrawal_content_text"}
+														<div class="miscellaneous-container" id="{$withdrawal_data.data.NAME}">{$withdrawal_data.data.TEXT}</div>
+													{/block}
+												</div>
+											</div>
+										{/block}
+									{elseif $withdrawal_data.data_type == 'iframe'}
+										{block name="module_checkout_payment_withdrawal_iframe"}
+											<div class="form-group">
+												<div class="col-sm-12 indent-sm-1">
+													{block name="module_checkout_payment_withdrawal_iframe_label"}
+														<label>{($SHOW_CHECKBOX_WITHDRAWAL && $index == 0) ? $txt.text_withdrawal : "" }</label>
+													{/block}
+													
+													{block name="module_checkout_payment_withdrawal_iframe_iframe"}
+														<div class="miscellaneous-container iframe">
+															<iframe src="{$withdrawal_data.data.IFRAME_URL}" id="{$withdrawal_data.data.NAME}" name="{$withdrawal_data.data.NAME}"></iframe>
+														</div>
+													{/block}
+												</div>
+											</div>
+										{/block}
+									{/if}
+								{/block}
+							{/foreach}
+							
+							{block name="module_checkout_payment_withdrawal_accept_withdrawal_if"}
+								{if $SHOW_CHECKBOX_WITHDRAWAL}
+									{block name="module_checkout_payment_withdrawal_accept_withdrawal"}
+										<div class="row">
+											<div class="col-sm-12 indent-sm-1">
+												<div class="checkbox alert">
+													{block name="module_checkout_payment_withdrawal_accept_withdrawal_label"}
+														<label>
+															<input type="checkbox" name="withdrawal" id="withdrawal" value="withdrawal">
+															{$txt.text_accept_withdrawal}
+														</label>
+													{/block}
+												</div>
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_checkout_payment_withdrawal_abandonment_download_if"}
+								{if $show_abandonment_download}
+									{block name="module_checkout_payment_withdrawal_abandonment_download"}
+										<div class="row">
+											<div class="col-sm-12 indent-sm-1">
+												<div class="checkbox alert">
+													{block name="module_checkout_payment_withdrawal_abandonment_download_label"}
+														<label>
+															<input type="checkbox" name="abandonment_download" id="abandonment_download" value="abandonment_download">
+															{$withdrawal.text_abandonment_download}
+														</label>
+													{/block}
+												</div>
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_checkout_payment_withdrawal_abandoment_service_if"}
+								{if $show_abandonment_service}
+									{block name="module_checkout_payment_withdrawal_abandoment_service"}
+										<div class="row">
+											<div class="col-sm-12 indent-sm-1">
+												<div class="checkbox alert">
+													{block name="module_checkout_payment_withdrawal_abandoment_service_label"}
+														<label>
+															<input type="checkbox" name="abandonment_service" id="abandonment_service" value="abandonment_service">
+															{$withdrawal.text_abandonment_service}
+														</label>
+													{/block}
+												</div>
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payment_agb_if"}
+				{if $AGB_IFRAME == 1 || $conditions_data.TEXT}
+					{block name="module_checkout_payment_agb"}
+						<fieldset data-gambio-widget="radio_selection" data-radio_selection-selection="div.checkbox" >
+							{block name="module_checkout_payment_agb_legend"}
+								<legend>
+									{$txt.title_agb} <a href="request_port.php?module=ShopContent&action=download&coID=3" title="{$withdrawal.download_as_pdf}"><span class="fa fa-download"></span><span class="hidden-xs"> {$withdrawal.download_as_pdf}</span></a>
+								</legend>
+							{/block}
+							
+							{block name="module_checkout_payment_agb_iframe_if"}
+								{if $AGB_IFRAME == 1}
+									{block name="module_checkout_payment_agb_iframe"}
+										<div class="form-group">
+											<div class="col-sm-12 indent-sm-1">
+												{block name="module_checkout_payment_agb_iframe_label"}
+													<label>{($SHOW_CONDITIONS_CHECKBOX) ? $txt.text_agb : "" }</label>
+												{/block}
+												
+												{block name="module_checkout_payment_agb_iframe_iframe"}
+													<div class="miscellaneous-container iframe">
+														<iframe src="{$AGB_IFRAME_URL}" readonly="readonly"></iframe>
+													</div>
+												{/block}
+											</div>
+										</div>
+									{/block}
+								{else}
+									{block name="module_checkout_payment_agb_no_iframe"}
+										<div class="form-group">
+											<div class="col-sm-12 indent-sm-1">
+												{block name="module_checkout_payment_agb_no_iframe_label"}
+													<label>{($SHOW_CONDITIONS_CHECKBOX) ? $txt.text_agb : "" }</label>
+												{/block}
+												
+												{block name="module_checkout_payment_agb_no_iframe_text"}
+													<div class="miscellaneous-container" id="{$conditions_data.NAME}">{$conditions_data.TEXT}</div>
+												{/block}
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_checkout_payment_agb_conditions_if"}
+								{if $SHOW_CONDITIONS_CHECKBOX}
+									{block name="module_checkout_payment_agb_conditions"}
+										<div class="row">
+											<div class="col-sm-12 indent-sm-1">
+												<div class="checkbox alert">
+													{block name="module_checkout_payment_agb_conditions_checkbox"}
+														<label>
+															<input type="checkbox" name="conditions" id="conditions" value="conditions">
+															{$txt.text_accept_agb}
+														</label>
+													{/block}
+												</div>
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payment_transport_if"}
+				{if $TRANSPORT_CONDITIONS_IFRAME == 1 || $TRANSPORT_CONDITIONS_TEXT}
+					{block name="module_checkout_payment_transport"}
+						<fieldset data-gambio-widget="radio_selection" data-radio_selection-selection="div.checkbox" >
+							{block name="module_checkout_payment_transport_legend"}
+								<legend>
+									{$txt.title_transport_conditions} <a href="request_port.php?module=ShopContent&action=download&coID=3210123" title="{$withdrawal.download_as_pdf}"><span class="fa fa-download"></span><span class="hidden-xs"> {$withdrawal.download_as_pdf}</span></a>
+								</legend>
+							{/block}
+							
+							{block name="module_checkout_payment_transport_iframe_if"}
+								{if $TRANSPORT_CONDITIONS_IFRAME == 1}
+									{block name="module_checkout_payment_transport_iframe"}
+										<div class="form-group">
+											<div class="col-sm-12 indent-sm-1">
+												{block name="module_checkout_payment_transport_iframe_label"}
+													<label>{$txt.text_transport_conditions}</label>
+												{/block}
+												
+												{block name="module_checkout_payment_transport_iframe_iframe"}
+													<div class="miscellaneous-container iframe">
+														<iframe src="{$TRANSPORT_CONDITIONS_IFRAME_URL}" readonly="readonly"></iframe>
+													</div>
+												{/block}
+											</div>
+										</div>
+									{/block}
+								{else}
+									{block name="module_checkout_payment_transport_no_iframe"}
+										<div class="form-group">
+											<div class="col-sm-12 indent-sm-1">
+												{block name="module_checkout_payment_transport_no_iframe_label"}
+													<label>{$txt.text_transport_conditions}</label>
+												{/block}
+												
+												{block name="module_checkout_payment_transport_no_iframe_text"}
+													<div class="miscellaneous-container">{$TRANSPORT_CONDITIONS_TEXT}</div>
+												{/block}
+											</div>
+										</div>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_checkout_payment_transport_conditions"}
+								<div class="row">
+									<div class="col-sm-12 indent-sm-1">
+										<div class="checkbox alert">
+											{block name="module_checkout_payment_transport_conditions_checkbox"}
+												<label>
+													<input type="checkbox" name="accept_transport_conditions" id="accept_transport_conditions" value="1">
+													{$txt.text_accept_transport_conditions}
+												</label>
+											{/block}
+										</div>
+									</div>
+								</div>
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_checkout_payment_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3 back_button">
+						{block name="module_checkout_payment_buttons_back"}
+							<a href="{$BUTTON_BACK_URL }" class="btn btn-default btn-block">{$button.back}</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right continue_button">
+						{block name="module_checkout_payment_buttons_submit"}
+							<input type="submit" class="btn btn-primary btn-block" value="{$button.continue}">
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</form>
+	{/block}
+{/block}

@@ -1,0 +1,44 @@
+{load_language_text section="buttons" name="button"}
+
+{block name="module_content"}
+	{block name="module_content_title_if"}
+		{if $content_data.CONTENT_HEADING}
+			{block name="module_content_title"}
+				<h1>{$content_data.CONTENT_HEADING}</h1>
+			{/block}
+		{/if}
+	{/block}
+		
+	{block name="module_content_content"}
+		<p>
+			{block name="module_content_content_if"}
+				{if $content_data.file}
+					{$content_data.file}
+				{else}
+					{$content_data.CONTENT_BODY}
+				{/if}
+			{/block}
+		</p>
+	{/block}
+	
+	{block name="module_content_buttons_if"}
+		{if $content_data.HIDE_BOTTOM == false}
+			{block name="module_content_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_content_buttons_back"}
+							<a class="btn btn-default btn-block history-back" href="{page_url}#" title="{$button.back}">
+								{$button.back}
+							</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_content_buttons_empty"}
+							&nbsp;
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

@@ -1,0 +1,94 @@
+{load_language_text section="account_history"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_account_history"}
+	{block name="module_account_history_title"}
+		<h1>{$txt.heading_history}</h1>
+	{/block}
+			
+	{foreach name=aussen item=order_data from=$order_content}
+		{block name="module_account_history_element"}
+			<div class="order-history-element">
+				{block name="module_account_history_element_title"}
+					<h3>{$txt.title_order_number}{$order_data.ORDER_ID}</h3>
+				{/block}
+				<dl class="row">
+					{block name="module_account_history_element_date_label"}
+						<dt class="col-xs-4 col-sm-3 col-md-2">
+							{$txt.label_date}
+						</dt>
+					{/block}
+					{block name="module_account_history_element_date"}
+						<dd class="col-xs-8 col-sm-9 col-md-10">
+							{$order_data.ORDER_DATE}
+						</dd>
+					{/block}
+					{block name="module_account_history_element_products_label"}
+						<dt class="col-xs-4 col-sm-3 col-md-2">
+							{$txt.label_articles}
+						</dt>
+					{/block}
+					{block name="module_account_history_element_products"}
+						<dd class="col-xs-8 col-sm-9 col-md-10">
+							{$order_data.ORDER_PRODUCTS}
+						</dd>
+					{/block}
+					{block name="module_account_history_element_total_label"}
+						<dt class="col-xs-4 col-sm-3 col-md-2">
+							{$txt.label_total}
+						</dt>
+					{/block}
+					{block name="module_account_history_element_total"}
+						<dd class="col-xs-8 col-sm-9 col-md-10">
+							{$order_data.ORDER_TOTAL}
+						</dd>
+					{/block}
+					{block name="module_account_history_element_status_label"}
+						<dt class="col-xs-4 col-sm-3 col-md-2">
+							{$txt.label_status}
+						</dt>
+					{/block}
+					{block name="module_account_history_element_status"}
+						<dd class="col-xs-8 col-sm-9 col-md-10">
+							{$order_data.ORDER_STATUS}
+						</dd>
+					{/block}
+				</dl>
+				
+				{block name="module_account_history_element_buttons"}
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_account_history_element_buttons_show"}
+								<a class="btn btn-primary btn-block" href="{$order_data.BUTTON_URL}" title="{$button.show}">
+									{$button.show}
+								</a>
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_account_history_element_buttons_empty"}
+								&nbsp;
+							{/block}
+						</div>
+					</div>
+				{/block}
+			</div>
+		{/block}
+	{/foreach}
+
+	{block name="module_account_history_buttons"}
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				{block name="module_account_history_buttons_back"}
+					<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+						{$button.back}
+					</a>
+				{/block}
+			</div>
+			<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+				{block name="module_account_history_buttons_empty"}
+					&nbsp;
+				{/block}
+			</div>
+		</div>
+	{/block}
+{/block}

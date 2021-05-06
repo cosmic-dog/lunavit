@@ -1,0 +1,70 @@
+{load_language_text section="address_book_process"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_address_book_process"}
+	{block name="module_address_book_process_title"}
+		<h1>{$txt.heading_address}</h1>
+	{/block}
+	
+	{block name="module_address_book_process_form"}
+		<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}">
+			{block name="module_address_book_process_alert"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+			{/block}
+			
+			{block name="module_address_book_process_details"}
+				{$MODULE_address_book_details}
+			{/block}
+		
+			{if $delete=='1'}
+				{block name="module_address_book_process_delete_alert"}
+					{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$txt.text_delete type="success"}
+				{/block}
+			
+				{block name="module_address_book_process_delete"}
+					<div class="row">
+						<div class="col-xs-12">
+							{block name="module_address_book_process_delete_title"}
+								<h3>{$txt.title_delete}</h3>
+							{/block}
+							{block name="module_address_book_process_delete_address"}
+								<p>{$ADDRESS}</p>
+							{/block}
+						</div>
+					</div>
+					<br />
+					{block name="module_address_book_process_delete_buttons"}
+						<div class="row">
+							<div class="col-xs-6 col-sm-4 col-md-3">
+								{block name="module_address_book_process_delete_buttons_back"}
+									<a class="btn btn-default btn-block" href="{$BUTTON_BACK_URL}" title="{$button.back}">
+										{$button.back}
+									</a>
+								{/block}
+							</div>
+							<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+								{block name="module_address_book_process_delete_buttons_update_if"}
+									{if $SHOW_UPDATE_BUTTON}
+										{block name="module_address_book_process_delete_buttons_update"}
+											<button type="submit" class="btn btn-primary btn-block" title="{$button.update}">
+												{$button.update}
+											</button>
+										{/block}
+									{/if}
+								{/block}
+								
+								{block name="module_address_book_process_delete_buttons_delete"}
+									<a class="btn btn-danger btn-block" href="{$BUTTON_DELETE_URL}" title="{$button.delete}">
+										{$button.delete}
+									</a>
+								{/block}
+							</div>
+						</div>
+					{/block}
+				{/block}
+			
+				{$BUTTON_UPDATE_HIDDEN_FIELDS}
+			{/if}
+		</form>
+	{/block}
+{/block}

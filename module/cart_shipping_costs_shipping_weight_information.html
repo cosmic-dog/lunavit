@@ -1,0 +1,17 @@
+{load_language_text section="order_details"}
+
+{block name="module_cart_shipping_costs_shipping_weight_information"}
+	<span class="shipping-calculator-shipping-weight-unit col-xs-12 col-sm-9">
+		{block name="module_cart_shipping_costs_shipping_weight_information_text"}
+			{$content_data.shipping_weight} {$txt.text_weight_unit}
+		{/block}
+				
+		{block name="module_cart_shipping_costs_shipping_weight_information_image_if"}
+			{if $content_data.show_shipping_weight_info == 1}
+				{block name="module_cart_shipping_costs_shipping_weight_information_image"}
+					<img src="{$tpl_path}assets/images/icon_cart_shipping_costs_info.png" alt="{$txt.shipping_weight_info}" title="{$txt.shipping_weight_info}" />
+				{/block}
+			{/if}
+		{/block}
+	</span>
+{/block}

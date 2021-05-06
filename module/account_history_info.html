@@ -1,0 +1,283 @@
+{load_language_text section="account_history_info"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="withdrawal" name="withdrawal"}
+
+{block name="module_account_history_info"}
+	{block name="module_account_history_info_title"}
+		<h1>{$txt.heading_history_info}</h1>
+	{/block}
+
+	{block name="module_account_history_info_order"}
+		<dl class="row space-0">
+			{block name="module_account_history_info_order_number_label"}
+				<dt class="col-xs-6 col-sm-4 col-md-3">
+					{$txt.label_order_number}
+				</dt>
+			{/block}
+			{block name="module_account_history_info_order_number"}
+				<dd class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6">
+					{$ORDER_NUMBER} ({$ORDER_STATUS})
+				</dd>
+			{/block}
+			{block name="module_account_history_info_order_date_label"}
+				<dt class="col-xs-6 col-sm-4 col-md-3">
+					{$txt.label_order_date}
+				</dt>
+			{/block}
+			{block name="module_account_history_info_order_date"}
+				<dd class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6">
+					{$ORDER_DATE}
+				</dd>
+			{/block}
+		</dl>
+	{/block}
+
+	{block name="module_account_history_info_addresses"}
+		<div class="row">
+			<div class="col-xs-12">
+				{block name="module_account_history_info_shipping_title"}
+					<h3>{$txt.title_shipping_address}</h3>
+				{/block}
+				{block name="module_account_history_info_shipping_address"}
+					<p class="space-0">{$DELIVERY_LABEL}</p>
+				{/block}
+				
+				{block name="module_account_history_info_billing_if"}
+					{if $BILLING_LABEL}
+						{block name="module_account_history_info_billing_title"}
+							<h3>{$txt.title_payment_address}</h3>
+						{/block}
+						{block name="module_account_history_info_billing_address"}
+							<p class="space-0">{$BILLING_LABEL}</p>
+						{/block}
+					{/if}
+				{/block}
+			</div>
+		</div>
+	{/block}
+
+	{block name="module_account_history_info_shipping_method_if"}
+		{if $SHIPPING_METHOD}
+			{block name="module_account_history_info_shipping_method"}
+				<div class="row">
+					<div class="col-xs-12">
+						{block name="module_account_history_info_shipping_method_title"}
+							<h3>{$txt.title_shipping_method}</h3>
+						{/block}
+						{block name="module_account_history_info_shipping_method_text"}
+							<p class="space-0">{$SHIPPING_METHOD}</p>
+						{/block}
+						
+						{block name="module_account_history_info_shipping_method_tracking_if"}
+							{if $PARCEL_TRACKING_CODES_ARRAY}
+								{block name="module_account_history_info_shipping_method_tracking"}
+									<h4>{$txt.parcel_tracking_codes}</h4>
+									{foreach item=PARCEL_TRACKING_CODE from=$PARCEL_TRACKING_CODES_ARRAY}
+										{block name="module_account_history_info_shipping_method_tracking_code"}
+											<p>
+												<a href="{$PARCEL_TRACKING_CODE->getServiceUrl()|escape}" target="_blank">
+													{$PARCEL_TRACKING_CODE->getTrackingCode()|escape}
+												</a>
+												({$PARCEL_TRACKING_CODE->getServiceName()|escape})
+												<br />
+												{$PARCEL_TRACKING_CODE->getServiceComment()|nl2br}
+											</p>
+										{/block}
+									{/foreach}
+								{/block}
+							{/if}
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_account_history_info_billing_method_if"}
+		{if $PAYMENT_METHOD}
+			{block name="module_account_history_info_billing_method"}
+				<div class="row">
+					<div class="col-xs-12">
+						{block name="module_account_history_info_billing_method_title"}
+							<h3>{$txt.title_payment_method}</h3>
+						{/block}
+						{block name="module_account_history_info_billing_method_text"}
+							<p class="space-0">{$PAYMENT_METHOD}</p>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_account_history_info_history_if"}
+		{if $history_data}
+			{block name="module_account_history_info_history"}
+				<div class="row">
+					<div class="col-xs-12">
+						{block name="module_account_history_info_history_title"}
+							<h3>{$txt.title_history}</h3>
+						{/block}
+						<p>
+							{block name="module_account_history_info_history_summary_foreach"}
+								{foreach item=history_item from=$history_data}
+									{block name="module_account_history_info_history_summary"}
+										<p>
+											<dl class="space-0">
+												{block name="module_account_history_info_history_date"}
+													<dt>
+														{$history_item.date}:
+													</dt>
+												{/block}
+												{block name="module_account_history_info_history_status"}
+													<dd>
+														{$history_item.status_name}
+														{block name="module_account_history_info_history_comment_if"}
+															{if $history_item.comments}
+																{block name="module_account_history_info_history_comment"}
+																	<br />
+																	{$history_item.comments|htmlspecialchars|nl2br}
+																{/block}
+															{/if}
+														{/block}
+													</dd>
+												{/block}
+											</dl>
+										</p>
+									{/block}
+								{/foreach}
+							{/block}
+						</p>
+					</div>
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_account_history_info_products"}
+		{block name="module_account_history_info_products_title"}
+			<h3>{$txt.title_products}</h3>
+		{/block}
+
+		{block name="module_account_history_info_products_summary"}
+			{include file="get_usermod:{$tpl_path}snippets/order/account_history_order.html"}
+		{/block}
+	{/block}
+	
+	{block name="module_account_history_info_downloads_if"}
+		{if $downloads_content != '' || $abandonment_download || $abandonment_service}
+			{block name="module_account_history_info_downloads"}
+				<div class="row">
+					{block name="module_account_history_info_download_list"}
+						<ul class="col-xs-12">
+							{block name="module_account_history_info_download_content_if"}
+								{if $downloads_content != ''}
+									{block name="module_account_history_info_download_content"}
+										<li>
+											{$downloads_content}
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_account_history_info_download_abandonment_if"}
+								{if $abandonment_download}
+									{block name="module_account_history_info_download_abandonment"}
+										<li>
+											<input type="checkbox" disabled="disabled" checked="checked" />
+											{$abandonment_download}
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="module_account_history_info_download_service_if"}
+								{if $abandonment_service}
+									{block name="module_account_history_info_download_service"}
+										<li>
+											<input type="checkbox" disabled="disabled" checked="checked" />
+											{$abandonment_service}
+										</li>
+									{/block}
+								{/if}
+							{/block}
+						</ul>
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_account_history_info_withdrawal_if"}
+		{if $WITHDRAWAL_LINK && ($WITHDRAWAL_WEBFORM_ACTIVE == '1' || $WITHDRAWAL_PDF_ACTIVE == '1')}
+			{block name="module_account_history_info_withdrawal"}
+				{block name="module_account_history_info_withdrawal_title"}
+					<h3>§ {$withdrawal.withdrawal_form}</h3>
+				{/block}
+				{block name="module_account_history_info_withdrawal_summary"}
+					<dl class="row col-xs-12">
+						{block name="module_account_history_info_pdf_if"}
+							{if $WITHDRAWAL_PDF_ACTIVE == '1'}
+								{block name="module_account_history_info_pdf"}
+									<dt>
+										{$withdrawal.pdf_text}:
+									</dt>
+									<dd>
+										<a href="{$PDF_FORM_URL}" title="{$withdrawal.pdf_link_text}">
+											{$withdrawal.pdf_link_text}
+										</a>
+									</dd>
+								{/block}
+							{/if}
+						{/block}
+						{block name="module_account_history_info_webform_if"}
+							{if $WITHDRAWAL_WEBFORM_ACTIVE == '1'}
+								{block name="module_account_history_info_webform"}
+									<dt>
+										{$withdrawal.form_text}:
+									</dt>
+									<dd>
+										<a href="{$WITHDRAWAL_LINK}" title="{$withdrawal.form_link_text}">
+											{$withdrawal.form_link_text}
+										</a>
+									</dd>
+								{/block}
+							{/if}
+						{/block}
+						{block name="module_account_history_info_pdf_info_if"}
+							{if $WITHDRAWAL_PDF_ACTIVE == '1'}
+								{block name="module_account_history_info_pdf_info"}
+									<dt>
+										&nbsp;
+									</dt>
+									<dd>
+										{$withdrawal.pdf_info}
+									</dd>
+								{/block}
+							{/if}
+						{/block}
+					</dl>
+				{/block}
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_account_history_info_buttons"}
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				{block name="module_account_history_info_buttons_back"}
+					<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+						{$button.back}
+					</a>
+				{/block}
+			</div>
+			<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+				{block name="module_account_history_info_buttons_print"}
+					<a class="btn btn-primary btn-block lightbox_iframe" href="{$BUTTON_PRINT_URL}" title="{$button.print}">
+						{$button.print}
+					</a>
+				{/block}
+			</div>
+		</div>
+	{/block}
+{/block}

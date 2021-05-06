@@ -1,0 +1,30 @@
+{load_language_text section="payone" name="p1txt"}
+
+{block name="module_checkout_payone_cr"}
+	<div class="p1cr">
+		{block name="module_checkout_payone_cr_title"}
+			<h1>{$p1txt.credit_risk_heading}</h1>
+		{/block}
+		
+		{block name="module_checkout_payone_cr_form"}
+			<form id="p1crconfirm" action="{$content_data.form_action}" method="POST">
+				<p class="notice">
+					{block name="module_checkout_payone_cr_form_notice"}{$content_data.notice}{/block}
+				</p>
+				<p class="confirm">
+					{block name="module_checkout_payone_cr_form_confirmation"}{$content_data.confirmation}{/block}
+				</p>
+				<p class="buttons">
+					{block name="module_checkout_payone_cr_form_buttons"}
+						{block name="module_checkout_payone_cr_form_buttons_confirm"}
+							<input class="yesbutton" type="submit" name="confirm" value="{$p1txt.button_confirm}">
+						{/block}
+						{block name="module_checkout_payone_cr_form_buttons_noconfirm"}
+							<input class="nobutton" type="submit" name="noconfirm" value="{$p1txt.button_noconfirm}">
+						{/block}
+					{/block}
+				</p>
+			</form>
+		{/block}
+	</div>
+{/block}

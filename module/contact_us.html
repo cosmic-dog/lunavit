@@ -1,0 +1,163 @@
+{load_language_text section="contact_us"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_contact_us"}
+	{block name="module_contact_us_title"}
+		<h1>{$content_data.CONTACT_HEADING}</h1>
+	{/block}
+
+	{block name="module_contact_us_alert_danger"}
+		{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$content_data.error_message type="danger"}
+	{/block}
+	
+	{if $content_data.success != '1'}
+		{block name="module_contact_us_contact_content_if"}
+			{if $content_data.CONTACT_CONTENT}
+				{block name="module_contact_us_contact_content"}
+					{$content_data.CONTACT_CONTENT}
+				{/block}
+			{/if}
+		{/block}
+
+		{block name="module_contact_us_form"}
+			<form class="form-horizontal" id="{$content_data.FORM_ID}" action="{$content_data.FORM_ACTION_URL}" method="{$content_data.FORM_METHOD}">
+				{block name="module_contact_us_fieldset"}
+					<fieldset>
+						{block name="module_contact_us_name"}
+							<div class="form-group">
+								<label for="{$content_data.INPUT_NAME_NAME}" class="control-label col-sm-3">
+									{$txt.text_name}
+								</label>
+				
+								<div class="col-sm-9 col-lg-6 input-container">
+									<input type="text"
+										   placeholder="{$txt.text_name}"
+										   id="{$content_data.INPUT_NAME_NAME}"
+										   name="{$content_data.INPUT_NAME_NAME}"
+										   class="form-control"
+										   value="{$content_data.INPUT_NAME_VALUE}" />
+								</div>
+							</div>
+						{/block}
+						
+						{block name="module_contact_us_email"}
+							<div class="form-group mandatory">
+								<label for="{$content_data.INPUT_EMAIL_NAME}" class="control-label col-sm-3">
+									{$txt.text_email}
+								</label>
+				
+								<div class="col-sm-9 col-lg-6 input-container">
+									<input type="email"
+										   placeholder="{$txt.text_email}"
+										   id="{$content_data.INPUT_EMAIL_NAME}"
+										   name="{$content_data.INPUT_EMAIL_NAME}"
+										   class="form-control"
+										   value="{$content_data.INPUT_EMAIL_VALUE}" />
+								</div>
+							</div>
+						{/block}
+						
+						{block name="module_contact_us_subject"}
+							<div class="form-group">
+								<label for="{$content_data.INPUT_SUBJECT_NAME}" class="control-label col-sm-3">
+									{$txt.text_subject}
+								</label>
+				
+								<div class="col-sm-9 col-lg-6 input-container">
+									<input type="text"
+										   placeholder="{$txt.text_subject_placeholder}"
+										   id="{$content_data.INPUT_SUBJECT_NAME}"
+										   name="{$content_data.INPUT_SUBJECT_NAME}"
+										   class="form-control"
+										   value="{$content_data.INPUT_SUBJECT_VALUE|htmlspecialchars}" />
+								</div>
+							</div>
+						{/block}
+						
+						{block name="module_contact_us_message"}
+							<div class="form-group">
+								<label for="{$content_data.INPUT_TEXT_NAME}" class="control-label col-sm-3">
+									{$txt.text_message}
+								</label>
+				
+								<div class="col-sm-9 col-lg-6 input-container">
+				
+									<textarea placeholder="{$txt.text_message}"
+											  id="{$content_data.INPUT_TEXT_NAME}"
+											  name="{$content_data.INPUT_TEXT_NAME}"
+											  class="form-control">{$content_data.INPUT_TEXT_VALUE}</textarea>
+								</div>
+							</div>
+						{/block}
+						
+						{block name="module_contact_us_captcha_if"}
+							{if $content_data.GM_CONTACT_VVCODE == 'true'}
+								{block name="module_contact_us_captcha"}
+									<div class="form-group mandatory">
+										<label for="vvcode_input" class="control-label col-sm-3">
+											{$txt.text_captcha}
+										</label>
+					
+										<div class="col-sm-9 col-lg-6 input-container">
+											{$content_data.GM_CAPTCHA}
+										</div>
+									</div>
+								{/block}
+							{/if}
+						{/block}
+						
+						{block name="module_contact_us_privacy_if"}
+							{if $content_data.GM_PRIVACY_LINK != '0'}
+								<fieldset>
+									{if $content_data.show_privacy_checkbox}
+										{block name="module_contact_us_privacy_checkbox"}
+											<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $content_data.INPUT_PRIVACY_VALUE} checked="checked"{/if}/>
+											<label for="privacy_accepted">{$content_data.GM_PRIVACY_LINK}</label>
+										{/block}
+									{else}
+										{block name="module_contact_us_privacy_link"}
+											<span>{$content_data.GM_PRIVACY_LINK}</span>
+										{/block}
+									{/if}
+								</fieldset>
+							{/if}
+						{/block}
+						
+						{block name="module_contact_us_buttons"}
+							<div class="row">
+								<div class="col-xs-6 col-sm-4 col-md-3">
+									{block name="module_contact_us_buttons_back"}
+										<a class="btn btn-default btn-block history-back" href="{page_url}#" title="{$button.back}">
+											{$button.back}
+										</a>
+									{/block}
+								</div>
+								<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+									{* ADD FAKE INPUT FIELD FOR ANTI SPAM BOT MECHANISM *}
+									<label for="form-input" class="form-input"></label>
+									<input id="form-input" type="text" name="message" value="">
+									
+									{block name="module_contact_us_buttons_submit"}
+										<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+											{$button.send}
+										</button>
+									{/block}
+								</div>
+							</div>
+						{/block}
+					</fieldset>
+				{/block}
+				
+				{block name="module_contact_us_mandatory"}
+					<p class="mandatory-info">
+						{$txt.text_required}
+					</p>
+				{/block}
+			</form>
+		{/block}
+	{else}
+		{block name="module_contact_us_alert_success"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$txt.text_success type="success"}
+		{/block}
+	{/if}
+{/block}
