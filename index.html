@@ -1,0 +1,191 @@
+{load_language_text section="index"}
+
+{block name="index_head"}{$HEAD}{/block}
+
+{if $smarty.const.SHOP_OFFLINE}
+	{block name="index_shop_offline"}{html_shop_offline}{/block}
+{else}
+	{block name="index_popup_notification"}{$POPUP_NOTIFICATION}{/block}
+
+	{block name="index_outer_wrapper"}
+		<div id="outer-wrappera" class="say-whata" {if $TOPBAR && $TOPBAR !=''}class="topbar-active"{/if}>
+			{block name="index_outer_wrapper_header"}
+				<header id="header" class="navbar neu-header">
+					<div class="neu-header-top">
+						{block name="index_outer_wrapper_header_inside"}
+							<div class="inside">
+								
+								<div class="row">
+	<!-- 
+									{block name="index_outer_wrapper_header_inside_header"}
+										{assign var="hideLogo" value={template_setting name="gx-hide-logo-col"}}
+										{assign var="hideSearch" value={template_setting name="gx-hide-search-col"}}
+										{assign var="hideCustom" value={template_setting name="gx-hide-custom-1-col"}}
+										{assign var="hideCart" value={template_setting name="gx-hide-cart-col"}}
+
+										<div class="navbar-header" data-gambio-widget="mobile_menu">
+											{if !$hideLogo}
+												{block name="index_outer_wrapper_header_inside_header_logo"}
+													{include file="get_usermod:{$tpl_path}snippets/header/logo.html" logo_url=$logo_url logo_link=$logo_link}
+												{/block}
+											{/if}
+											
+											{block name="index_outer_wrapper_header_inside_header_buttons"}
+												{include file="get_usermod:{$tpl_path}snippets/header/header_navbar_buttons.html"}
+											{/block}
+										</div>
+									{/block} -->
+
+
+									
+
+									<!-- Working part -->
+									<div class="neu-header-left">
+										{block name="index_outer_wrapper_header_inside_custom_content_if"}
+											{if !$hideCustom}
+												{block name="index_outer_wrapper_header_inside_custom_content"}
+													{include file="get_usermod:{$tpl_path}snippets/header/header_custom_content.html" content={content_manager group=4321001}}
+												{/block}
+											{/if}
+										{/block}
+									</div>
+
+									<div class="neu-header-right">
+										{block name="index_outer_wrapper_header_inside_top_search_if"}
+											{if !$hideSearch}
+												{block name="index_outer_wrapper_header_inside_top_search"}{$TOP_SEARCH}{/block}
+											{/if}
+										{/block}
+											
+										{block name="index_outer_wrapper_header_top_navigation"}
+											{$TOP_NAVIGATION=$TOP_NAVIGATION|replace:"###COUNTRIES_DROPDOWN###":$COUNTRIES_DROPDOWN}
+											{$TOP_NAVIGATION=$TOP_NAVIGATION|replace:"###CURRENCIES_DROPDOWN###":$CURRENCIES_DROPDOWN}
+											{$TOP_NAVIGATION=$TOP_NAVIGATION|replace:"###LANGUAGES_DROPDOWN###":$LANGUAGES_DROPDOWN}
+											{$TOP_NAVIGATION=$TOP_NAVIGATION|replace:"###LOGIN_DROPDOWN###":$LOGIN_DROPDOWN}
+				
+											{assign var="showTopSearch" value={template_setting name="gx-show-search-top-nav"}}
+											{$TOP_NAVIGATION=$TOP_NAVIGATION|replace:"###TOP_SEARCH###":$TOP_SEARCH}
+				
+											{$TOP_NAVIGATION}
+										{/block}
+								
+										{block name="index_outer_wrapper_header_inside_shopping_cart_if"}
+											{if !$hideCart}
+												{block name="index_outer_wrapper_header_inside_shopping_cart"}
+													{$SHOPPING_CART_HEAD=$SHOPPING_CART_HEAD|replace:"###SHOPPING_CART_DROPDOWN###":$SHOPPING_CART_DROPDOWN}
+													{$SHOPPING_CART_HEAD}
+												{/block}
+											{/if}
+										{/block}
+									</div>
+
+								</div>
+								<!-- end of .row -->
+
+							</div>
+							<!-- end of .inside -->
+						{/block}
+
+
+
+						
+
+						{block name="index_outer_wrapper_header_topbar"}{$TOPBAR}{/block}
+
+						{block name="index_outer_wrapper_header_cookiebar"}{$COOKIEBAR}{/block}
+
+						{block name="index_outer_wrapper_header_noscript_warning"}
+							<noscript>
+								<div class="alert alert-danger noscript-notice">
+									{$txt.text_noscript_notice}
+								</div>
+							</noscript>
+						{/block}
+
+						{block name="index_outer_wrapper_header_categories_top_if"}
+							{if $CATEGORIES_TOP}
+								{block name="index_outer_wrapper_header_categories_top"}
+									{$CATEGORIES_TOP=$CATEGORIES_TOP|replace:"###CONTENT_TOP###":$CONTENT_TOP}
+									{$CATEGORIES_TOP}
+								{/block}
+							{else}
+								{block name="index_content_top"}{$CONTENT_TOP}{/block}
+							{/if}
+						{/block}
+					</div>
+				</header>
+			{/block}
+
+			{block name="index_outer_wrapper_imageslider"}
+				{include file="get_usermod:{$tpl_path}snippets/slider.html" slider=$IMGSLIDER}
+			{/block}
+
+			{block name="index_inner_wrapper"}
+				<div id="wrapper">
+					<div class="row">
+
+						{block name="index_inner_wrapper_main"}
+							<div id="main">
+								<div class="main-inside">
+									{content_manager group=3210129}
+									<h1>Testio</h1>
+									{content_manager group=3210129}
+																		
+									{block name="index_inner_wrapper_main_breadcrumb"}
+										{include file="get_usermod:{$tpl_path}snippets/navigation/breadcrumb.html" breadcrumb=$navtrail}
+									{/block}
+
+									{block name="index_inner_wrapper_main_banner"}
+										{include file="get_usermod:{$tpl_path}snippets/banner.html" banner=$BANNER}
+									{/block}
+									
+									{block name="index_inner_wrapper_main_content"}{$main_content}{/block}
+								</div>
+							</div>
+						{/block}
+
+						{block name="index_inner_wrapper_left"}
+							<aside id="left">
+								{block name="index_inner_wrapper_left_content"}
+									{if ""|show_left_column === true}
+										{menuboxes first=1 last=100 exclude="content"}
+									{/if}
+								{/block}
+								{block name="index_inner_wrapper_left_trusted_shops"}
+									{if $TRUSTED_SHOPS_REVIEW_STICKER|strpos:"variant: 'skyscraper_vertical'" !== false || $TRUSTED_SHOPS_REVIEW_STICKER|strpos:"variant: 'vertical'" !== false}
+										{$TRUSTED_SHOPS_REVIEW_STICKER}
+									{/if}
+								{/block}
+							</aside>
+						{/block}
+
+						{block name="index_inner_wrapper_right"}
+							<aside id="right">
+								{block name="index_inner_wrapper_right_content"}
+									{if ""|detect_page == 'Cat'}
+										{menuboxes first=101 last=200 exclude="content"}
+									{else}
+										{menuboxes first=101 last=200 exclude="content"}
+									{/if}
+								{/block}
+							</aside>
+						{/block}
+
+					</div>
+				</div>
+			{/block}
+
+			{block name="index_inner_wrapper_footer"}{footer}{/block}
+
+			{block name="index_inner_wrapper_trusted_shops_if"}
+				{if $TRUSTED_SHOPS_REVIEW_STICKER|strpos:"variant: 'skyscraper_horizontal'" !== false}
+					{block name="index_inner_wrapper_trusted_shops"}{$TRUSTED_SHOPS_REVIEW_STICKER}{/block}
+				{/if}
+			{/block}
+
+		</div>
+	{/block}
+
+{/if}
+
+{block name="index_bottom"}{$BOTTOM}{/block}
