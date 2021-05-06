@@ -1,0 +1,9 @@
+{if $logo_url}
+	{block name="snippets_header_logo"}
+		<div id="navbar-brand" class="navbar-brand">
+			<a href="{$logo_link}" title="{$smarty.const.STORE_NAME|escape:'html'}">
+				<img class="img-responsive" src="{$logo_url}" alt="{$smarty.const.STORE_NAME|escape:'html'}-Logo">
+			</a>
+		</div>
+	{/block}
+{/if}

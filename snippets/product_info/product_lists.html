@@ -1,0 +1,41 @@
+{block name="snippets_product_info_product_lists"}
+	{block name="snippets_product_info_product_lists_cross_selling"}
+		{$MODULE_cross_selling}
+	{/block}
+
+	{block name="snippets_product_info_product_lists_reverse_cross_selling"}
+		{$MODULE_reverse_cross_selling}
+	{/block}
+	
+	{block name="snippets_product_info_product_lists_also_purchased"}
+		{$MODULE_also_purchased}
+	{/block}
+	
+	{block name="snippets_product_info_product_lists_yoochoose_also_interesting"}
+		{$MODULE_yoochoose_also_interesting}
+	{/block}
+	
+	{block name="snippets_product_info_product_lists_yoochoose_product_tracking"}
+		{$MODULE_yoochoose_product_tracking}
+	{/block}
+	
+	{block name="snippets_product_info_product_lists_products_added_if"}
+		{if $PRODUCTS_ADDED}
+			{block name="snippets_product_info_product_lists_products_added"}
+				<div>
+					{$PRODUCTS_ADDED}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="snippets_product_info_product_lists_products_url_if"}
+		{if $PRODUCTS_URL}
+			{block name="snippets_product_info_product_lists_products_url"}
+				<div>
+					{$PRODUCTS_URL}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

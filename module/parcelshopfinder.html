@@ -1,0 +1,137 @@
+{load_language_text section="parcelshopfinder"}
+{load_language_text section="countries" name="txt_countries"}
+{load_language_text section="address_book_process" name="txt_address_book"}
+{load_language_text section="buttons" name="txt_buttons"}
+
+{block name="module_parcelshopfinder"}
+	{block name="module_parcelshopfinder_title"}
+		<h1>{$txt.heading_parcelshopfinder}</h1>
+	{/block}
+
+	{block name="module_parcelshopfinder_form"}
+		<form action="{$form_action}" method="GET" class="form-horizontal" id="psf-form">
+			<input type="hidden" name="do" value="{$do}">
+			<input type="hidden" name="checkout_started" value="{$checkout_started}">
+			<fieldset>
+				{block name="module_parcelshopfinder_street"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_street_label"}
+							<label class="control-label col-sm-3">{$txt_address_book.label_street}:</label>
+						{/block}
+						{block name="module_parcelshopfinder_street_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_street_input"}
+									<input class="form-control" name="street"  type="text" value="{$street }">
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_housenr"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_housenr_label"}
+							<label class="control-label col-sm-3">{$txt_address_book.label_house_number_long}:</label>
+						{/block}
+						{block name="module_parcelshopfinder_housenr_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_housenr_input"}
+									<input class="form-control" name="house"   type="text" value="{$house  }">
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_postcode"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_postcode_label"}
+							<label class="control-label col-sm-3">{$txt_address_book.label_code}:</label>
+						{/block}
+						{block name="module_parcelshopfinder_postcode_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_postcode_input"}
+									<input class="form-control" name="zip"     type="text" value="{$zip    }">
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_city"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_city_label"}
+							<label class="control-label col-sm-3">{$txt_address_book.label_city}:</label>
+						{/block}
+						{block name="module_parcelshopfinder_city_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_city_input"}
+									<input class="form-control" name="city"    type="text" value="{$city   }">
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_country"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_country_label"}
+							<label class="control-label col-sm-3">{$txt_address_book.label_country}:</label>
+						{/block}
+						{block name="module_parcelshopfinder_country_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_country_input"}
+									<select class="form-control" name="country">
+										{foreach from=$countries item=country_entry}
+											<option value="{$country_entry.countries_iso_code_2}" {if $country_entry.countries_iso_code_2 == $country}selected="selected"{/if}>
+												{$txt_countries[$country_entry.countries_iso_code_2]}
+											</option>
+										{/foreach}
+									</select>
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_filer"}
+					<div class="form-group">
+						{block name="module_parcelshopfinder_filer_label"}
+							<label class="control-label col-sm-3">{$txt.search_for}</label>
+						{/block}
+						{block name="module_parcelshopfinder_filer_container"}
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_parcelshopfinder_filer_input"}
+									<select class="form-control" name="filter">
+										<option value="both"{if $filter == 'both'} selected="selected"{/if}>{$txt.filter_both}</option>
+										<option value="offices"{if $filter == 'offices'} selected="selected"{/if}>{$txt.filter_offices}</option>
+										<option value="packstations"{if $filter == 'packstations'} selected="selected"{/if}>{$txt.filter_packstations}</option>
+									</select>
+								{/block}
+							</div>
+						{/block}
+					</div>
+				{/block}
+				{block name="module_parcelshopfinder_buttons"}
+					<div class="row">
+						<div class="col-xs-2">
+							{block name="module_parcelshopfinder_buttons_submit"}
+								<button type="submit" class="btn btn-primary" id="psfsubmit">
+									{$txt_buttons.search}
+								</button>
+							{/block}
+						</div>
+						<div class="col-xs-10">&nbsp;</div>
+					</div>
+				{/block}
+			</fieldset>
+		</form>
+	{/block}
+
+	{block name="module_parcelshopfinder_search_result"}
+		{$search_result}
+	{/block}
+
+	{block name="module_postfinder_buttons_back_btn"}
+		<div class="row" style="margin-top: 15px;">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				<a class="btn btn-default btn-block" href="#" onclick="history.go(-1)">{$txt_buttons.back}</a>
+			</div>
+		</div>
+	{/block}
+{/block}

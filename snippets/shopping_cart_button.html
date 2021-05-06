@@ -1,0 +1,53 @@
+{load_language_text section="shopping_cart"}
+{load_language_text section="general" name="general_txt"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="gift_cart" name="gift"}
+
+{block name="snippets_shopping_cart_button"}
+	<div class="total-block-wrapper">
+		{if $customer_status_allow_checkout == '1'}
+			{block name="snippets_shopping_cart_button_checkout_button"}
+				<a title="{$button.checkout}" class="btn btn-primary btn-block button-submit" href="{'checkout_shipping.php'|xtc_href_link:'':'SSL'}">{$button.checkout}</a>
+			{/block}
+		{/if}
+	
+		{if 'MODULE_CENTER_SHAREDSHOPPINGCART_INSTALLED'|gm_get_conf == '1'}
+			{block name="snippets_shopping_cart_button_shared_shoppingcart"}
+				<a href=".share-cart-layer" data-gambio-widget="share_cart_button_handler" title="{$general_txt.NAVBAR_SHARE_CART}" class="js-open-modal cart-action-link share-shopping-cart" data-modal-finish-event="SHARE_CART_MODAL_READY" data-modal-type="alert" data-modal-settings='{literal}{{/literal}"title": "{$sharedCart.title}", "dialogClass": "layer-medium", "buttons": [] {literal}}{/literal}'><span class="fa fa-share"></span> {$general_txt.NAVBAR_SHARE_CART}</a>
+			{/block}
+		{/if}
+	
+		{if $MODULE_gift_cart != ''}
+			<a title="{$general_txt.NAVBAR_GV_REDEEM}" class="cart-action-link"
+			   data-toggle="modal" data-target=".gift-cart-modal"
+			   onclick="$('div.redeem-code-details-wrapper').hide(); $('div.redeem-code-wrapper').show();"
+			>
+				<span class="fa fa-gift"></span> {$general_txt.NAVBAR_GV_REDEEM}
+			</a>
+		{/if}
+	</div>
+	
+	
+	{if $customer_status_allow_checkout == '1'}
+		{block name="snippets_shopping_cart_button_checkout_buttons"}
+			<div class="checkout-buttons">
+				{foreach name=cob item=cobutton from=$checkout_buttons}
+					{if $cobutton.script}
+						{$cobutton.script}
+					{else}
+						<a href="{$cobutton.url}">
+							<img src="{$cobutton.img}" />
+						</a>
+					{/if}
+					{if !$smarty.foreach.cob.last}{$txt.text_or}{/if}
+				{/foreach}
+			
+				{paypal_ec_button page='cart'}
+			</div>
+		{/block}
+	{/if}
+	
+	{block name="snippets_shopping_cart_button_paypal"}
+		{$PayPalInstallments}
+	{/block}
+{/block}

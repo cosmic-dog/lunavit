@@ -1,0 +1,147 @@
+{load_language_text section="newsletter"}
+{load_language_text section="address_book_process" name="address_book"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_newsletter"}
+	{block name="module_newsletter_title"}
+		<h1>{$txt.heading_title}</h1>
+	{/block}
+	
+	{if !$form_send}
+		{block name="module_newsletter_alert"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$info_message type="danger"}
+		{/block}
+
+		{block name="module_newsletter_form"}
+			<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}" class="form-horizontal">
+				<fieldset>
+					{block name="module_newsletter_email"}
+						<div class="form-group mandatory">
+							{block name="module_newsletter_email_label"}
+								<label for="{$INPUT_EMAIL_NAME}" class="control-label col-sm-3">
+									{$txt.label_email}
+								</label>
+							{/block}
+			
+							{block name="module_newsletter_email_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_newsletter_email_input"}
+										<input type="email"
+											   placeholder="{$txt.label_email}"
+											   id="{$INPUT_EMAIL_NAME}"
+											   name="{$INPUT_EMAIL_NAME}"
+											   class="form-control"
+											   value="{$INPUT_EMAIL_VALUE}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_newsletter_subscribe"}
+						<div class="form-group">
+							{block name="module_newsletter_subscribe_label"}
+								<label class="control-label col-sm-3">
+									{$txt.heading_title}
+								</label>
+							{/block}
+		
+							{block name="module_newsletter_subscribe_container"}
+								<div class="col-sm-9 input-container">
+									{block name="module_newsletter_subscribe_in_span"}
+										<span class="radio-inline">
+											{block name="module_newsletter_subscribe_in_label"}
+												<label for="{$INPUT_RADIO_NAME}-in">
+													{block name="module_newsletter_subscribe_in_input"}
+														<input type="radio" id="{$INPUT_RADIO_NAME}-in"  name="{$INPUT_RADIO_NAME}" value="{$INPUT_SUBSCRIBE_VALUE}" />
+														{$txt.text_in}
+													{/block}
+												</label>
+											{/block}
+										</span>
+									{/block}
+									<br />
+									{block name="module_newsletter_subscribe_out_span"}
+										<span class="radio-inline">
+											{block name="module_newsletter_subscribe_out_label"}
+												<label for="{$INPUT_RADIO_NAME}-out">
+													{block name="module_newsletter_subscribe_out_input"}
+														<input type="radio" id="{$INPUT_RADIO_NAME}-out"  name="{$INPUT_RADIO_NAME}" value="{$INPUT_UNSUBSCRIBE_VALUE}" />
+														{$txt.text_out}
+													{/block}
+												</label>
+											{/block}
+										</span>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{if $VALIDATION_ACTIVE == 'true'}
+						{block name="module_newsletter_captcha"}
+							<div class="form-group mandatory">
+								{block name="module_newsletter_captcha_label"}
+									<label for="{$INPUT_CODE_NAME}" class="control-label col-sm-3">
+										{$txt.label_captcha}
+									</label>
+								{/block}
+			
+								{block name="module_newsletter_captcha_container"}
+									<div class="col-sm-9 col-lg-6 input-container">
+										{block name="module_newsletter_captcha_input"}
+											<img src="{$VVIMG_URL}" alt="{$txt.label_captcha|escape:"html"}" title="{$txt.label_captcha|escape:"html"}" id="vvcode_image" />
+											<input type="text" placeholder="{$label}" id="{$INPUT_CODE_NAME}" name="{$INPUT_CODE_NAME}" class="form-control" value="" />
+										{/block}
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+		
+					{if $GM_PRIVACY_LINK != '0'}
+						{block name="module_newsletter_privacy"}
+							{if $show_privacy_checkbox}
+								{block name="module_newsletter_privacy_checkbox"}
+									<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $privacy_accepted} checked="checked"{/if}/>
+									<label for="privacy_accepted">{$GM_PRIVACY_LINK}</label>
+								{/block}
+							{else}
+								{block name="module_newsletter_privacy_link"}
+									<span>{$GM_PRIVACY_LINK}</span>
+								{/block}
+							{/if}
+						{/block}
+					{/if}
+				</fieldset>
+				
+				{block name="module_newsletter_buttons"}
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_newsletter_buttons_empty"}
+								&nbsp;
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_newsletter_buttons_submit"}
+								<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+									{$button.send}
+								</button>
+							{/block}
+						</div>
+					</div>
+				{/block}
+				
+				{block name="module_newsletter_mandatory"}
+					<p class="mandatory-info">
+						{$txt.text_must}
+					</p>
+				{/block}
+			</form>
+		{/block}
+	{else}
+		{block name="module_newsletter_form_send"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$info_message type="success"}
+		{/block}
+	{/if}
+{/block}

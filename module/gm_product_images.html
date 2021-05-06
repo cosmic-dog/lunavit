@@ -1,0 +1,33 @@
+{load_language_text section="buttons" name="button"}
+
+{block name="module_gm_product_images"}
+	<div id="product_images_box" style="width:{$BOX_WIDTH}px; margin-left:auto; margin-right:auto">
+		{block name="module_gm_product_images_title"}
+			<h1>{$PRODUCTS_NAME}</h1>
+		{/block}
+		
+		<div id="wrap_images" style="width:{$POPUP_WIDTH}px">
+			{block name="module_gm_product_images_active"}
+				<div id="active_image"><img src="{$ACTIVE_IMAGE}" alt="" title="" /></div>
+			{/block}
+				
+			{if $image_data}
+				{block name="module_gm_product_images_list"}
+					<ul>
+						{foreach name=aussen item=image_item from=$image_data}
+							{block name="module_gm_product_images_item"}
+								<li style="width:{$THUMBNAIL_WIDTH}px;height:{$THUMBNAIL_HEIGHT}px" class="inactive" id="image_{$image_item.IMAGE_NR}">
+									<a href="{$image_item.IMAGE_NAME}" onclick="return false"><img style="padding-top:{$image_item.IMAGE_PADDING}px;" src="{$image_item.IMAGE_NAME}" alt="{$image_item.IMAGE_ALT}" title="{$image_item.IMAGE_ALT}" /></a>
+								</li>
+							{/block}
+						{/foreach}
+					</ul>
+				{/block}
+			{/if}
+		</div>
+		
+		{block name="module_gm_product_images_close"}
+			<div id="footer" onclick="gmLightBox.close_box()">{$button.close}</div>
+		{/block}
+	</div>
+{/block}

@@ -1,0 +1,40 @@
+{load_language_text section="checkout_payment" name="payment"}
+
+{block name="snippets_navigation_process_funnel"}
+	<ul class="checkout-processfunnel row">
+		{block name="snippets_navigation_process_funnel_your_data"}
+			<li class="col-xs-{if $step == 1}4 active{else}2{/if}">
+				<span class="step-text {if $step !== 1}hidden-xs{/if}">{$payment.text_yourdata}</span>
+				{if $step !== 1}<span class="step-text visble-xs"><i class="fa fa-user"></i></span>{/if}
+			</li>
+		{/block}
+	
+		{block name="snippets_navigation_process_funnel_ship"}
+			<li class="col-xs-{if $step == 2}4 active{else}2{/if}">
+				<span class="step-text {if $step !== 2}hidden-xs{/if}">{$payment.text_ship}</span>
+				{if $step !== 2}<span class="step-text visble-xs"><i class="fa fa-truck"></i></span>{/if}
+			</li>
+		{/block}
+
+		{block name="snippets_navigation_process_funnel_pay"}
+			<li class="col-xs-{if $step == 3}4 active{else}2{/if}">
+				<span class="step-text {if $step !== 3}hidden-xs{/if}">{$payment.text_pay}</span>
+				{if $step !== 3}<span class="step-text visble-xs"><i class="fa fa-money"></i></span>{/if}
+			</li>
+		{/block}
+	
+		{block name="snippets_navigation_process_funnel_confirm"}
+			<li class="col-xs-{if $step == 4}4 active{else}2{/if}">
+				<span class="step-text {if $step !== 4}hidden-xs{/if}">{$payment.text_confirm}</span>
+				{if $step !== 4}<span class="step-text visble-xs"><i class="fa fa-handshake-o"></i></span>{/if}
+			</li>
+		{/block}
+
+		{block name="snippets_navigation_process_funnel_success"}
+			<li class="col-xs-{if $step == 5}4 active{else}2{/if}">
+				<span class="step-text {if $step !== 5}hidden-xs{/if}">{$payment.text_finished}</span>
+				{if $step !== 5}<span class="step-text visble-xs"><i class="fa fa-check"></i></span>{/if}
+			</li>
+		{/block}
+	</ul>
+{/block}

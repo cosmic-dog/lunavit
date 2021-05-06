@@ -1,0 +1,46 @@
+{load_language_text section="properties_dropdown"}
+		
+{block name="module_properties_selection_forms_dropdowns"}
+	{if $content_data.PROPERTIES_DATA}
+		<div class="properties-selection-form">
+			<fieldset class=" form-horizontal">
+				{block name="module_properties_selection_forms_dropdowns_list"}
+					{foreach item=prop_item_array from=$content_data.PROPERTIES_DATA}
+						{block name="module_properties_selection_forms_dropdowns_item"}
+							<div class="form-group"{if $prop_item_array.visible == false} style="display: none;"{/if}>
+								{block name="module_properties_selection_forms_dropdowns_item_label"}
+									<label class="control-label col-xs-4">{$prop_item_array.properties_name}:</label>
+								{/block}
+								<div class="col-xs-8">
+									{block name="module_properties_selection_forms_dropdowns_item_select"}
+										<select class="form-control js-calculate" id="propertie_{$prop_item_array.properties_id}" name="properties_values_ids[{$prop_item_array.properties_id}]">
+											<option value="0" class="propertie_{$prop_item_array.properties_id}_0" title="{$txt.PLEASE_SELECT}">
+												{$txt.PLEASE_SELECT}
+											</option>
+											{foreach item=values_item_array from=$prop_item_array.values_array}
+												<option title="{$values_item_array.values_name} {if $content_data.properties_price_show == "true" && $values_item_array.values_price != ''}({if $values_item_array.values_price|strstr:"-" == false}+{/if}{$values_item_array.values_price}){/if}" value="{$values_item_array.properties_values_id}" class="propertie_{$prop_item_array.properties_id}_{$values_item_array.properties_values_id}" {if ($content_data.properties_dropdown_mode == "dropdown_mode_1" || $content_data.properties_dropdown_mode == "dropdown_mode_2") && $values_item_array.disabled}disabled="disabled"{/if} {if $values_item_array.selected}selected="selected"{/if}>
+													{$values_item_array.values_name} {if $content_data.properties_price_show == "true" && $values_item_array.values_price != ''}({if $values_item_array.values_price|strstr:"-" == false}+{/if}{$values_item_array.values_price}){/if}
+												</option>
+											{/foreach}
+										</select>
+									{/block}
+									{block name="module_properties_selection_forms_dropdowns_item_error"}
+										<span class="help-block">{$content_data.PROPERTIES_ERROR}</span>
+									{/block}
+								</div>
+							</div>
+						{/block}
+					{/foreach}
+				{/block}
+				<input type="hidden" id="properties_products_id" name="properties_products_id" value="{$content_data.products_id}" />
+	
+			</fieldset>
+	
+			{block name="module_properties_selection_forms_dropdowns_properties_image"}
+				<div id="properties_image">
+					{$content_data.PROPERTIES_IMAGE}
+				</div>
+			{/block}
+		</div>
+	{/if}
+{/block}

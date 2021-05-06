@@ -1,0 +1,15 @@
+{block name="snippets_slider_if"}
+	{if $slider}
+		{block name="snippets_slider"}
+			<div id="stage" data-gambio-widget="slider_flyover">
+				<div id="slider"
+				     data-gambio-widget="slider_responsive"
+				     data-slider_responsive-source="#json-serialized-slider"
+				     data-slider_responsive-effect="fade"
+				     data-slider_responsive-speed="600">
+					{$slider}
+				</div>
+			</div>
+		{/block}
+	{/if}
+{/block}

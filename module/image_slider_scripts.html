@@ -1,0 +1,51 @@
+{block name="module_image_slider_scripts"}
+	<script type="application/json" id="json-serialized-slider">{$content_data.json_serialized_slider}</script>
+	<script type="application/json" id="json-placeholder-slide">{$content_data.json_placeholder_slide}</script>
+	<script>
+		// Render the correct placeholder image depending the viewport width.
+		(function() {
+			var slider = JSON.parse(document.getElementById('json-serialized-slider').innerHTML);
+			var placeholderSlide = JSON.parse(document.getElementById('json-placeholder-slide').innerHTML);
+			var breakpoint;
+			
+			if (window.innerWidth <= 768) {
+				breakpoint = 'xs'
+			} else if (window.innerWidth <= 992) {
+				breakpoint = 'sm';
+			} else if (window.innerWidth <= 1200) {
+				breakpoint = 'md';
+			} else {
+				breakpoint = 'lg';
+			}
+			
+			loop:
+			for (var index in slider.slides) {
+				var slide = slider.slides[index];
+				
+				if (slide.languageId !== +placeholderSlide.languageId) { // + converts value to int
+					continue;
+				}
+				
+				for (var imageIndex in slide.images) {
+					var slideImage = slide.images[imageIndex];
+					
+					if (slideImage.breakpoint === breakpoint && slideImage.image) {
+						var slide = document.createElement('div');
+						slide.className = 'swiper-slide';
+						
+						var image = document.createElement('img');
+						image.className = 'placeholder-image img-responsive center-block';
+						image.setAttribute('src', placeholderSlide.baseUrl + slideImage.image);
+						image.setAttribute('alt', 'Placeholder Image');
+						
+						slide.appendChild(image);
+						
+						document.querySelector('#slider .swiper-container .swiper-wrapper').appendChild(slide);
+						
+						break loop;
+					}
+				}
+			}
+		})();
+	</script>
+{/block}

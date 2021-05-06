@@ -1,0 +1,189 @@
+{load_language_text section="product_listing"}
+{load_language_text section="product_info" name="info"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="general" name="general"}
+
+{block name="snippets_product_listing_product_grid_only"}
+	{block name="snippets_product_listing_product_grid_only_rating"}
+		{product_rating id=$p_id out='OVERALL_RATING'}
+	{/block}
+	
+	<div class="product-container{if $is_swiper === 'true'} swiper-slide {/if}{if $p_imgs} has-gallery{/if}"
+		{if $data_index} data-index="{$data_index}"{/if}>
+		<form class="product-tile">
+			{block name="snippets_product_listing_product_grid_only_image"}
+				<figure class="image{if !$p_image || $p_image === ''} no-image{/if}" id="{$data_index}_img">
+					{if $p_image}
+						{block name="snippets_product_listing_product_grid_only_image_pimage"}
+							{if 'USE_SMALLER_IMAGES_FOR_PRODUCTS'|gm_get_conf == 'true'}
+								{$p_image=$p_image}
+							{else}
+								{$p_image=$p_image|replace:"thumbnail_images":"info_images"}
+							{/if}
+							
+							<span title="{$p_name_full}" class="product-hover-main-image product-image">
+								<img src="{$p_image}" alt="{$p_name_full}">
+							</span>
+						{/block}
+					{else}
+						{block name="snippets_product_listing_product_grid_only_image_no_pimage"}
+							<div title="{$p_name_full}" class="product-hover-main-image product-image">
+								<div class="fa fa-picture-o"></div>
+							</div>
+						{/block}
+					{/if}
+
+					{if $p_fsk18 === 'true'}
+						{block name="snippets_product_listing_product_grid_only_image_fsk18"}
+							<img src="{$tpl_path}assets/images/fsk18.gif" alt="fsk18.gif" title="fsk18.gif" class="img-responsive" />
+						{/block}
+					{/if}
+
+					{if $ribbons.manufacturer|count > 0}
+						{block name="snippets_product_listing_product_grid_only_image_manufacturer"}
+							{include file="get_usermod:{$tpl_path}snippets/ribbon/ribbon_manufacturer.html"
+							ribbon="manufacturer"
+							text=$ribbons.manufacturer.0.IMAGE_ALT
+							img=$ribbons.manufacturer.0.IMAGE
+							url=$ribbons.manufacturer.0.URL
+							}
+						{/block}
+					{/if}
+
+					{if $ribbons.ribbons}
+						{block name="snippets_product_listing_product_grid_only_image_ribbon"}
+							{include file="get_usermod:{$tpl_path}snippets/ribbon/ribbon.html"}
+						{/block}
+					{/if}
+				</figure>
+			{/block}
+
+			{block name="snippets_product_listing_product_grid_only_descriptiob"}
+				<div class="title-description">
+					{block name="snippets_product_listing_product_grid_only_description_title"}
+						<div class="title">
+							<a href="{$p_url}"{if $p_meta} title="{$p_meta}"{/if} class="product-url">
+								{$p_headline}
+							</a>
+						</div>
+					{/block}
+
+					{block name="snippets_product_listing_product_grid_only_description_attributes"}
+						{$p_attributes}
+					{/block}
+					
+				</div><!-- // .title-description -->
+			{/block}
+
+			{block name="snippets_product_listing_product_grid_only_description_rating"}
+				{if $showRating}
+					<div class="rating-container hidden-list">
+						<span{if $p_meta} title="{$p_meta}"{/if}>
+							{if $OVERALL_RATING.rounded && $OVERALL_RATING.rounded != ""}
+								{include file="get_usermod:{$tpl_path}snippets/rating_stars.html" rating_rounded=$OVERALL_RATING.rounded rating_count=$OVERALL_RATING.count }
+							{/if}
+						</span>
+					</div>
+				{/if}
+			{/block}
+			
+
+			{block name="snippets_product_listing_product_grid_only_price"}
+				<div class="price-tax">
+
+					{block name="snippets_product_listing_product_grid_only_price_container"}
+						<div class="price">
+							{block name="snippets_product_listing_product_grid_only_price_container_text"}
+								<span class="current-price-container"{if $p_meta} title="{$p_meta}"{/if}>
+									{$p_price}
+									{if $p_price|stripos:$general.NOT_ALLOWED_TO_SEE_PRICES === false}
+										<br />
+										<span class="gm_products_vpe products-vpe">
+											{if $p_vpe}
+												{$p_vpe}
+											{else}
+												&nbsp;
+											{/if}
+										</span>
+									{/if}
+								</span>
+							{/block}
+						</div>
+					{/block}
+
+					{block name="snippets_product_listing_product_grid_only_additional_container"}
+						<div class="additional-container">
+							<!-- Use this if you want to add something to the product tiles -->
+						</div>
+					{/block}
+
+					{if $p_shipping_name}
+						{block name="snippets_product_listing_product_grid_only_description_shipping"}
+							<div class="shipping hidden-grid">
+								<div class="shipping-info-short">
+									{block name="snippets_product_listing_product_grid_only_description_shipping_time"}
+										{$txt.text_shippingtime}
+									{/block}
+									{if $PRODUCT.PRODUCTS_SHIPPING_RANGE !== null}
+										{if $PRODUCT.PRODUCTS_SHIPPING_RANGE.low === $PRODUCT.PRODUCTS_SHIPPING_RANGE.high}
+											{$PRODUCT.PRODUCTS_SHIPPING_RANGE.high.name}
+										{else}
+											{$txt.text_from} {$PRODUCT.PRODUCTS_SHIPPING_RANGE.low.name} {$txt.text_to} {$PRODUCT.PRODUCTS_SHIPPING_RANGE.high.name}
+										{/if}
+									{else}
+										{if $p_shipping_img}
+											{block name="snippets_product_listing_product_grid_only_description_shipping_image"}
+												<img src="{$p_shipping_img}" alt="{$p_shipping_img_alt}" title="{$p_shipping_img_title}" />
+											{/block}
+										{/if}
+										{block name="snippets_product_listing_product_grid_only_description_shipping_name"}
+											{$p_shipping_name}
+										{/block}
+									{/if}
+								</div>
+							</div><!-- // .shipping -->
+						{/block}
+					{/if}
+
+					<div class="cart-error-msg alert alert-danger hidden" role="alert"></div>
+				</div><!-- // .price-tax -->
+			{/block}
+		</form>
+	
+		{if $p_imgs}
+			{block name="snippets_product_listing_product_grid_only_gallery"}
+				<ul class="gallery">
+					{assign var="NUM_random_id" value=1|rand:99999}
+		
+					{foreach item=image_data from=$p_imgs}
+		
+						{if $image_data@iteration > 4}
+							{break}
+						{/if}
+		
+						{if 'USE_SMALLER_IMAGES_FOR_PRODUCTS'|gm_get_conf == 'true'}
+							{$image_data.ORIGINAL=$image_data.IMAGE}
+						{else}
+							{$image_data.ORIGINAL=$image_data.IMAGE|replace:"thumbnail_images":"info_images"}
+						{/if}
+		
+						<li class="thumbnails" {if $img_id} data-index="{$img_id}"{/if}>
+							<span class="align-helper"></span>
+							{block name="snippets_product_listing_product_grid_only_gallery_image"}
+								<img class="img-responsive spinner"
+										{if $image_data.ORIGINAL} data-src="{$image_data.ORIGINAL|strip_tags}"{/if}
+										{if $image_data.IMAGE} data-thumb-src="{if 'USE_SMALLER_IMAGES_FOR_PRODUCTS'|gm_get_conf == 'true'}{$image_data.IMAGE|replace:"thumbnail_images":"gallery_images"|strip_tags}{else}{$image_data.IMAGE|strip_tags}{/if}"{/if}
+									 src="templates/{$smarty.const.CURRENT_TEMPLATE}/assets/images/loading.gif"
+										{if $image_data.IMAGE_ALT} alt="{$image_data.IMAGE_ALT|strip_tags}"{/if}
+										{if $image_data.PRODUCTS_NAME} title="{$image_data.PRODUCTS_NAME|strip_tags}"{/if}
+								/>
+							{/block}
+						</li>
+		
+					{/foreach}
+				</ul>
+			{/block}
+		{/if}
+	
+	</div><!-- // .product-container -->
+{/block}

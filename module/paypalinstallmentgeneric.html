@@ -1,0 +1,19 @@
+{load_language_text section="paypal3"}
+
+{block name="module_paypalinstallmentgeneric"}
+	<div class="paypalinstallmentcontainer">
+		<div class="paypalinstallmentgeneric" data-gambio-widget="paypalinstallmentsinfo">
+			{block name="module_paypalinstallmentgeneric_intro"}
+				<div class="introtext">
+					{$txt.generic_intro_product}
+				</div>
+			{/block}
+			{block name="module_paypalinstallmentgeneric_info"}
+				<div class="popup_installments_info" data-amount="{$amount}">{$txt.info_on_financing_options}</div>
+			{/block}
+			{block name="module_paypalinstallmentgeneric_popup"}
+				<div class="pp_cs_popup"></div>
+			{/block}
+		</div>
+	</div>
+{/block}

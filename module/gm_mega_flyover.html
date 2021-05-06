@@ -1,0 +1,9 @@
+{block name="module_gm_mega_flyover"}
+	<div id="flyover" style="width: {$BOX_WIDTH}px; height: {$BOX_HEIGHT}px;">
+		{foreach name=images item=image_data from=$images_data}
+			{block name="module_gm_mega_flyover_image"}
+				<img src="{$image_data.IMAGE}" class="flyover_image" alt="" title="" style="margin-left:{$image_data.PADDING_LEFT}px; margin-top: {$image_data.PADDING_TOP}px; display: none;"/>
+			{/block}
+		{/foreach}
+	</div>
+{/block}

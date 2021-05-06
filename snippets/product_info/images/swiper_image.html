@@ -1,0 +1,70 @@
+{block name="snippets_product_info_images_swiper_image"}
+	{if $is_list === 'true'}
+		<li class="thumbnails swiper-slide" {if $img_id} data-index="{$img_id}"{/if}>
+	{else}
+		<div class="swiper-slide" {if $img_id} data-index="{$img_id}"{/if}>
+	{/if}
+			<div class="swiper-slide-inside {if $swiperId == 'product_thumbnail_swiper'}vertical{/if}">
+				{if $swiperId == 'product_thumbnail_swiper_mobile'}
+					{block name="snippets_product_info_images_swiper_image_mobile"}
+						<div class="align-vertical">
+							<img
+									{if $img_src2} data-thumb-src="{$img_src2|strip_tags}"{/if}
+									src="{$img_src|strip_tags}"
+									{if $img_alt} alt="Mobile Preview: {$img_alt|strip_tags}"{/if}
+									{if $img_title} title="Mobile Preview: {$img_title|strip_tags}"{/if}
+									{if $img_zoom} data-magnifier-src="{$img_zoom|strip_tags}"{/if}
+							/>
+						</div>
+					{/block}
+				{elseif $swiperId == 'product_thumbnail_swiper' || $swiperId == 'product-info-layer-thumbnails'}
+					{block name="snippets_product_info_images_swiper_image_thumbnail"}
+						<div class="align-middle">
+							<img
+									class="img-responsive"
+									{if $img_src2} data-thumb-src="{$img_src2|strip_tags}"{/if}
+									src="{$img_src|strip_tags}"
+									{if $img_alt} alt="Preview: {$img_alt|strip_tags}"{/if}
+									{if $img_title} title="Preview: {$img_title|strip_tags}"{/if}
+									{if $img_zoom} data-magnifier-src="{$img_zoom|strip_tags}"{/if}
+							/>
+						</div>
+					{/block}
+				{elseif $swiperId === 'product-info-layer-image'}
+					{block name="snippets_product_info_images_swiper_image_product"}
+						<img {if $img_prop}{$img_prop|strip_tags}{/if}
+								class="img-responsive"
+								{if $img_top} style="margin-top: {$img_top|strip_tags}px;"{/if}
+								{if $img_src2} data-thumb-src="{$img_src2|strip_tags}"{/if}
+								src="{$img_src|strip_tags}"
+								{if $img_alt} alt="{$img_alt|strip_tags}"{/if}
+								{if $img_title} title="{$img_title|strip_tags}"{/if}
+								{if $img_zoom} data-magnifier-src="{$img_zoom|strip_tags}"{/if}
+						/>
+					{/block}
+				{else}
+					{block name="snippets_product_info_images_swiper_image_else"}
+						<a
+							href="{$img_zoom|strip_tags}"
+							title="{$img_title}"
+							>
+							<img {if $img_prop}{$img_prop|strip_tags}{/if}
+									class="img-responsive"
+									{if $img_top} style="margin-top: {$img_top|strip_tags}px;"{/if}
+									{if $img_src2} data-thumb-src="{$img_src2|strip_tags}"{/if}
+									src="{$img_src|strip_tags}"
+									{if $img_alt} alt="{$img_alt|strip_tags}"{/if}
+									{if $img_title} title="{$img_title|strip_tags}"{/if}
+									{if $img_zoom} data-magnifier-src="{$img_zoom|strip_tags}"{/if}
+							/>
+						</a>
+					{/block}
+				{/if}
+			</div>
+			
+	{if $is_list === 'true'}
+		</li>
+	{else}
+		</div>
+	{/if}
+{/block}

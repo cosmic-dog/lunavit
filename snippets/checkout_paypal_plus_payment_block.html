@@ -1,0 +1,95 @@
+{block name="snippets_checkout_paypal_plus_payment_block"}
+	<ul class="list-group paypal3-plus-checkout" data-gambio-widget="radio_selection" data-radio_selection-init="true">
+		{assign var="paypal_position" value=$module_content|recursive_array_search:'paypal3'}
+		{assign var="hub_paypal_position" value=$module_content|recursive_array_search:'gambio_hub-PayPalHub'}
+	
+		{foreach name=payment_items item=module_data from=$module_content}
+			{block name="snippets_checkout_paypal_plus_payment_block_payment_item"}
+				<li class="list-group-item {if $module_data.id !== 'gambio_hub-PayPalHub'}{$module_data.id}{if $module_data.id === 'paypal3' && $module_data.module === ''}-plus{/if}{else}{$module_data.id} paypal3-plus{/if} {if $smarty.foreach.payment_items.iteration <= $paypal_position || $smarty.foreach.payment_items.iteration <= $hub_paypal_position}above{/if}"
+					{if $use_paypal_plus === 'true' || $module_data.id === 'paypal3' && $module_data.module === ''}data-gambio-widget="paypal_checkout"
+					data-paypal_checkout-third-party-payments-block="{get_paypal_third_party_payments_block|escape}"{/if}>
+					<div class="row payment_item_container">
+						<div class="col-xs-12 {if $module_data.fields != '' && $module_data.fields|@count > 0}with-form{/if} title radio  payment_item button_checkout_module">
+							{block name="snippets_checkout_paypal_plus_payment_block_payment_item_label"}
+								<label {if $module_data.description == '' || $module_data.description == ' '}class="no-description"{/if}>
+									{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_icon"}
+										<span class="module-icon col-xs-3 col-md-2">
+											{if $module_data.logo_url}
+												<img src="{$module_data.logo_url}" alt="{$module_data.logo_alt|strip_tags}" class="img-responsive">
+											{/if}
+										</span>
+									{/block}
+
+									{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_info"}
+										<span class="module-info {if $module_data.id == 'paypal3' && $module_data.module == '' || $module_data.id === 'gambio_hub-PayPalHub'}col-xs-12{else}col-xs-8 col-md-9{/if}">
+											{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_info_name"}
+												<span class="module-name">
+													{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_info_name_text"}
+														{$module_data.module}
+													{/block}
+
+													{block name="snippets_checkout_paypal_plus_payment_block_payment_item_cost_if"}
+														{if $module_data.id != 'paypal3' && $module_data.module != '' && $module_data.module_cost && $module_data.id !== 'gambio_hub-PayPalHub'}
+															{block name="snippets_checkout_paypal_plus_payment_block_payment_item_cost"}
+																<span class="price">({$module_data.module_cost})</span>
+															{/block}
+														{/if}
+													{/block}
+												</span>
+											{/block}
+
+											{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_info_description_if"}
+												{if $module_data.description !== '' && $module_data.description !== ' '}
+													{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_info_description"}
+														<span class="module-description">{$module_data.description}</span>
+													{/block}
+												{/if}
+											{/block}
+
+											{block name="snippets_checkout_paypal_plus_payment_block_payment_submodules_if"}
+												{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}
+													{block name="snippets_checkout_paypal_plus_payment_block_payment_submodules"}
+														<span class="col-md-10 checkout-payment-form">
+															{block name="snippets_checkout_paypal_plus_payment_block_payment_submodules_form"}
+																<span class="well">
+																	{foreach name=submodules item=method_data from=$module_data.fields}
+																		{block name="snippets_checkout_paypal_plus_payment_block_payment_submodul"}
+																			<span class="form-group">
+																				{block name="snippets_checkout_paypal_plus_payment_block_payment_submodul_label_if"}
+																					{if $method_data.title && $method_data.title != ''}
+																						{block name="snippets_checkout_paypal_plus_payment_block_payment_submodul_label"}
+																							<label class="control-label col-xs-12 col-md-4">{$method_data.title}</label>
+																						{/block}
+																					{/if}
+																				{/block}
+
+																				{block name="snippets_checkout_paypal_plus_payment_block_payment_submodul_input"}
+																					{assign var="label" value=$method_data.title|replace:":":""}
+																					<span class="col-xs-12 col-md-8">
+																						{$method_data.field|replace:"class=\"gm_class_input\"":"class=\"form-control input-sm\" placeholder=\"$label\""|replace:"style=\"width:200px\"":""}
+																					</span>
+																				{/block}
+																			</span>
+																		{/block}
+																	{/foreach}
+																</span>
+															{/block}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										</span>
+									{/block}
+
+									{block name="snippets_checkout_paypal_plus_payment_block_payment_item_module_selection"}
+										<span class="control col-xs-1 pull-right">{$module_data.selection}</span>
+									{/block}
+								</label>
+							{/block}
+						</div>
+					</div>
+				</li>
+			{/block}
+		{/foreach}
+	</ul>
+{/block}

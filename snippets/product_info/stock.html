@@ -1,0 +1,23 @@
+{if $PRODUCTS_QUANTITY || $SHOW_PRODUCTS_QUANTITY}
+	{block name="snippets_product_info_stock"}
+		<dt class="col-xs-4 text-left">
+			{$txt.text_stock}
+		</dt>
+		<dd class="col-xs-8">
+			{block name="snippets_product_info_stock_quantity"}
+				<span class="products-quantity-value">
+					{$PRODUCTS_QUANTITY}
+				</span>
+			{/block}
+			{if $PRODUCTS_QUANTITY_UNIT}
+				{block name="snippets_product_info_stock_unit"}
+					{$PRODUCTS_QUANTITY_UNIT}
+				{/block}
+			{else}
+				{block name="snippets_product_info_stock_pieces"}
+					{$txt.text_pieces}
+				{/block}
+			{/if}
+		</dd>
+	{/block}
+{/if}

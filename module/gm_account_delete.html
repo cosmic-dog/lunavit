@@ -1,0 +1,64 @@
+{load_language_text section="account_delete"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_gm_account_delete"}
+	{block name="module_gm_account_delete_title"}
+		<h1>{$txt.heading_delete_account}</h1>
+	{/block}
+
+	{block name="module_gm_account_delete_form"}
+		<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}" class="form-horizontal">
+			{block name="module_gm_account_delete_fieldset"}
+				<fieldset>
+					{block name="module_gm_account_delete_legend"}
+						<legend>
+							{$txt.title_delete_account}
+						</legend>
+					{/block}
+					
+					{block name="module_gm_account_delete_annotation"}
+						<div class="form-group">
+							{block name="module_gm_account_delete_annotation_label"}
+								<label for="{$id}" class="control-label col-sm-3">
+									{$txt.label_annotation}
+								</label>
+							{/block}
+							
+							{block name="module_gm_account_delete_annotation_container"}
+								<div class="col-sm-9 input-container">
+									{block name="module_gm_account_delete_annotation_input"}
+										<textarea placeholder="{$txt.label_annotation}"
+												  id="{$GM_COMMENTS_NAME}"
+												  name="{$GM_COMMENTS_NAME}"
+												  class="form-control"></textarea>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				</fieldset>
+			{/block}
+			
+			{$HIDDEN_ACTION_FIELD}
+			
+			{block name="module_gm_account_delete_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_gm_account_delete_buttons_back"}
+							<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+								{$button.back}
+							</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_gm_account_delete_buttons_submit"}
+							<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+								{$button.send}
+							</button>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</form>
+	{/block}
+{/block}

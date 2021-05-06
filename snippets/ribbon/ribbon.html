@@ -1,0 +1,17 @@
+{block name="snippets_ribbon"}
+	<div class="ribbons">
+		{block name="snippets_ribbon_name"}
+			{foreach item=ribbon from=$ribbons.ribbons}
+				{block name="snippets_ribbon_content_if"}
+					{if $ribbon.class && $ribbon.text}
+						{block name="snippets_ribbon_content"}
+							<div class="ribbon-{$ribbon.class}">
+								<span>{$ribbon.text}</span>
+							</div>
+						{/block}
+					{/if}
+				{/block}
+			{/foreach}
+		{/block}
+	</div>
+{/block}

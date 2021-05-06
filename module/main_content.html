@@ -1,0 +1,91 @@
+{block name="module_main_content"}
+	{block name="module_main_content_error"}
+		{$MODULE_error}
+	{/block}
+	
+	{block name="module_main_content_main_if"}
+		{if $title|trim || $text|trim}
+			{block name="module_main_content_main"}
+				<div class="content-page-index">
+					{if $title|trim}
+						{block name="module_main_content_main_title"}
+							<h1>{$title}</h1>
+						{/block}
+					{/if}
+					{block name="module_main_content_main_text"}
+						{$text}
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_main_content_upcoming_products"}
+		{$MODULE_upcoming_products}
+	{/block}
+
+	
+	{block name="module_main_content_new_product"}
+		{$MODULE_new_products}
+	{/block}
+
+	
+	{block name="module_main_content_center_if"}
+		{if $title_center|trim || $text_center|trim}
+			{block name="module_main_content_center"}
+				<div class="content-page-index">
+					{if $title_center|trim}
+						{block name="module_main_content_center_title"}
+							<h2>{$title_center}</h2>
+						{/block}
+					{/if}
+					{block name="module_main_content_center_text"}
+						{$text_center}
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_main_content_specials"}
+		{$specials_main}
+	{/block}
+						
+	<!-- #BOF YOOCHOOSE -->
+	{block name="module_main_content_personalized_if"}
+		{if $MODULE_yoochoose_homepage_personalized != ''}
+			{block name="module_main_content_personalized"}
+				{$MODULE_yoochoose_homepage_personalized}
+			{/block}
+		{/if}
+	{/block}
+	{block name="module_main_content_topsellers_if"}
+		{if $MODULE_yoochoose_homepage_topsellers != ''}
+			{block name="module_main_content_topsellers"}
+				{$MODULE_yoochoose_homepage_topsellers}
+			{/block}
+		{/if}
+	{/block}
+	<!-- #EOF YOOCHOOSE -->
+
+	{block name="module_main_content_new"}
+		{$products_new_main}
+	{/block}
+	
+	{block name="module_main_content_bottom_if"}
+		{if $title_bottom|trim || $text_bottom|trim}
+			{block name="module_main_content_bottom"}
+				<div class="content-page-index">
+					{if $title_bottom|trim}
+						{block name="module_main_content_bottom_title"}
+							<h2>{$title_bottom}</h2>
+						{/block}
+					{/if}
+					{block name="module_main_content_bottom_text"}
+						{$text_bottom}
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

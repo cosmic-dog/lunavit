@@ -1,0 +1,72 @@
+{block name="snippets_category_description"}
+	{block name="snippets_category_description_search_result_page_if"}
+		{if $SEARCH_RESULT_PAGE && $SEARCH_RESULT_PAGE == 1}
+			{block name="snippets_category_description_title_keywords_if"}
+				{if $KEYWORDS && $KEYWORDS != '%'}
+					{block name="snippets_category_description_title_keywords"}
+						<h1>{$txt.heading_search_result_plus_keywords} &quot;{$KEYWORDS}&quot;</h1>
+					{/block}
+				{else}
+					{block name="snippets_category_description_title_search"}
+						<h1>{$txt.heading_search_result}</h1>
+					{/block}
+				{/if}
+			{/block}
+		{else}
+			{block name="snippets_category_description_title_if"}
+				{if $category_title || $category_name}
+					{block name="snippets_category_description_title"}
+						<h1>{$category_title|default:$category_name}</h1>
+					{/block}
+				{/if}
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="snippets_category_description_container_if"}
+		{if $CATEGORIES_DESCRIPTION || $CATEGORIES_IMAGE}
+			{block name="snippets_category_description_container"}
+				<div class="categories-description-container">
+
+					{block name="snippets_category_description_container_description_if"}
+						{if $CATEGORIES_DESCRIPTION}
+							{block name="snippets_category_description_container_description"}
+								{$CATEGORIES_DESCRIPTION}
+							{/block}
+						{/if}
+					{/block}
+
+					{block name="snippets_category_description_container_image_if"}
+						{if $CATEGORIES_IMAGE}
+							{block name="snippets_category_description_container_image"}
+								<div class="categories-images">
+									<img src="{$CATEGORIES_IMAGE}" alt="{$img_alt|default:$CATEGORIES_NAME|default:$manufacturer.NAME}" title="{$img_alt|default:$CATEGORIES_NAME|default:$manufacturer.NAME}" class="img-responsive" />
+
+									{block name="snippets_category_description_container_image_manufacturer_if"}
+										{if $manufacturer}
+											{block name="snippets_category_description_container_image_manufacturer"}
+												<span class="align-helper">
+													{block name="snippets_category_description_container_image_manufacturer_name"}
+														<strong>{$manufacturer.NAME}</strong>
+													{/block}
+
+													{block name="snippets_category_description_container_image_manufacturer_url_if"}
+														{if $manufacturer.URL}
+															{block name="snippets_category_description_container_image_manufacturer_url"}
+																<br /><a href="{$manufacturer.URL}">{$manufacturer.URL}</a>
+															{/block}
+														{/if}
+													{/block}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						{/if}
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

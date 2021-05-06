@@ -1,0 +1,78 @@
+{load_language_text section="account_history_info"}
+
+{if $order_data}
+	{block name="snippets_order_account_history_order"}
+		<table class="table table-responsive">
+			{block name="snippets_order_account_history_order_thead"}
+				<thead>
+					<tr class="item">
+						<th class="item col-sm-2">{$txt.head_units}</th>
+						<th class="item col-sm-3">{$txt.head_products}</th>
+						<th class="item col-sm-3">{$txt.head_artnr}</th>
+						<th class="item col-sm-2 text-right">{$txt.head_single_price}</th>
+						<th class="item col-sm-2 text-right">{$txt.head_price}</th>
+					</tr>
+				</thead>
+			{/block}
+			{block name="snippets_order_account_history_order_tbody"}
+				<tbody>
+					{foreach item=product from=$order_data}
+						{block name="snippets_order_account_history_order_row"}
+							<tr class="item">
+								{block name="snippets_order_account_history_order_row_quantity"}
+									<td>
+										{$product.PRODUCTS_QTY} {if $product.UNIT}{$product.UNIT}{else}x{/if}
+									</td>
+								{/block}
+								
+								{block name="snippets_order_account_history_order_row_product"}
+									<td>
+										{$product.PRODUCTS_NAME}
+										<br />
+										{$product.PRODUCTS_ATTRIBUTES}
+										{foreach item=prop_item_array from=$product.PRODUCTS_PROPERTIES}
+											<br />
+											{$prop_item_array.properties_name}: {$prop_item_array.values_name}
+										{/foreach}
+										{if $product.PRODUCTS_SHIPPING_TIME neq ''}
+											<br />
+											{$txt.text_shippingtime} {$product.PRODUCTS_SHIPPING_TIME}
+										{/if}
+									</td>
+								{/block}
+								
+								{block name="snippets_order_account_history_order_row_model"}
+									<td>
+										{$product.PRODUCTS_MODEL} {$product.PRODUCTS_ATTRIBUTES_MODEL}
+									</td>
+								{/block}
+			
+								{block name="snippets_order_account_history_order_row_single_price"}
+									<td class="text-right">
+										{$product.PRODUCTS_SINGLE_PRICE}
+									</td>
+								{/block}
+								
+								{block name="snippets_order_account_history_order_row_price"}
+									<td class="text-right">
+										{$product.PRODUCTS_PRICE}
+									</td>
+								{/block}
+							</tr>
+						{/block}
+					{/foreach}
+				</tbody>
+			{/block}
+			{block name="snippets_order_account_history_order_tfoot"}
+				<tfoot>
+					{foreach item=order_total_item from=$order_total}
+						<tr class="item">
+							<td class="capture" colspan="4">{$order_total_item.TITLE}</td>
+							<td class="value">{$order_total_item.TEXT}</td>
+						</tr>
+					{/foreach}
+				</tfoot>
+			{/block}
+		</table>
+	{/block}
+{/if}

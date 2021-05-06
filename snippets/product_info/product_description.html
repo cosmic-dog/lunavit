@@ -1,0 +1,134 @@
+{load_language_text section="product_info"}
+
+{block name="snippets_product_info_product_description"}
+	{block name="snippets_product_info_product_description_tab_assign"}
+		{assign var="ARR_PRODUCTS_DESCRIPTION" value="<div id=\"tabbed_description_part\">"|explode:$PRODUCTS_DESCRIPTION}
+	{/block}
+
+	{block name="snippets_product_info_product_description_show_description_tab_assign"}
+		{if ($GM_GPRINT && 'CUSTOMIZER_POSITION'|gm_get_conf === '1') || $ARR_PRODUCTS_DESCRIPTION[0]|trim !== ''}
+			{assign var="show_description_tab" value=true}
+		{else}
+			{assign var="show_description_tab" value=false}
+		{/if}
+	{/block}
+
+	{block name="snippets_product_info_product_description_tabs_container_if"}
+		{if $show_description_tab || $tabs|@count > 0 || ($GM_GPRINT && 'CUSTOMIZER_POSITION'|gm_get_conf !== '3')}
+			{block name="snippets_product_info_product_description_tabs_container"}
+				<div class="nav-tabs-container{if $tabs|@count > 0} has-multi-tabs{/if}" data-gambio-widget="tabs">
+			
+					<!-- Nav tabs -->
+					{block name="snippets_product_info_product_description_tabs"}
+						<ul class="nav nav-tabs">
+							{block name="snippets_product_info_product_description_tabs_description_if"}
+								{if $show_description_tab}
+									{block name="snippets_product_info_product_description_tabs_description"}
+										<li class="active">
+											<a href="#" title="{$txt.text_description}" onclick="return false">
+												{$txt.text_description}
+											</a>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="snippets_product_info_product_description_tabs_tab_foreach"}
+								{foreach name=tabs_loop item=tab_item from=$tabs}
+									{block name="snippets_product_info_product_description_tabs_tab"}
+										<li{if !$show_description_tab && $smarty.foreach.tabs_loop.first} class="active"{/if}>
+											<a href="#" title="{$tab_item.title}" onclick="return false">
+												{$tab_item.title}
+											</a>
+										</li>
+									{/block}
+								{/foreach}
+							{/block}
+
+							{block name="snippets_product_info_product_description_tabs_customizer_if"}
+								{if $GM_GPRINT && 'CUSTOMIZER_POSITION'|gm_get_conf === '2'}
+									{block name="snippets_product_info_product_description_tabs_customizer"}
+										<li{if !$show_description_tab && $tabs|@count === 0} class="active"{/if}>
+											<a href="#" title="{$txt.text_customizer_tab}" onclick="return false">
+												{$txt.text_customizer_tab}
+											</a>
+										</li>
+									{/block}
+								{/if}
+							{/block}
+						</ul>
+					{/block}
+			
+					<!-- Tab panes -->
+					{block name="snippets_product_info_product_description_tab_panels"}
+						<div class="tab-content">
+							{block name="snippets_product_info_product_description_tab_panels_description_if"}
+								{if $show_description_tab}
+									{block name="snippets_product_info_product_description_tab_panels_description"}
+										<div class="tab-pane active">
+											{block name="snippets_product_info_product_description_tab_panels_description_heading"}
+												<div class="tab-heading">
+													<a href="#" onclick="return false">{$txt.text_description}</a>
+												</div>
+											{/block}
+
+											{block name="snippets_product_info_product_description_tab_panels_description_body"}
+												<div class="tab-body active" itemprop="description">
+													{$ARR_PRODUCTS_DESCRIPTION[0]}
+
+													{block name="snippets_product_info_product_description_tab_panels_description_body_customizer_include"}
+														{include file="get_usermod:{$tpl_path}snippets/product_info/customizer.html" position=1}
+													{/block}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+							
+							{block name="snippets_product_info_product_description_tab_panels_tab_foreach"}
+								{foreach name=tabs_loop item=tab_item from=$tabs}
+									{block name="snippets_product_info_product_description_tab_panels_tab"}
+										<div class="tab-pane{if !$show_description_tab && $smarty.foreach.tabs_loop.first} active{/if}">
+											{block name="snippets_product_info_product_description_tab_panels_tab_heading"}
+												<div class="tab-heading">
+													<a href="#" onclick="return false">{$tab_item.title}</a>
+												</div>
+											{/block}
+											
+											{block name="snippets_product_info_product_description_tab_panels_tab_body"}
+												<div class="tab-body{if !$show_description_tab && $smarty.foreach.tabs_loop.first} active{/if}">
+													{$tab_item.content}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{/foreach}
+							{/block}
+
+							{block name="snippets_product_info_product_description_tab_panels_customizer_if"}
+								{if $GM_GPRINT && 'CUSTOMIZER_POSITION'|gm_get_conf === '2'}
+									{block name="snippets_product_info_product_description_tab_panels_customizer"}
+										<div class="tab-pane{if !$show_description_tab && $tabs|@count === 0} active{/if}">
+											{block name="snippets_product_info_product_description_tab_panels_customizer_heading"}
+												<div class="tab-heading">
+													<a href="#" onclick="return false">{$txt.text_customizer_tab}</a>
+												</div>
+											{/block}
+											
+											{block name="snippets_product_info_product_description_tab_panels_customizer_body"}
+												<div class="tab-body{if !$show_description_tab && $tabs|@count === 0} active{/if}">
+													{include file="get_usermod:{$tpl_path}snippets/product_info/customizer.html" position=2}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+		{/if}
+	{/block}
+{/block}

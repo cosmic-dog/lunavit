@@ -1,0 +1,278 @@
+{load_language_text section="price_offer"}
+{load_language_text section="gm_price_offer" name="price_offer_txt"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_gm_price_offer"}
+	<div class="billiger-gesehen">
+		{block name="module_gm_price_offer_title"}
+			<h1>&quot;{$PRODUCT_NAME}&quot;{$price_offer_txt.GM_PRICE_OFFER_TITLE}</h1>
+		{/block}
+	
+		{if $VVCODE_ERROR}
+			{block name="module_gm_price_offer_alert_vvcode"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$VVCODE_ERROR type="danger"}
+			{/block}
+		{/if}
+		
+		{if $ERROR}
+			{block name="module_gm_price_offer_alert_danger"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$ERROR type="danger"}
+			{/block}
+		{/if}
+		
+		{if $MAIL_OUT}
+			{block name="module_gm_price_offer_alert_success"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$MAIL_OUT type="success"}
+			{/block}
+		{/if}
+		
+		{block name="module_gm_price_offer_text"}
+			<p>{$price_offer_txt.GM_PRICE_OFFER_TEXT}</p>
+		{/block}
+		
+		{block name="module_gm_price_offer_product"}
+			<div class="article-list-item clearfix">
+				<div class="article-list-item-inside clearfix">
+					<div class="article-list-item-image clearfix">
+						{block name="module_gm_price_offer_product_image"}
+							<img src="{$PRODUCT_IMAGE}" alt="{$PRODUCT_NAME}" title="{$PRODUCT_NAME}" class="price_offer_image" />
+						{/block}
+					</div>
+					<div class="article-list-item-main clearfix">
+						{block name="module_gm_price_offer_product_name"}
+							<a href="{$BUTTON_BACK_LINK}"><span class="title">{$PRODUCT_NAME}</span></a>
+						{/block}
+						
+						{block name="module_gm_price_offer_product_attributes"}
+							<p>
+								{foreach from=$ATTRIBUTES item=attribut}
+									{$attribut.name}: {$attribut.value}<br />
+								{/foreach}
+							</p>
+						{/block}
+						
+						{block name="module_gm_price_offer_product_properties"}
+							<p>
+								{foreach from=$PROPERTIES item=property}
+									{$property.name}: {$property.value}<br />
+								{/foreach}
+							</p>
+						{/block}
+						
+						{block name="module_gm_price_offer_product_description"}
+							<p>{$PRODUCT_SHORT_DESCRIPTION}</p>
+						{/block}
+						
+						<div class="article-list-item-price">
+							{block name="module_gm_price_offer_product_price"}
+								<span class="price"><a href="{$BUTTON_BACK_LINK}">{$PRODUCT_PRICE}</a></span><br />
+							{/block}
+							{block name="module_gm_price_offer_product_tax"}
+								<span class="tax-shipping-text">{$PRODUCTS_TAX_INFO}{if $PRODUCTS_SHIPPING_LINK}{$PRODUCTS_SHIPPING_LINK}{/if}</span>
+							{/block}
+						</div>
+					</div>
+				</div>
+			</div>
+		{/block}
+		
+		{block name="module_gm_price_offer_form"}
+			<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}" class="form-horizontal">
+				<fieldset>
+					{block name="module_gm_price_offer_mandatory"}
+						<p class="mandatory-info">
+							{$txt.text_required}
+						</p>
+					{/block}
+					
+					{block name="module_gm_price_offer_name"}
+						<div class="form-group">
+							{block name="module_gm_price_offer_name_label"}
+								<label for="gm_price_offer_name" class="control-label col-sm-3">{$txt.label_name}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_name_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_name_input"}
+										<input type="text" id="gm_price_offer_name" name="name" value="{$INPUT_NAME}" class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_email"}
+						<div class="form-group mandatory">
+							{block name="module_gm_price_offer_email_label"}
+								<label for="gm_price_offer_email" class="control-label col-sm-3">{$txt.label_email}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_email_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_email_input"}
+										<input type="email"
+											   id="gm_price_offer_email"
+											   name="email"
+											   value="{$INPUT_EMAIL}"
+											   class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_telephone"}
+						<div class="form-group">
+							{block name="module_gm_price_offer_telephone_label"}
+								<label for="gm_price_offer_telephone" class="control-label col-sm-3">{$txt.label_telephone}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_telephone_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_telephone_input"}
+										<input type="tel"
+											   id="gm_price_offer_telephone"
+											   name="telephone"
+											   value="{$INPUT_TELEPHONE}"
+											   class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_price"}
+						<div class="form-group">
+							{block name="module_gm_price_offer_price_label"}
+								<label for="gm_price_offer_price" class="control-label col-sm-3">{$txt.label_price}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_price_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_price_input"}
+										<input type="text"
+											   id="gm_price_offer_price"
+											   name="price"
+											   value="{$INPUT_PRICE}"
+											   class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_offerer"}
+						<div class="form-group">
+							{block name="module_gm_price_offer_offerer_label"}
+								<label for="gm_price_offer_offerer" class="control-label col-sm-3">{$txt.label_offerer}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_offerer_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_offerer_input"}
+										<input type="text"
+											   id="gm_price_offer_offerer"
+											   name="offerer"
+											   value="{$INPUT_OFFERER}"
+											   class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_link"}
+						<div class="form-group mandatory">
+							{block name="module_gm_price_offer_link_label"}
+								<label for="gm_price_offer_link" class="control-label col-sm-3">{$txt.label_link}</label>
+							{/block}
+								
+							{block name="module_gm_price_offer_link_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_link_input"}
+										<input type="text" id="gm_price_offer_link" name="link" value="{$INPUT_LINK}" class="form-control" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_price_offer_message"}
+						<div class="form-group">
+							{block name="module_gm_price_offer_message_label"}
+								<label for="gm_price_offer_message" class="control-label col-sm-3">{$txt.label_message}</label>
+							{/block}
+				
+							{block name="module_gm_price_offer_message_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_price_offer_message_input"}
+										<textarea
+												class="form-control"
+												id="gm_price_offer_message"
+												name="message"
+												placeholder="{$txt.label_message}">{$INPUT_MESSAGE}</textarea>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{if $VALIDATION_ACTIVE == 'true'}
+						{block name="module_gm_price_offer_validation"}
+							<div class="form-group mandatory input vvcode">
+								{block name="module_gm_price_offer_validation_label"}
+									<label for="captcha" class="control-label col-sm-3">
+										{$txt.label_captcha}
+									</label>
+								{/block}
+								
+								{block name="module_gm_price_offer_validation_captcha"}
+									<div class="col-sm-9 col-lg-6 input-container">
+										{$GM_CAPTCHA}
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+					
+				</fieldset>
+		
+				{if $GM_PRIVACY_LINK != '0'}
+					{block name="module_gm_price_offer_privacy"}
+						<fieldset>
+							{if $show_privacy_checkbox}
+								{block name="module_gm_price_offer_privacy_checkbox"}
+									<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $privacy_accepted} checked="checked"{/if}/>
+									<label for="privacy_accepted">{$GM_PRIVACY_LINK}</label>
+								{/block}
+							{else}
+								{block name="module_gm_price_offer_privacy_link"}
+									<span>{$GM_PRIVACY_LINK}</span>
+								{/block}
+							{/if}
+						</fieldset>
+					{/block}
+				{/if}
+				
+				{block name="module_gm_price_offer_buttons"}
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_gm_price_offer_buttons_back"}
+								<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+									{$button.back}
+								</a>
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_gm_price_offer_buttons_submit"}
+								<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+									{$button.send}
+								</button>
+							{/block}
+						</div>
+					</div>
+				{/block}
+			</form>
+		{/block}
+	</div>
+{/block}

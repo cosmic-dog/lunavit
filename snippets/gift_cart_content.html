@@ -1,0 +1,74 @@
+{load_language_text section="gift_cart"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="popup" name="popup"}
+
+{block name="snippets_gift_card_content"}
+	{if $ERROR_MESSAGE}
+		{block name="snippets_gift_card_content_error"}
+			<div class="alert alert-danger">
+				{$ERROR_MESSAGE}
+			</div>
+		{/block}
+	{/if}
+
+	{if $SUCCESS_MESSAGE}
+		{block name="snippets_gift_card_content_success"}
+			<div class="alert alert-success">
+				{$SUCCESS_MESSAGE}
+
+				{if $COUPON_HELP_URL != ''}
+					{block name="snippets_gift_card_content_help_url"}
+						<a href="#" title="{$txt.cart_coupon_info}" class="gift-cart-show-details" data-url="{$COUPON_HELP_URL}">
+							{$txt.cart_coupon_info}
+						</a>
+						<span class="gift-status-msg3">{$REDEEMED_COUPON_UNDER_MIN_VALUE}</span>
+					{/block}
+				{/if}
+			</div>
+		{/block}
+	{/if}
+	
+	{block name="snippets_gift_card_content_gv_amount"}
+		<div class="row">
+			<div class="col-xs-12">
+				{block name="snippets_gift_card_content_gv_amount_info_text"}
+					<span class="gift-info-msg">{$txt.text_info}</span>
+					<span class="gift-balance-lbl">{$txt.voucher_balance}</span>
+					<span class="gift-balance">{$GV_AMOUNT}</span>
+					<br />
+					<br />
+				{/block}
+				{block name="snippets_gift_card_content_gv_amount_send_to_friend_if"}
+					{if $GV_AMOUNT > 0}
+						{block name="snippets_gift_card_content_gv_amount_send_to_friend"}
+							{$txt.text_send_to_friend} <a href="{$GV_SEND_TO_FRIEND_LINK}">{$txt.box_send_to_friend}</a>
+							<br />
+							<br />
+						{/block}
+					{/if}
+				{/block}
+			</div>
+		</div>
+	{/block}
+	
+	{if $COUPON_AMOUNT2 != ''}
+		{block name="snippets_gift_card_content_coupon_amount"}
+			<span class="gift-status-msg">{$txt.voucher_redeemed}</span>
+			<br />
+			<span class="gift-amount">{$COUPON_AMOUNT2}</span>
+		{/block}
+	{/if}
+	
+	{if $C_FLAG == 'true'}
+		{block name="snippets_gift_card_content_c_flag"}
+			<input name="{$INPUT_CODE_NAME}" id="{$INPUT_CODE_NAME}" placeholder="{$txt.text_input_value}" type="text" value="" class="form-control" />
+			<input type="submit" value="{$button.redeem}" class="btn btn-primary" />
+		{/block}
+	{else}
+		{block name="snippets_gift_card_content_no_c_flag"}
+			<div>
+				{$txt.create_account}
+			</div>
+		{/block}
+	{/if}
+{/block}

@@ -1,0 +1,34 @@
+{block name="module_footer"}
+	<footer id="footer">
+		{if $HTML}
+			{block name="module_footer_header"}
+				<div class="footer-header">
+					{$HTML}
+				</div>
+			{/block}
+		{/if}
+		
+		{block name="module_footer_inside"}
+			<div class="inside">
+				<div class="row">
+					{block name="module_footer_inside_content1"}
+						<div class="footer-col-1">{menubox name=content}</div>
+					{/block}
+					{block name="module_footer_inside_content2"}
+						<div class="footer-col-2">{content_manager group=4321005}</div>
+					{/block}
+					{block name="module_footer_inside_content3"}
+						<div class="footer-col-3">{content_manager group=4321006}</div>
+					{/block}
+					{block name="module_footer_inside_content4"}
+						<div class="footer-col-4">{content_manager group=4321007}</div>
+					{/block}
+				</div>
+			</div>
+		{/block}
+		
+		{block name="module_footer_inside_copyright"}
+			<div class="footer-bottom">{$COPYRIGHT_FOOTER}</div>
+		{/block}
+	</footer>
+{/block}

@@ -1,0 +1,73 @@
+{load_language_text section="checkout_payment_instruction"}
+{load_language_text section="paypal3" name="paypaltxt"}
+
+{block name="module_payment_instructions_paypal_pui"}
+	<link rel="stylesheet" type="text/css" href="{$tpl_path}assets/styles/payment_instruction_paypal_pui.css">
+	<div class="payment_instruction_paypal_pui">
+		{block name="module_payment_instructions_paypal_pui_arrow"}
+			<div class="pui_arrow">
+				<span class="value">{$value|string_format:"%.2f"} {$currency}</span>
+				<img src="{$tpl_path}assets/images/PP_PLUS_PUI_ArrowGraphic.png" alt="==>">
+				<img src="{$tpl_path}assets/images/PP_PLUS_PUI_logo.png" alt="PayPal">
+			</div>
+		{/block}
+		
+		{block name="module_payment_instructions_paypal_pui_note"}
+			<p class="payment_note">{$paypaltxt.pui_please_transfer} {$value|string_format:"%.2f"} {$currency} {if $due_date}{$paypaltxt.pui_until} {$due_date}{/if} {$paypaltxt.pui_to_paypal}</p>
+		{/block}
+		
+		{block name="module_payment_instructions_paypal_pui_table"}
+			<table class="payment_instruction_data">
+				{block name="module_payment_instructions_paypal_pui_amount"}
+					<tr>
+						<td class="pp-label">{$txt.amount}</td>
+						<td class="value">{$value|string_format:"%.2f"} {$currency}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instructions_paypal_pui_iban"}
+					<tr>
+						<td class="pp-label">{$txt.iban}</td>
+						<td class="value">{$iban}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instructions_paypal_pui_bic"}
+					<tr>
+						<td class="pp-label">{$txt.bic}</td>
+						<td class="value">{$bic}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instructions_paypal_pui_holder"}
+					<tr>
+						<td class="pp-label">{$txt.account_holder}</td>
+						<td class="value">{$account_holder}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instructions_paypal_pui_bank_name"}
+					<tr>
+						<td class="pp-label">{$txt.bank_name}</td>
+						<td class="value">{$bank_name}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instructions_paypal_pui_reference"}
+					<tr>
+						<td class="pp-label">{$txt.reference}</td>
+						<td class="value">{$reference}</td>
+					</tr>
+				{/block}
+				{if $due_date}
+					{block name="module_payment_instructions_paypal_pui_date"}
+						<tr>
+							<td class="pp-label">{$txt.due_date}</td>
+							<td class="value">{$due_date}</td>
+						</tr>
+					{/block}
+				{/if}
+			</table>
+		{/block}
+		{if $additional_note}
+			{block name="module_payment_instructions_paypal_pui_additional_note"}
+				<p class="additional_note">{$additional_note}</p>
+			{/block}
+		{/if}
+	</div>
+{/block}

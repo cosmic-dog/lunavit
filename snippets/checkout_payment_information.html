@@ -1,0 +1,18 @@
+{block name="snippets_checkout_payment_information"}
+	<div class="row">
+		<div class="col-md-12 indent-sm-1">
+			<table class="payment-information-table table table-responsive">
+				{foreach item=info from=$payment_information_data}
+					<tr>
+						<td>
+							{$info.title}
+						</td>
+						<td>
+							{$info.field}
+						</td>
+					</tr>
+				{/foreach}
+			</table>
+		</div>
+	</div>
+{/block}

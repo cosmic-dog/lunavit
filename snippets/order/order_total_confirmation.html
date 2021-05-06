@@ -1,0 +1,18 @@
+{block name="snippets_order_total_confirmation"}
+	<table class="order-total table table-responsive">
+		<tbody>
+			{foreach item=total_item from=$total_block_data}
+				{block name="snippets_order_total_confirmation_item"}
+					<tr class="{if $smarty.foreach.total_block.last} order-total-last{/if}">
+						<td class="col-xs-6">
+							{$total_item.title}
+						</td>
+						<td class="col-xs-6 text-right">
+							{$total_item.text}
+						</td>
+					</tr>
+				{/block}
+			{/foreach}
+		</tbody>
+	</table>
+{/block}

@@ -1,0 +1,54 @@
+{load_language_text section="checkout_payment"}
+{load_language_text section="buttons" name="button"}
+
+<!--
+ Released under the GNU General Public License (Version 2)
+ [http://www.gnu.org/licenses/gpl-2.0.html]
+-->
+
+{block name="module_heidelpay_gateway"}
+	{*
+	{if (!$smarty.session.MOBILE_ACTIVE)}
+		<script type='text/javascript' src='gm/javascript/jquery/jquery.js'></script>
+	{/if}
+	*}
+
+	{block name="module_heidelpay_gateway_error"}
+		{$error}
+	{/block}
+	
+	<div class='gateway'>
+		{if $notHp}
+			{block name="module_heidelpay_gateway_not_hq"}
+				<div class="gatewayError" style="display: block;">
+					<h3>{$smarty.const.HGW_TXT_GW_ERROR}</h3>
+					<div>{$smarty.const.HGW_MSG_GLOB_ERR}</div>
+				</div>
+			{/block}
+		{else}
+			{block name="module_heidelpay_gateway_hq"}
+				{if $error}
+					{block name="module_heidelpay_gateway_hq_error"}
+						<h2>{$smarty.const.HGW_TXT_DOPAYMENT}</h2>
+						<div class="gatewayError">
+							<h3>{$smarty.const.HGW_TXT_GW_ERROR}</h3>
+							{foreach key=class item=error from=$errors}
+								<div class="{$class}">{$error}</div>
+							{/foreach}
+						</div>
+					{/block}
+				{/if}
+				
+				{if $pm != ''}
+					{block name="module_heidelpay_gateway_hq_pm"}
+						{include file="{$docPath}{$tplPath}/module/heidelpay_{$pm}.html"}
+					{/block}
+				{else}
+					{block name="module_heidelpay_gateway_hq_submit"}
+						{include file="{$docPath}{$tplPath}/module/heidelpay_submit.html"}
+					{/block}
+				{/if}
+			{/block}
+		{/if}
+	</div>
+{/block}

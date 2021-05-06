@@ -1,0 +1,208 @@
+{load_language_text section="contact_us"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_gm_callback_service"}
+	{if $CONTENT_TEXT}
+		{block name="module_gm_callback_service_content"}
+			<p>
+				{$CONTENT_TEXT}
+			</p>
+		{/block}
+	{/if}
+
+	{block name="module_gm_callback_service_form"}
+		<form id="callback-service"
+			  class="form-horizontal"
+			  data-gambio-widget="callback_service">
+			
+			{block name="module_gm_callback_service_alert_danger"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger" hidden=true}
+			{/block}
+			
+			{block name="module_gm_callback_service_alert_success"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="success" hidden=true}
+			{/block}
+			
+			{block name="module_gm_callback_service_fieldset"}
+				<fieldset>
+					{block name="module_gm_callback_service_mandatory"}
+						<p class="mandatory-info">
+							{$txt.text_required}
+						</p>
+					{/block}
+					
+					{block name="module_gm_callback_service_name"}
+						<div class="form-group">
+							{block name="module_gm_callback_service_name_label"}
+								<label for="name" class="control-label col-sm-3">
+									{$NAME}
+								</label>
+							{/block}
+							
+							{block name="module_gm_callback_service_name_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_callback_service_name_input"}
+										<input type="text"
+											   placeholder="{$NAME}"
+											   id="name"
+											   name="name"
+											   class="form-control"
+											   value="" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_callback_service_email"}
+						<div class="form-group">
+							{block name="module_gm_callback_service_email_label"}
+								<label for="email" class="control-label col-sm-3">
+									{$EMAIL}
+								</label>
+							{/block}
+							
+							{block name="module_gm_callback_service_email_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_callback_service_email_input"}
+										<input placeholder="{$EMAIL}"
+											   id="email"
+											   name="email"
+											   type="email"
+											   class="form-control"
+											   value="" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_callback_service_telephone"}
+						<div class="form-group mandatory">
+							{block name="module_gm_callback_service_telephone_label"}
+								<label for="telephone" class="control-label col-sm-3">
+									{$TELEPHONE}
+								</label>
+							{/block}
+							
+							{block name="module_gm_callback_service_telephone_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_callback_service_telephone_input"}
+										<input type="tel"
+											   placeholder="{$TELEPHONE}"
+											   id="telephone"
+											   name="telephone"
+											   class="form-control"
+											   value="" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_callback_service_time"}
+						<div class="form-group">
+							{block name="module_gm_callback_service_time_label"}
+								<label for="time" class="control-label col-sm-3">
+									{$TIME}
+								</label>
+							{/block}
+							
+							{block name="module_gm_callback_service_time_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gm_callback_service_time_input"}
+										<input type="text"
+											   placeholder="{$TIME}"
+											   id="time"
+											   name="time"
+											   class="form-control form-type-datetime"
+											   value="" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gm_callback_service_message"}
+						<div class="form-group">
+							{block name="module_gm_callback_service_message_label"}
+								<label for="{$id}" class="control-label col-sm-3">
+									{$MESSAGE}
+								</label>
+							{/block}
+							
+							{block name="module_gm_callback_service_message_container"}
+								<div class="col-sm-9 input-container">
+									{block name="module_gm_callback_service_message_input"}
+										<textarea placeholder="{$MESSAGE}" id="message" name="message" class="form-control">{$INPUT_TEXT_VALUE}</textarea>
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+			
+					{if $VALIDATION_ACTIVE == 'true'}
+						{block name="module_gm_callback_service_captcha"}
+							<div class="form-group mandatory">
+								{block name="module_gm_callback_service_captcha_label"}
+									<label for="captcha" class="control-label col-sm-3">
+										{$VALIDATION}
+									</label>
+								{/block}
+								
+								{block name="module_gm_callback_service_captcha_container"}
+									<div class="col-sm-9 col-lg-6 input-container">
+										{block name="module_gm_callback_service_captcha_input"}
+											{$GM_CAPTCHA}
+										{/block}
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+			
+				</fieldset>
+			{/block}
+		
+			{if $GM_PRIVACY_LINK != '0'}
+				{block name="module_gm_callback_service_privacy"}
+					<fieldset>
+						{if $show_privacy_checkbox}
+							{block name="module_gm_callback_service_privacy_checkbox"}
+								<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1" />
+								<label for="privacy_accepted">{$GM_PRIVACY_LINK}</label>
+							{/block}
+						{else}
+							{block name="module_gm_callback_service_privacy_link"}
+								<span>{$GM_PRIVACY_LINK}</span>
+							{/block}
+						{/if}
+					</fieldset>
+				{/block}
+			{/if}
+			
+			{block name="module_gm_callback_service_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_gm_callback_service_buttons_back"}
+							<a class="btn btn-default btn-block history-back" href="{page_url}#" title="{$button.back}">
+								{$button.back}
+							</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{* ADD FAKE INPUT FIELD FOR ANTI SPAM BOT MECHANISM *}
+						<label for="form-input" class="form-input"></label>
+						<input id="form-input" type="text" name="lastname" value="">
+						
+						{block name="module_gm_callback_service_buttons_submit"}
+							<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+								{$button.send}
+							</button>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</form>
+	{/block}
+{/block}

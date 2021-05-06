@@ -1,0 +1,26 @@
+{block name="module_masterpayment_response"}
+	<link type="text/css" rel="stylesheet" href="{$tpl_path}css/masterpayment.css" />
+
+	{block name="module_masterpayment_response_wrapper"}
+		<div style="width:500px; margin:auto; padding:10px;">
+			{if $masterpayment_method_title!=''}
+				{block name="module_masterpayment_response_title"}
+					<h4>{$masterpayment_method_title}</h4>
+					<p />
+				{/block}
+			{/if}
+			
+			{block name="module_masterpayment_response_message_container"}
+				<div align="center" class="masterpayment_{$smarty.get.response}_box_outer">
+					<div class="masterpayment_{$smarty.get.response}_box_inner">
+						{block name="module_masterpayment_response_message"}
+							<p>
+								{$masterpayment_message}
+							</p>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</div>
+	{/block}
+{/block}

@@ -1,0 +1,49 @@
+{load_language_text section="downloads"}
+
+{if $dl != ''}
+	{block name="module_downloads"}
+		{block name="module_downloads_title"}
+			<h3>{$txt.heading_download}</h3>
+		{/block}
+			
+		{if $dl_prevented == 'true'}
+			{block name="module_downloads_alert"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$txt.download_not_allowed type="info"}
+			{/block}
+		{else}
+			{block name="module_downloads_list"}
+				{foreach name=aussen item=dl_data from=$dl}
+					{block name="module_downloads_item_dl"}
+						<dl>
+							{if $dl_data.pic_link && $dl_data.delay_message == ''}
+								{block name="module_downloads_item_dl_icon"}
+									<dt>
+										<a href="{$dl_data.pic_link}">
+											<img src="{$tpl_path}assets/images/icons/document.png" />
+										</a>
+									</dt>
+								{/block}
+							{/if}
+							
+							{if $dl_data.delay_message == ''}
+								{block name="module_downloads_item_dl_no_message"}
+									<dd>
+										{$dl_data.download_link}
+										<br />
+										{$txt.text_download_count} {$dl_data.count} {$txt.text_download_date} {$dl_data.date_short}
+									</dd>
+								{/block}
+							{else}
+								{block name="module_downloads_item_dl_message"}
+									<dd>
+										{$dl_data.delay_message}
+									</dd>
+								{/block}
+							{/if}
+						</dl>
+					{/block}
+				{/foreach}
+			{/block}
+		{/if}
+	{/block}
+{/if}

@@ -1,0 +1,135 @@
+{block name="snippets_product_info_images_swiper"}
+
+	{block name="snippets_product_info_images_swiper_products_open_if"}
+		{if $swiperProducts}
+			<div class="productlist-swiper row">
+		{/if}
+	{/block}
+	
+	<div{if $hover === 'true'} data-gambio-{if $startWidget}widget{else}_widget{/if}="product_hover"{/if}>
+		<div id="{$swiperId}" class="swiper-container" data-gambio-{if $startWidget}widget{else}_widget{/if}="swiper" data-swiper-target="{$swiperTarget}" data-swiper-controls="{$swiperControls}" data-swiper-slider-options='{literal}{{/literal}{if $swiperImages}"breakpoints": [], {/if}"pagination": ".js-{$swiperId}-pagination", "nextButton": ".js-{$swiperId}-button-next", "prevButton": ".js-{$swiperId}-button-prev"{$swiperOptions}{literal}}{/literal}' {$additionalData}>
+			<div class="swiper-wrapper"{if $maxHeight} style="height: {$maxHeight}px;"{/if} >
+			
+				{block name="snippets_product_info_images_swiper_images_if"}
+					{if $swiperImages}
+						{block name="snippets_product_info_images_swiper_images"}
+							{foreach item=image_data from=$swiperImages}
+								{block name="snippets_product_info_images_swiper_images_src_assign"}
+									{assign var="image_src" value=($image_data.IMAGE && $image_data.IMAGE != '') ? $image_data.IMAGE : "" }
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_images_popup_if"}
+									{if $popup == 'true'}
+										{block name="snippets_product_info_images_swiper_images_popup_assign"}
+											{assign var="image_src" value=$image_src|replace:'info_images':'popup_images'}
+										{/block}
+									{/if}
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_images_template_include"}
+									{include file="get_usermod:{$tpl_path}snippets/product_info/images/swiper_image.html"
+									img_id={($image_data.IMAGE_NR) ? $image_data.IMAGE_NR : "0" }
+									img_prop=$itemProp
+									img_top={($image_data.PADDING_TOP) ? $image_data.PADDING_TOP : "0" }
+									img_src=$image_src
+									img_alt=$image_data.IMAGE_ALT|default:$image_data.PRODUCTS_NAME|replace:'"':'&quot;'
+									img_title=$image_data.IMAGE_ALT|default:$image_data.PRODUCTS_NAME|replace:'"':'&quot;'
+									img_zoom={($image_data.ZOOM_IMAGE) ? $image_data.ZOOM_IMAGE : "" }
+									}
+								{/block}
+							{/foreach}
+						{/block}
+					{elseif $swiperProducts}
+						{block name="snippets_product_info_images_swiper_products"}
+							{foreach item=product from=$swiperProducts}
+								
+								{block name="snippets_product_info_images_swiper_meta_assign"}
+									{if $product.PRODUCTS_META_DESCRIPTION}
+										{assign var="p_meta" value=$product.PRODUCTS_META_DESCRIPTION|truncate:80:"..."|replace:'"':'&quot;'}
+									{else}
+										{assign var="p_meta" value=$product.PRODUCTS_NAME}
+									{/if}
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_short_description_assign"}
+									{if $product.PRODUCTS_SHORT_DESCRIPTION}
+										{assign var="p_short_desc" value=$product.PRODUCTS_SHORT_DESCRIPTION|strip_tags|truncate:80:"..."|replace:'"':'&quot;'}
+									{elseif $product.PRODUCTS_DESCRIPTION}
+										{assign var="p_short_desc" value=$product.PRODUCTS_DESCRIPTION|strip_tags|truncate:80:"..."|replace:'"':'&quot;'}
+									{else}
+										{assign var="p_short_desc" value=""}
+									{/if}
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_product_images_plugin"}
+									{product_images product_id=$product.PRODUCTS_ID out=imagetest p_name=$product.PRODUCTS_NAME p_image=$product.PRODUCTS_IMAGE}
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_product_ribbons_plugin"}
+									{product_ribbons
+									product_id=$product.PRODUCTS_ID
+									out=arr_ribbons
+									}
+								{/block}
+
+								{block name="snippets_product_info_images_swiper_product_template_include"}
+									{include file="get_usermod:{$tpl_path}snippets/product_listing/product.html"
+									is_swiper="true"
+									ribbons=arr_ribbons
+									p_image={($product.PRODUCTS_IMAGE) ? $product.PRODUCTS_IMAGE : "" }
+									p_imgs=$imagetest
+									p_url=$product.PRODUCTS_LINK
+									p_img_title=$product.PRODUCTS_IMAGE_ALT|default:$product.PRODUCTS_NAME|replace:'"':'&quot;'
+									p_img_alt=$product.PRODUCTS_IMAGE_ALT|default:$product.PRODUCTS_NAME|replace:'"':'&quot;'
+									p_meta=$p_meta
+									p_name_full=$product.PRODUCTS_NAME
+									p_headline=$product.PRODUCTS_NAME|truncate:$content_data.TRUNCATE_PRODUCTS_NAME:"..."
+									p_short_desc=$p_short_desc
+									p_price=$product.PRODUCTS_PRICE
+									p_vpe={($product.PRODUCTS_VPE) ? $product.PRODUCTS_VPE : "" }
+									data_index=$content_data.ID_PREFIX|cat:"_"|cat:$product.PRODUCTS_ID
+									}	
+								{/block}
+							{/foreach}
+						{/block}
+					{/if}
+				{/block}
+			</div>
+			
+			{block name="snippets_product_info_images_swiper_mustache"}
+				<script type="text/mustache">
+					<template>
+						{literal}
+							{{#.}}
+								<div class="swiper-slide {{className}}">
+									<div class="swiper-slide-inside">
+										<img {{{srcattr}}} alt="{{title}}" title="{{title}}" itemprop="image" />
+									</div>
+								</div>
+							{{/.}}
+						{/literal}
+					</template>
+				</script>
+			{/block}
+			
+	</div>
+	
+	{block name="snippets_product_info_images_swiper_controls_if"}
+		{if $swiperImages|@sizeof > 4 || ($showControls === 'true' && $swiperImages|@sizeof > 1)}
+			{block name="snippets_product_info_images_swiper_controls_prev"}
+				<div class="js-{$swiperId}-button-prev swiper-button-prev"></div>
+			{/block}
+			{block name="snippets_product_info_images_swiper_controls_next"}
+				<div class="js-{$swiperId}-button-next swiper-button-next"></div>
+			{/block}
+		{/if}
+	{/block}
+			
+	</div>
+	
+	{block name="snippets_product_info_images_swiper_products_close_if"}
+		{if $swiperProducts}
+			</div>
+		{/if}
+	{/block}
+{/block}

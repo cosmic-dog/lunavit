@@ -1,0 +1,25 @@
+{load_language_text section="cross_selling"}
+
+{if $module_content != ''}
+	{block name="module_cross_selling"}
+		{block name="module_cross_selling_title"}
+			<h2>{$txt.heading_text}</h2>
+		{/block}
+		
+		{block name="module_cross_selling_list"}
+			{foreach name=xsell key=key_data item=item_data from=$module_content}
+				{if $smarty.foreach.xsell.first}
+					{assign var="fullscreenPage" value={template_setting name="gx-product-info-full-width"}}
+					{product_listing
+						products=$item_data.PRODUCTS
+						id="cross_selling"
+						truncate=$TRUNCATE_PRODUCTS_NAME
+						showManufacturerImages=$showManufacturerImages
+						showProductRibbons=$showProductRibbons
+						showRating=$showRating
+						fullscreenPage=$fullscreenPage}
+				{/if}
+			{/foreach}
+		{/block}
+	{/block}
+{/if}

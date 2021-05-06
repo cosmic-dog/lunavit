@@ -1,0 +1,63 @@
+{load_language_text section="checkout_payment_instruction"}
+
+{block name="module_payment_instruction"}
+	<link rel="stylesheet" type="text/css" href="{$tpl_path}assets/styles/payment_instruction.css">
+	<div class="payment_instruction">
+		{block name="module_payment_instruction_note"}
+			<p class="payment_note">{$txt.payment_note}</p>
+		{/block}
+		{block name="module_payment_instruction_table"}
+			<table class="payment_instruction_data">
+				{block name="module_payment_instruction_amount"}
+					<tr>
+						<td class="pp-label">{$txt.amount}</td>
+						<td class="value">{$value|string_format:"%.2f"} {$currency}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instruction_iban"}
+					<tr>
+						<td class="pp-label">{$txt.iban}</td>
+						<td class="value">{$iban}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instruction_bic"}
+					<tr>
+						<td class="pp-label">{$txt.bic}</td>
+						<td class="value">{$bic}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instruction_holder"}
+					<tr>
+						<td class="pp-label">{$txt.account_holder}</td>
+						<td class="value">{$account_holder}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instruction_bank_name"}
+					<tr>
+						<td class="pp-label">{$txt.bank_name}</td>
+						<td class="value">{$bank_name}</td>
+					</tr>
+				{/block}
+				{block name="module_payment_instruction_reference"}
+					<tr>
+						<td class="pp-label">{$txt.reference}</td>
+						<td class="value">{$reference}</td>
+					</tr>
+				{/block}
+				{if $due_date}
+					{block name="module_payment_instruction_date"}
+						<tr>
+							<td class="pp-label">{$txt.due_date}</td>
+							<td class="value">{$due_date}</td>
+						</tr>
+					{/block}
+				{/if}
+			</table>
+		{/block}
+		{if $additional_note}
+			{block name="module_payment_instruction_additional_note"}
+				<p class="additional_note">{$additional_note}</p>
+			{/block}
+		{/if}
+	</div>
+{/block}

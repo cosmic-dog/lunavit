@@ -1,0 +1,20 @@
+{if $attributes|count > 0}
+	{block name="module_gm_attribute_images"}
+		{foreach name=attributes item=attributes_data from=$attributes}
+			{block name="module_gm_attribute_images_item"}
+				<dl>
+					<dt>
+						{block name="module_gm_attribute_images_item_attribute_name"}
+							{$attributes_data.NAME}: {$attributes_data.OPTIONS_NAME}
+						{/block}
+					</dt>
+					<dd>
+						{block name="module_gm_attribute_images_item_attribute_image"}
+							<img class="img-responsive" src="{$IMAGES_PATH}{$attributes_data.IMAGE}" alt="{$attributes_data.NAME}: {$attributes_data.OPTIONS_NAME}" title="{$attributes_data.NAME}: {$attributes_data.OPTIONS_NAME}" />
+						{/block}
+					</dd>
+				</dl>
+			{/block}
+		{/foreach}
+	{/block}
+{/if}

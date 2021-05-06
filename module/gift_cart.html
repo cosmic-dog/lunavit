@@ -1,0 +1,42 @@
+{load_language_text section="gift_cart"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="popup" name="popup"}
+{load_language_text section="general" name="general"}
+
+{if $ACTIVATE_GIFT == 'true'}
+	{block name="module_gift_cart"}
+		<div class="gift-cart-modal modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">{$txt.title}</h4>
+					</div>
+					<div class="modal-body">
+						{block name="module_gift_cart_wrapper"}
+							<div class="redeem-code-wrapper gift-cart-layer">
+								{block name="module_gift_cart_form"}
+									<form action="shop.php?do=Cart/RedeemGift" data-gambio-widget="gift">
+										<div class="gift-cart-content-wrapper">
+											{block name="module_gift_cart_content"}
+												{include file="get_usermod:{$tpl_path}snippets/gift_cart_content.html"}
+											{/block}
+										</div>
+									</form>
+								{/block}
+							</div>
+						{/block}
+						{block name="module_gift_cart_details_wrapper"}
+							<div class="redeem-code-details-wrapper"></div>
+						{/block}
+					</div>
+					{if $CUSTOMER_STATUS === '1'}
+						<div class="modal-footer">
+							<a href="{$LINK_ACCOUNT}" class="btn btn-primary">{$general.TEXT_CREATE_ACCOUNT}</a>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/block}
+{/if}

@@ -1,0 +1,200 @@
+{load_language_text section="contact_us"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="gv_send"}
+
+{block name="module_gv_send"}
+	{block name="module_gv_send_title"}
+		<h1>{$txt.heading_gvsend}</h1>
+	{/block}
+	
+	{if $action eq 'process'}
+		{block name="module_gv_send_process_success"}
+			<p>{$txt.text_success}</p>
+		{/block}
+	
+		<br />
+
+		{block name="module_gv_send_process_buttons"}
+			<div class="row">
+				<div class="col-xs-6 col-sm-4 col-md-3">
+					{block name="module_gv_send_process_buttons_continue"}
+						<a href="{$CONTINUE_LINK}" class="btn btn-default btn-block">{$button.continue}</a>
+					{/block}
+				</div>
+			</div>
+		{/block}
+	{elseif $action eq 'send'}
+		{block name="module_gv_send_send"}
+			<p>
+				{block name="module_gv_send_send_main_message"}
+					{$MAIN_MESSAGE}
+					<br />
+				{/block}
+				{if $POST_MESSAGE neq ''}
+					{block name="module_gv_send_send_post_massage"}
+						{$POST_MESSAGE}
+					{/block}
+				{/if}
+			</p>
+		{/block}
+
+		{block name="module_gv_send_send_buttons"}
+			<form action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}">
+				<fieldset>
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_gv_send_send_buttons_back"}
+								<a href="javascript:history.go(-1)"  class="btn btn-default btn-block">{$button.back}</a>
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_gv_send_send_buttons_continue"}
+								<button type="submit" class="btn btn-primary btn-block" title="{$button.continue}">{$button.continue}</button>
+							{/block}
+						</div>
+					</div>
+					
+					{$HIDDEN_FIELDS}
+				</fieldset>
+			</form>
+		{/block}
+	
+	{elseif $action eq ''}
+		{block name="module_gv_send_default_title"}
+			<p>{$txt.heading_text}</p>
+		{/block}
+
+		{block name="module_gv_send_default_form"}
+			<form class="form-horizontal" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}">
+				<fieldset>
+					{block name="module_gv_send_default_name"}
+						<div class="form-group">
+							{block name="module_gv_send_default_name_label"}
+								<label for="to_name" class="control-label col-sm-3">
+									{$txt.entry_name}
+								</label>
+							{/block}
+							
+							{block name="module_gv_send_default_name_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gv_send_default_name_input"}
+										{$INPUT_TO_NAME}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gv_send_default_email"}
+						<div class="form-group mandatory">
+							{block name="module_gv_send_default_email_label"}
+								<label for="email" class="control-label col-sm-3">
+									{$txt.entry_email}
+								</label>
+							{/block}
+									
+							{block name="module_gv_send_default_email_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gv_send_default_email_input"}
+										{$INPUT_EMAIL}
+									{/block}
+									{if $ERROR_EMAIL neq ''}
+										{block name="module_gv_send_default_email_error"}
+											{$txt.error_entry_email_address_check}
+										{/block}
+									{/if}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gv_send_default_amount"}
+						<div class="form-group mandatory">
+							{block name="module_gv_send_default_amount_label"}
+								<label for="amount" class="control-label col-sm-3">
+									{$txt.entry_amount}
+								</label>
+							{/block}
+									
+							{block name="module_gv_send_default_amount_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gv_send_default_amount_input"}
+										{$INPUT_AMOUNT}
+									{/block}
+									{if $ERROR_AMOUNT neq ''}
+										{block name="module_gv_send_default_amount_error"}
+											{$ERROR_AMOUNT}<br/>
+										{/block}
+									{/if}
+									{block name="module_gv_send_default_amount_balance"}
+										{$txt.current_balance} {$gvDepositCurrency}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_gv_send_default_message"}
+						<div class="form-group">
+							{block name="module_gv_send_default_message_label"}
+								<label for="message_body" class="control-label col-sm-3">
+									{$txt.entry_message}
+								</label>
+							{/block}
+									
+							{block name="module_gv_send_default_message_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_gv_send_default_message_input"}
+										{$TEXTAREA_MESSAGE}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+
+					{block name="module_gv_send_privacy_if"}
+						{if $show_privacy}
+							{block name="module_gv_send_privacy"}
+								{if $show_privacy_checkbox}
+									{block name="module_gv_send_privacy_checkbox"}
+										<input id="privacy_accepted" 
+											   type="checkbox" 
+											   name="privacy_accepted" 
+											   value="1" 
+											   required/>
+										<label for="privacy_accepted" class="control-label">{$privacy_link} *</label>
+									{/block}
+								{else}
+									{block name="module_gv_send_privacy_link"}
+										<span>{$privacy_link}</span>
+									{/block}
+								{/if}
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_gv_send_default_buttons"}
+						<div class="row">
+							<div class="col-xs-6 col-sm-4 col-md-3">
+								{block name="module_gv_send_default_buttons_empty"}
+									&nbsp;
+								{/block}
+							</div>
+							<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+								{block name="module_gv_send_default_buttons_continue"}
+									<button type="submit" class="btn btn-primary btn-block" title="{$button.continue}">{$button.continue}</button>
+								{/block}
+							</div>
+						</div>
+					{/block}
+				</fieldset>
+				
+				{block name="module_gv_send_default_mandatory"}
+					<p class="mandatory-info">
+						{$txt.text_required}
+					</p>
+				{/block}
+			</form>
+		{/block}
+	{/if}
+{/block}

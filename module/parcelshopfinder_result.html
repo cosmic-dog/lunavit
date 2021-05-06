@@ -1,0 +1,213 @@
+{load_language_text section="parcelshopfinder"}
+
+{block name="module_parcelshopfinder_result"}
+	{if $error_message}
+		{block name="module_parcelshopfinder_result_error"}
+			<p class="error">{$error_message}</p>
+		{/block}
+	{/if}
+
+	<div class="row" data-gambio-widget="parcelshopfindersearch">
+		<div class="col-xs-8" style="vertical-align: bottom">
+			<div style="line-height: 3em">
+	            {$txt.your_search_address}:
+				<strong>
+	                {if $filter == 'both'}{$txt.filter_both}{/if}
+	                {if $filter == 'offices'}{$txt.filter_offices}{/if}
+	                {if $filter == 'packstations'}{$txt.filter_packstations}{/if}
+				</strong>
+	            {$txt.near}
+				<strong>{$address}</strong>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<span class="btn btn-default pull-right" id="psfnewsearch">{$txt.new_search}</span>
+		</div>
+	</div>
+
+	{if $psflist}
+		{if $google_map_type === 'static'}
+			{block name="module_parcelshopfinder_result_static"}
+				<div class="resultmap">
+					<img src="{$mapUrl}">
+				</div>
+			{/block}
+		{/if}
+		
+		{if $google_map_type === 'dynamic'}
+			{block name="module_parcelshopfinder_result_dynamic"}
+				<div id="map"></div>
+			{/block}
+		{/if}
+
+		{block name="module_parcelshopfinder_result_table"}
+			<table class="parcelshops" data-gambio-widget="parcelshopfinderresult">
+				{block name="module_parcelshopfinder_result_table_thead"}
+					<thead>
+						<tr>
+							<th colspan="2">{$txt.parcel_shop_description}</th>
+							{* <th>{$txt.distance}</th> *}
+							<th>{$txt.opening_hours}</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+				{/block}
+				{block name="module_parcelshopfinder_result_table_tbody"}
+					<tbody>
+						{foreach from=$psflist item=parcelshop}
+							<tr{if $parcelshop->mapMarkerLabel} id="marker_{$parcelshop->mapMarkerLabel}"{/if} class="parcelshop">
+								{block name="module_parcelshopfinder_result_table_geoposition"}
+									<td class="geoposition">
+										{if $parcelshop->mapMarkerLabel}<div class="mapmarkerlabel_icon mapmarkerlabel_{$parcelshop->shopType|strtolower}">{$parcelshop->mapMarkerLabel}</div><br>{/if}
+										{$parcelshop->geoPosition->distance}&nbsp;m
+									</td>
+								{/block}
+								{block name="module_parcelshopfinder_result_table_address"}
+									<td class="address">
+										{if $country == 'Germany'}
+										<strong class="parcelshop_heading"><span class="street_address">{$parcelshop->outputTitle}</span> <span class="house_number">{$parcelshop->primaryKeyZipRegion}</span></strong><br>
+										{if $parcelshop->shopName}<span class="shop_name">{$parcelshop->shopName}</span><br>{/if}
+										{$parcelshop->street} {$parcelshop->houseNo}<br>
+										{else}
+										<strong class="parcelshop_heading"><span class="additional_info">{$parcelshop->outputTitle} {$parcelshop->primaryKeyZipRegion}</span></strong><br>
+										{if $parcelshop->shopName}<span class="shop_name">{$parcelshop->shopName}</span><br>{/if}
+										<span class="street_address">{$parcelshop->street}</span> <span class="house_number">{$parcelshop->houseNo}</span><br>
+										{/if}
+										<span class="country_iso">{$parcelshop->countryCode|strtoupper}</span> <span class="postcode">{$parcelshop->zipCode}</span> <span class="city">{$parcelshop->city}</span>
+									</td>
+								{/block}
+								{block name="module_parcelshopfinder_result_table_opening_hours"}
+									<td>
+										{if $parcelshop->openingHours}
+											<table class="openinghours">
+											{foreach from=$parcelshop->openingHours item=oo_row}
+												<tr>
+												{foreach from=$oo_row item=oo_col}
+													<td>{$oo_col|strtr:$oo_translation}</td>
+												{/foreach}
+												</tr>
+											{/foreach}
+											</table>
+										{/if}
+										{if $parcelshop->openingHoursToday}
+											{$txt.open_today} {$parcelshop->openingHoursToday|strtr:$oo_translation}
+										{/if}
+									</td>
+								{/block}
+								{block name="module_parcelshopfinder_result_table_buttons"}
+									<td class="prepare_ab_button">
+										<button class="btn prepare_ab_entry">{$txt.prepare_ab_entry}</button>
+									</td>
+								{/block}
+							</tr>
+						{/foreach}
+					</tbody>
+				{/block}
+			</table>
+		{/block}
+		
+		{block name="module_parcelshopfinder_result_form"}
+			<form id="psf_new_ab" action="{$form_action_new_ab_entry}" method="POST">
+				<input type="hidden" name="checkout_started" value="{$checkout_started}">
+				<input type="hidden" name="search"           value="{$search}">
+				<input type="hidden" name="street_address"   value="">
+				<input type="hidden" name="house_number"     value="">
+				<input type="hidden" name="additional_info"  value="">
+				<input type="hidden" name="postcode"         value="">
+				<input type="hidden" name="city"             value="">
+				<input type="hidden" name="country"          value="{$country}">
+				<fieldset class="form-horizontal">
+					{block name="module_parcelshopfinder_result_form_legend"}
+						<legend>{$txt.new_ab_entry}</legend>
+					{/block}
+					
+					{block name="module_parcelshopfinder_result_firstname"}
+						<div class="form-group">
+							{block name="module_parcelshopfinder_result_firstname_label"}
+								<label class="control-label col-sm-3">{$txt.ab_firstname}</label>
+							{/block}
+							{block name="module_parcelshopfinder_result_firstname_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_parcelshopfinder_result_firstname_input"}
+										<input class="form-control" type="text" name="firstname" value="{$customer.firstname}">
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					{block name="module_parcelshopfinder_result_lastname"}
+						<div class="form-group">
+							{block name="module_parcelshopfinder_result_lastname_label"}
+								<label class="control-label col-sm-3">{$txt.ab_lastname}</label>
+							{/block}
+							{block name="module_parcelshopfinder_result_lastname_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_parcelshopfinder_result_lastname_input"}
+										<input class="form-control" type="text" name="lastname" value="{$customer.lastname}">
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					{if $country === 'Germany'}
+						{block name="module_parcelshopfinder_result_postnumber"}
+							<div class="form-group">
+								{block name="module_parcelshopfinder_result_postnumber_label"}
+									<label class="control-label col-sm-3">{$txt.ab_postnumber}</label>
+								{/block}
+								{block name="module_parcelshopfinder_result_postnumber_container"}
+									<div class="col-sm-9 col-lg-6 input-container">
+										{block name="module_parcelshopfinder_result_postnumber_input"}
+											<input class="form-control" type="text" name="postnumber" value="{$customer.postnumber}">
+										{/block}
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+					{block name="module_parcelshopfinder_result_psf_name"}
+						<div class="form-group">
+							{block name="module_parcelshopfinder_result_psf_name_label"}
+								<label class="control-label col-sm-3">{$txt.psf_name}</label>
+							{/block}
+							{block name="module_parcelshopfinder_result_psf_name_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_parcelshopfinder_result_psf_name_input"}
+										<input class="form-control invalid" type="text" name="psf_name" id="psf_name" value="" readonly="readonly">
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				</fieldset>
+				{block name="module_parcelshopfinder_result_buttons"}
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_parcelshopfinder_result_buttons_empty"}
+								&nbsp;
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_parcelshopfinder_result_buttons_submit"}
+								<button id="psf_make_new_ab_entry" disabled="disabled" class="btn btn-primary btn-block" type="submit">{$txt.make_new_ab_entry}</button>
+							{/block}
+						</div>
+					</div>
+				{/block}
+			</form>
+		
+			{if $google_map_type === 'dynamic'}
+				{block name="module_parcelshopfinder_result_dynamic_scripts"}
+					<script>
+						var psfDynamic = true, markerData = {$markerData}, searchAddress = '{$searchAddress}';
+					</script>
+					<script src="https://maps.googleapis.com/maps/api/js?key={$googleApiKey}"></script>
+				{/block}
+			{/if}
+		{/block}
+	{else}{* if $psflist *}
+		{block name="module_parcelshopfinder_result_no_results"}
+			<p class="no_result">{$txt.no_result}</p>
+		{/block}
+	{/if}{* if $psflist *}
+{/block}

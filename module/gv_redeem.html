@@ -1,0 +1,38 @@
+{load_language_text section="gv_redeem"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_gv_redeem"}
+	{block name="module_gv_redeem_title"}
+		<h1>{$txt.heading_gvredeem}</h1>
+	{/block}
+	
+	{block name="module_gv_redeem_content"}
+		<div class="box_content">
+			{block name="module_gv_redeem_information"}
+				<p>{$txt.text_information}</p>
+			{/block}
+			
+			{if $error eq 'true'}
+				{block name="module_gv_redeem_error"}
+					<p>{$txt.text_invalid_gv}</p>
+				{/block}
+			{else}
+				{block name="module_gv_redeem_amount"}
+					<p>{$txt.text_valid_gva} {$coupon_amount} {$txt.text_valid_gvb}</p>
+				{/block}
+			{/if}
+			
+			<br />
+			
+			{block name="module_gv_redeem_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_gv_redeem_buttons_continue"}
+							<a href="{$CONTINUE_LINK}" class="btn btn-default btn-block">{$button.continue}</a>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		</div>
+	{/block}
+{/block}

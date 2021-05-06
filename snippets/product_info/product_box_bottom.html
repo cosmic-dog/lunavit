@@ -1,0 +1,84 @@
+{block name="snippets_product_info_product_box_bottom"}
+	<div class="row">
+	
+		{$RICH_SNIPPET_ARRAY.offer_itemprop_in_stock}
+		
+		{if $ITEM_CONDITION === 'used'}
+			{$RICH_SNIPPET_ARRAY.offer_itemprop_item_condition_used}
+		{elseif $ITEM_CONDITION === 'refurbished'}
+			{$RICH_SNIPPET_ARRAY.offer_itemprop_item_condition_refurbished}
+		{else}
+			{$RICH_SNIPPET_ARRAY.offer_itemprop_item_condition_new}
+		{/if}
+		
+		<input type="hidden" name="products_id" id="products-id" value="{$PRODUCTS_ID}" />
+	
+		{block name="snippets_product_info_product_box_bottom_quantity_container"}
+			<div class="input-number" data-type="float" data-stepping="{$QTY_STEPPING}">
+
+				{block name="snippets_product_info_product_box_bottom_quantity_if"}
+					{if $PRODUCTS_QUANTITY_UNIT}
+						{block name="snippets_product_info_product_box_bottom_quantity"}
+							<label class="control-label sr-only">
+								{$PRODUCTS_QUANTITY_UNIT}
+							</label>
+						{/block}
+					{/if}
+				{/block}
+
+				{block name="snippets_product_info_product_box_bottom_input"}
+					<div class="input-group">
+						<a class="btn btn-default btn-lg btn-minus"><span class="fa fa-minus"></span></a>
+						<input type="text" class="form-control input-lg pull-right js-calculate-qty" value="{$QUANTITY}" id="attributes-calc-quantity" name="products_qty"{if $DISABLED_QUANTITY} disabled="disabled"{/if} />
+						<a class="input-group-btn btn btn-default btn-lg btn-plus"><span class="fa fa-plus"></span></a>
+					</div>
+				{/block}
+
+			</div>
+		{/block}
+		
+		{block name="snippets_product_info_product_box_bottom_add_to_cart"}
+			<div class="button-container">
+				<input name="btn-add-to-cart" type="submit" class="btn btn-lg btn-buy btn-block js-btn-add-to-cart{if $DEACTIVATE_BUTTON == true} btn-inactive{/if}" value="{$txt.add_to_cart}" title="{$txt.add_to_cart}" />
+			</div>
+		{/block}
+	
+		{block name="snippets_product_info_product_box_bottom_paypal"}
+			{$PayPalInstallments}
+		{/block}
+
+		{block name="snippets_product_info_product_box_bottom_wishlist_if"}
+			{if $SHOW_WISHLIST}
+				{block name="snippets_product_info_product_box_bottom_wishlist"}
+					<div class="col-xs-12 wishlist-container">
+						<a href="#" class="btn-wishlist" title="{$button.add_to_wishlist}">{$button.add_to_wishlist}</a>
+					</div>
+				{/block}
+			{/if}
+		{/block}
+
+		{block name="snippets_product_info_product_box_bottom_price_offer_if"}
+			{if $GM_PRICE_OFFER!=''}
+				{block name="snippets_product_info_product_box_bottom_price_offer"}
+					<div class="col-xs-12 price-offer-container">
+						<button class="btn-price-offer"
+								type="button">{$txt.text_price_offer}</button>
+					</div>
+				{/block}
+			{/if}
+		{/block}
+
+		{block name="snippets_product_info_product_box_bottom_tell_a_friend_if"}
+			{if $GM_TELL_A_FRIEND!=''}
+				{block name="snippets_product_info_product_box_bottom_tell_a_friend"}
+					<div class="col-xs-12 product-question-container">
+						<button class="btn-product-question"
+								type="button"
+								data-gambio-widget="product_question"
+								data-product_question-product-id="{$PRODUCTS_ID}">{$txt.text_tell_a_friend}</button>
+					</div>
+				{/block}
+			{/if}
+		{/block}
+	</div>
+{/block}

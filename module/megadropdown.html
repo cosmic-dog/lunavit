@@ -1,0 +1,54 @@
+{block name="module_megadropdown"}
+	{if $content_data.CATEGORIES_DATA|@count > 0}
+		{block name="module_megadropdown_categories"}
+			<div id="megadropdown_box_id_{$content_data.current_category_id}" class="megadropdown clearfix" style="display:none">
+				<div class="megadropdown-shadow clearfix">
+					<div class="megadropdown-inside clearfix">
+						{block name="module_megadropdown_categories_list"}
+							<ul>
+								{if $content_data.CATEGORIES_DATA|@has_children}
+									{block name="module_megadropdown_categories_list_children"}
+										{foreach name=cat_data item=categories_item from=$content_data.CATEGORIES_DATA}
+											{block name="module_megadropdown_categories_list_children_item"}
+												<li class="top_li">
+													<a id="megadropdown_{$categories_item.data.id}" href="{$categories_item.data.url}">{$categories_item.data.name|replace:"&amp;":"&"|replace:"&":"&amp;"}{if $categories_item.data.products_count} ({$categories_item.data.products_count}){/if}</a>
+													{if $categories_item.children|@count > 0}
+														{block name="module_megadropdown_categories_list_children_sublist"}
+															<ul>
+																{foreach item=children_item from=$categories_item.children}
+																	{block name="module_megadropdown_categories_list_children_subitem"}
+																		<li class=""><a id="megadropdown_{$children_item.data.id}" href="{$children_item.data.url}">{$children_item.data.name|replace:"&amp;":"&"|replace:"&":"&amp;"}{if $children_item.data.products_count} ({$children_item.data.products_count}){/if}</a></li>
+																	{/block}
+																{/foreach}
+															</ul>
+														{/block}
+													{/if}
+												</li>
+											{/block}
+										{/foreach}
+									{/block}
+								{else}
+									{block name="module_megadropdown_categories_list_no_children"}
+										<li>
+											<ul>
+												{foreach name=cat_data item=categories_item from=$content_data.CATEGORIES_DATA}
+													{block name="module_megadropdown_categories_list_no_children_item"}
+													<li><a id="megadropdown_{$categories_item.data.id}" href="{$categories_item.data.url}">{$categories_item.data.name|replace:"&amp;":"&"|replace:"&":"&amp;"}{if $categories_item.data.products_count} ({$categories_item.data.products_count}){/if}</a></li>
+													{/block}
+												{/foreach}
+											</ul>
+										</li>
+									{/block}
+								{/if}
+							</ul>
+						{/block}
+					</div>
+				</div>
+			</div>
+		{/block}
+	{/if}
+
+	{block name="module_megadropdown_parents"}
+		{$content_data.categories_parents_ids}
+	{/block}
+{/block}

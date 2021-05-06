@@ -1,0 +1,115 @@
+{block name="module_head"}
+	<!DOCTYPE html>
+	<html xmlns="http://www.w3.org/1999/xhtml" {$content_data.HTML_PARAMS}>
+		{block name="module_head_head"}
+			<head>
+				{block name="module_head_head_license_comment"}
+					{* The following copyright announcement is in compliance
+					to section 2c of the GNU General Public License, and
+					thus can not be removed, or can only be modified
+					appropriately.
+
+					Please leave this comment intact together with the
+					following copyright announcement. *}
+
+					<!--
+
+					=========================================================
+					Shopsoftware by Gambio GmbH (c) 2005-2018 [www.gambio.de]
+					=========================================================
+
+					Gambio GmbH offers you highly scalable E-Commerce-Solutions and Services.
+					The Shopsoftware is redistributable under the GNU General Public License (Version 2) [http://www.gnu.org/licenses/gpl-2.0.html].
+					based on: E-Commerce Engine Copyright (c) 2006 xt:Commerce, created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
+					Information and contribution at http://www.xt-commerce.com
+
+					=========================================================
+					Please visit our website: www.gambio.de
+					=========================================================
+
+					-->
+				{/block}
+
+                {block name="module_head_head_additional_html_array_first"}
+                    {$content_data.additional_html_array.head.first}
+                {/block}
+
+				{block name="module_head_head_viewport_meta"}
+					<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+				{/block}
+
+				{block name="module_head_head_additional_html_array_top"}
+					{$content_data.additional_html_array.head.top}
+				{/block}
+
+				{block name="module_head_head_base"}
+					<base href="{$content_data.BASE_URL}" />
+				{/block}
+
+				{block name="module_head_head_favicon_if"}
+					{if $content_data.FAVICON}
+						{block name="module_head_head_favicon"}
+							<link rel="shortcut icon" href="{$content_data.FAVICON}" type="image/x-icon" />
+						{/block}
+					{/if}
+				{/block}
+
+				{block name="module_head_head_favicon_ipad_if"}
+					{if $content_data.FAVICON_IPAD}
+						{block name="module_head_head_favicon_ipad"}
+							<link rel="apple-touch-icon" href="{$content_data.FAVICON_IPAD}" />
+						{/block}
+					{/if}
+				{/block}
+
+				{block name="module_head_head_inline_css_if"}
+					{if $content_data.MAIN_CSS_INLINE}
+						{block name="module_head_head_inline_css"}
+							<style>{$content_data.MAIN_CSS_INLINE}</style>
+						{/block}
+					{else}
+						{block name="module_head_head_css_include"}
+							<link id="main-css" type="text/css" rel="stylesheet" href="{if $content_data.MAIN_CSS}{$tpl_path}{$content_data.MAIN_CSS}{else}{$tpl_path}gm_dynamic.css.php?{$content_data.CSS_PARAMS}{/if}" />
+						{/block}
+					{/if}
+				{/block}
+
+				{block name="module_head_head_ie_conditional"}
+					<!--[if lt IE 9]>
+					<link type="text/css" rel="stylesheet" href="{$tpl_path}styles/ie8.css" />
+					<![endif]-->
+				{/block}
+
+				{block name="module_head_head_additional_html_array_bottom"}
+					{$content_data.additional_html_array.head.bottom}
+				{/block}
+
+				{block name="module_head_head_fixed_header_assign"}
+					{assign var="fixedHeader" value={template_setting name="gx-header-fixed"}}
+				{/block}
+
+				{block name="module_head_head_debug_bar_header"}
+					{if $content_data.debug_bar}
+						{$content_data.debug_bar_header_content nofilter}
+					{/if}
+				{/block}
+				
+				<link rel="preconnect" href="https://fonts.gstatic.com">
+				<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+				<link id="neu-css" type="text/css" rel="stylesheet" href="templates/Honeygrid/neu.css">
+			</head>
+		{/block}
+		{block name="module_head_body"}
+			<body class="{page_id}"
+				  data-gambio-namespace="{$content_data.BASE_URL}{$tpl_path}assets/javascript/engine"
+				  data-jse-namespace="{$content_data.BASE_URL}JSEngine/build"
+				  data-gambio-controller="initialize"
+				  data-gambio-widget="input_number responsive_image_loader transitions {if $fixedHeader}header {/if}image_maps modal history dropdown core_workarounds anchor"
+				  data-input_number-separator="{$content_data.numberSeparator}"
+					{$content_data.additional_html_array.body.params}>
+
+				{block name="module_head_body_additional_html"}
+					{$content_data.additional_html_array.body.top}
+				{/block}
+		{/block}
+{/block}

@@ -1,0 +1,38 @@
+{load_language_text section="index"}
+
+{if $module_content}
+	{block name="module_gm_live_search"}
+		{block name="module_gm_live_search_title"}
+			<span id="live-search-head">
+				{$txt.text_live_search_head}:
+			</span>
+		{/block}
+		
+		{block name="module_gm_live_search_list"}
+			<ul class="search-result">
+				{foreach name=aussen item=module_data from=$module_content}
+					{block name="module_gm_live_search_item"}
+						<li>
+							{if $module_data.PRODUCTS_IMAGE != ''}
+								{block name="module_gm_live_search_image"}
+				                    <img class="img-responsive product-image" src="{$module_data.PRODUCTS_IMAGE}" />
+								{/block}
+							{else}
+								{block name="module_gm_live_search_no_image"}
+									<div class="product-image fa fa-picture-o">&nbsp;</div>
+								{/block}
+							{/if}
+							{block name="module_gm_live_search_product_name"}
+								<a href="{$module_data.PRODUCTS_URL}" title="{$module_data.PRODUCTS_NAME}">
+									<span>
+										{$module_data.PRODUCTS_NAME}
+									</span>
+								</a>
+							{/block}
+						</li>
+					{/block}
+				{/foreach}
+			</ul>
+		{/block}
+	{/block}
+{/if}

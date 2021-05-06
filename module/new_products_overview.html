@@ -1,0 +1,23 @@
+{load_language_text section="new_products"}
+{load_language_text section="index" name="index"}
+{load_language_text section="product_listing" name="listing"}
+
+{block name="module_new_products_overview"}
+	{block name="module_new_products_overview_title"}
+		<h2 class="m-new-product-overview">{$txt.heading_text}</h2>
+	{/block}
+		
+	{if $module_content|count === 0}
+		{block name="module_new_products_overview_no_new_products"}
+			{$txt.text_no_new_products}
+		{/block}
+	{else}
+		{block name="module_new_products_overview_new_products"}
+			{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" info=$NAVIGATION_INFO bar=$NAVIGATION_BAR count=$NAVIGATION_PAGES_COUNT}
+			
+			{product_listing products=$module_content id="new_products" template="snippets/product_listing/product_listing.html" truncate=$TRUNCATE_PRODUCTS_NAME showManufacturerImages=$showManufacturerImages showProductRibbons=$showProductRibbons showRating=$showRating}
+		
+			{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" info=$NAVIGATION_INFO bar=$NAVIGATION_BAR count=$NAVIGATION_PAGES_COUNT}
+		{/block}
+	{/if}
+{/block}

@@ -1,0 +1,115 @@
+{load_language_text section="login"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_login"}
+	
+	{block name="module_login_checkout_funnel_if"}
+		{if $smarty.get.checkout_started === "1"}
+			{block name="module_login_checkout_funnel"}
+				{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=1}
+			{/block}
+		{/if}
+	{/block}
+	
+	{block name="module_login_title"}
+		<h1>{$txt.heading_login}</h1>
+	{/block}
+	
+	{block name="module_login_form"}
+		<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="post" class="">
+			{block name="module_login_alert"}
+				{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$info_message type=$message_type}
+			{/block}
+			
+			{block name="module_login_login"}
+				<div class="row row-login">
+					{if $account_option=='account' or $account_option=='both'}
+						{block name="module_login_account"}
+							<div class="col-lg-4">
+								<div class="fieldset-content">
+									{block name="module_login_account_title"}
+										<h4>{$txt.title_new}</h4>
+									{/block}
+									{block name="module_login_account_text"}
+										{$txt.text_new}
+									{/block}
+								</div>
+								{block name="module_login_account_button"}
+									<div class="login-buttons">
+										<a href="{$NEW_ACCOUNT_URL}" class="btn btn-primary btn-block">{$button.register}</a>
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+					{if $account_option=='guest' or $account_option=='both'}
+						{block name="module_login_guest"}
+							<div class="col-lg-4">
+								<div class="fieldset-content">
+									{block name="module_login_guest_title"}
+										<h4>{$txt.title_guest}</h4>
+									{/block}
+									{block name="module_login_guest_text"}
+										{$txt.text_guest}
+									{/block}
+								</div>
+								{block name="module_login_guest_button"}
+									<div class="login-buttons">
+										<a href="{$GUEST_URL}" class="btn btn-default btn-block">{$button.buy_as_guest}</a>
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+					{block name="module_login_customer"}
+						<div class="col-lg-4">
+							<div class="fieldset-content">
+								{block name="module_login_customer_title"}
+									<h4>{$txt.title_returning}</h4>
+								{/block}
+								{block name="module_login_customer_email"}
+									<div class="form-group mandatory">
+										<input type="email" placeholder="{$txt.text_email}" id="{$INPUT_MAIL_NAME}" name="{$INPUT_MAIL_NAME}" class="form-control" value="{$INPUT_MAIL_VALUE}" />
+									</div>
+								{/block}
+								{block name="module_login_customer_password"}
+									<div class="form-group mandatory">
+										<input type="password" placeholder="{$txt.text_password}" id="{$INPUT_PASSWORD_NAME}" name="{$INPUT_PASSWORD_NAME}" class="form-control" value="" />
+									</div>
+								{/block}
+								{block name="module_login_customer_lost_password"}
+									<a href="{$LINK_LOST_PASSWORD}" class="">{$txt.text_lost_password}</a>
+								{/block}
+							</div>
+							{block name="module_login_customer_button"}
+								<div class="login-buttons">
+									<input type="submit" name="" value="{$button.login}" class="btn btn-default btn-block">
+								</div>
+							{/block}
+						</div>
+					{/block}
+				</div>
+			{/block}
+			
+			{if $checkout_buttons|is_array && $checkout_buttons|@count > 0}
+				{block name="module_login_checkout_buttons"}
+				<div class="cols3">
+					<div class="col first h300">
+						{foreach name=cob item=cobutton from=$checkout_buttons}
+							{block name="module_login_checkout_button"}
+								{if $cobutton.script}
+									{$cobutton.script}
+								{else}
+									<a style="display: inline-block; vertical-align: middle;" href="{$cobutton.url}">
+										<img src="{$cobutton.img}">
+									</a>
+								{/if}
+							{/block}
+						{/foreach}
+					</div>
+				</div>
+				{/block}
+			{/if}
+		</form>
+	{/block}
+{/block}
