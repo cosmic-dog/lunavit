@@ -1,0 +1,37 @@
+{load_language_text section="products_media"}
+
+{if $module_content && $module_content != ''}
+	{block name="module_products_media"}
+		<div class="product-documents clearfix">
+			{foreach name=aussen item=module_data from=$module_content}
+				{block name="module_products_media_item"}
+					<dl>
+						{if $module_data.CONTENT_NAME !== ''}
+							<dt>
+								{if $module_data.TYPE !== 'text'}
+									<a href="{$module_data.BUTTON_URL}" target="_blank" title="{$module_data.CONTENT_NAME}">
+										<i class="{$module_data.FA_ICON}" aria-hidden="true"></i> {$module_data.CONTENT_NAME}
+									</a>
+								{else}
+									{$module_data.CONTENT_NAME}
+								{/if}
+								{if $module_data.FILESIZE}
+									&nbsp;({$module_data.FILESIZE})
+								{/if}
+								{if $module_data.DESCRIPTION}
+									:&nbsp;
+								{/if}
+							</dt>
+						{/if}
+						{if $module_data.DESCRIPTION}
+							<dd>
+								{$module_data.DESCRIPTION}
+							</dd>
+						{/if}
+		
+					</dl>
+				{/block}
+			{/foreach}
+		</div>
+	{/block}
+{/if}

@@ -1,0 +1,103 @@
+table.parcelshops {
+	width: 100%;
+	
+	& > thead > tr > th, & > tbody > tr > td {
+		border-bottom:  1px solid #444444;
+		vertical-align: top;
+		padding:        1ex;
+	}
+	
+	& > tbody > tr > td {
+		border-bottom-color: #888888;
+		
+		&.geoposition {
+			text-align: center;
+		}
+	}
+	
+	tr.parcelshop.marker_clicked {
+		background: #FFCC00;
+	}
+	
+	td.prepare_ab_button {
+		vertical-align: middle;
+	}
+}
+
+table.openinghours td:nth-child(1) {
+	padding-right: 1ex;
+}
+
+div {
+	&.resultmap, &#map {
+		margin: 1.5em auto;
+	}
+	
+	&#map {
+		height: 400px;
+	}
+	
+	&.mapmarkerlabel {
+		background:    #FF5050;
+		border-radius: 1em;
+		padding:       5px 10px;
+		display:       inline-block;
+		font-size:     1.1em;
+		font-weight:   bold;
+		margin:        1ex 0;
+		cursor: pointer;
+	}
+
+	&.mapmarkerlabel_icon {
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		display:       inline-block;
+		font-size:     1.1em;
+		font-weight:   bold;
+		padding-top: 10px;
+	}
+
+	&.mapmarkerlabel_postoffice {
+		background-image: url('assets/images/icons/postfiliale.png');
+	}
+
+	&.mapmarkerlabel_packstation {
+		background-image: url('assets/images/icons/packstation.png');
+	}
+
+	&.mapmarkerlabel_parcelshop {
+		background-image: url('assets/images/icons/paketshop.png');
+	}
+
+}
+
+p.error {
+	padding:          1ex 1em;
+	color:            #FFFFFF;
+	background-color: #C20400;
+	text-align:       center;
+	font-size:        1.2em;
+}
+
+form#psf_new_ab {
+	margin-top: 2em;
+	display: none;
+
+	input.invalid {
+		border-color: #FF0000 !important;
+	}
+}
+
+#psf-form {
+	display: none;
+
+	fieldset {
+		margin-bottom: 15px;
+	}
+
+	#psfsubmit {
+		width: 100%;
+	}
+}

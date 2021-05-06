@@ -1,0 +1,91 @@
+{load_language_text section="shipping_and_payment_matrix"}
+
+{block name="module_shipping_and_payment_matrix"}
+	<div class="table-responsive hidden-xs">
+		{block name="module_shipping_and_payment_matrix_desktop_table"}
+			<table class="table table-condensed table-striped">
+				{block name="module_shipping_and_payment_matrix_table_thead"}
+					<thead>
+						<th>
+							{$txt.shipping_countries}
+						</th>
+						<th>
+							{$txt.shipping_costs}
+						</th>
+						<th>
+							{$txt.shipping_time}
+						</th>
+						<th>
+							{$txt.payment_methods}
+						</th>
+					</thead>
+				{/block}
+				{block name="module_shipping_and_payment_matrix_table_tbody"}
+					<tbody>
+						{foreach item=row from=$content_data.content}
+							{block name="module_shipping_and_payment_matrix_table_row"}
+								<tr>
+									{block name="module_shipping_and_payment_matrix_table_row_country"}
+										<td>
+											{$row.country}
+										</td>
+									{/block}
+									{block name="module_shipping_and_payment_matrix_table_row_shipping_info"}
+										<td>
+											{$row.shipping_info|nl2br}
+										</td>
+									{/block}
+									{block name="module_shipping_and_payment_matrix_table_row_shipping_time"}
+										<td>
+											{$row.shipping_time|nl2br}
+										</td>
+									{/block}
+									{block name="module_shipping_and_payment_matrix_table_row_payment"}
+										<td>
+											{$row.payment_info|nl2br}
+										</td>
+									{/block}
+								</tr>
+							{/block}
+						{/foreach}
+					</tbody>
+				{/block}
+			</table>
+		{/block}
+	</div>
+
+	{block name="module_shipping_and_payment_matrix_mobile"}
+		<div class="shipping-payment-mobile hidden-sm hidden-md hidden-lg">
+			{foreach item=row from=$content_data.content}
+				{block name="module_shipping_and_payment_matrix_mobile_item"}
+					<div class="shipping-payment-block">
+						{block name="module_shipping_and_payment_matrix_mobile_item_shipping_country"}
+							<div class="row">
+								<div class="col-xs-6 info">{$txt.shipping_country}</div>
+								<div class="col-xs-6">{$row.country}</div>
+							</div>
+						{/block}
+						{block name="module_shipping_and_payment_matrix_mobile_item_shipping_costs"}
+							<div class="row">
+								<div class="col-xs-6 info">{$txt.shipping_costs}</div>
+								<div class="col-xs-6">{$row.shipping_info|nl2br}</div>
+							</div>
+						{/block}
+						{block name="module_shipping_and_payment_matrix_mobile_item_shipping_time"}
+							<div class="row">
+								<div class="col-xs-6 info">{$txt.shipping_time}</div>
+								<div class="col-xs-6">{$row.shipping_time|nl2br}</div>
+							</div>
+						{/block}
+						{block name="module_shipping_and_payment_matrix_mobile_item_payment"}
+							<div class="row">
+								<div class="col-xs-6 info">{$txt.payment_methods}</div>
+								<div class="col-xs-6">{$row.payment_info|nl2br}</div>
+							</div>
+						{/block}
+					</div>
+				{/block}
+			{/foreach}
+		</div>
+	{/block}
+{/block}

@@ -1,0 +1,26 @@
+.clr {clear: both;}
+ul.dropdown-menu{box-shadow:0 3px 6px rgba(0, 0, 0, 0.2)}
+.pageup, .pageup::before{font-size:10px;}
+.pageup{border-radius:10%;background-color:#009DE0;height:30px;width:30px;font-size:10px;color:#ffffff;}
+.pageup:hover{background-color:#31353D;color:#ffffff;}
+.pageup.visible{box-shadow:0 0 3px rgba(0, 0, 0, 0.35)}
+.fa-home{font-size:20px;}
+.productlisting-filter-container{clear:both;}
+.subcategories-listing-container{overflow:visible;}
+.subcategories-listing-container .subcategories-listing{margin:0 -5px 15px;}
+.subcategories-listing-container .subcategories-listing > li:hover,
+.subcategories-listing-container .subcategories-listing li > li:hover{-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);}
+.product-container {margin-bottom: 5px;}
+.tab-content > .tab-pane.active > .tab-body {background: #ffffff none repeat scroll 0 0;padding: 10px;}
+.box-filter .panel-body {background-color: #ffffff;}
+#slider .swiper-slide {background-color: transparent;}
+.productlist-swiper .product-container > form > .inside > .content-container > .content-container-inner{margin:15px -25px;background:#ffffff;border:1px solid #eaeaea!important;}
+.productlist-viewmode-grid .product-container .inside .content-container .content-container-inner,
+.productlist-swiper .product-container .inside .content-container .content-container-inner{margin:15px -20px;background:#ffffff;border:1px solid #eaeaea!important;}
+.product-container.flyover .inside .content-container .content-container-inner{margin:15px -20px;background:#ffffff;}
+.productlist-viewmode-grid .product-container .inside, .productlist-swiper .product-container .inside, .product-container.flyover .inside{border-bottom:none;}
+.product-container.flyover{background:#ffffff;border:1px solid #cccccc;-moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0);-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0);box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0);}
+.productlist-viewmode-list .product-container {background: #ffffff none repeat scroll 0 0;border-bottom: 1px solid #eee;padding: 0 10px;}
+.product-info .product-info-details .price-container .current-price-container .productOldPrice,
+.product-container .inside .content-container .content-container-inner .price .productOldPrice{color:#F1544D;text-decoration:line-through;}
+.panel-default .panel-heading a{color:#ffffff}

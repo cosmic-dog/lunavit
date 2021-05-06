@@ -1,0 +1,321 @@
+{load_language_text section="product_info"}
+{load_language_text section="checkout_confirmation" name="info"}
+
+{block name="module_product_details"}
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+			"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" {$HTML_PARAMS}>
+		{block name="module_product_details_head"}
+			<head>
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta http-equiv="Content-Type" content="text/html; charset={$CHARSET}" />
+				{block name="module_product_details_head_style"}
+					<link id="main-css"
+						  type="text/css"
+						  rel="stylesheet"
+						  href="{if $content_data.MAIN_CSS}{$tpl_path}{$content_data.MAIN_CSS}{else}{$tpl_path}gm_dynamic.css.php?{$content_data.CSS_PARAMS}{/if}" />
+					<style type="text/css">
+						{literal}
+						body {
+							padding-top: 0;
+						}
+
+						.popup_content {
+							width:   800px;
+							padding: 15px 0;
+						}
+
+						.price-container {
+							text-align: right;
+						}
+
+						span.price {
+							font-size:   18px;
+							font-weight: bold;
+						}
+
+						.product-info dl {
+							margin: 0;
+						}
+
+						.product-info dt {
+							border-bottom: 1px solid #ccc;
+							padding:       5px 0;
+							font-weight:   bold;
+						}
+
+						.product-info dd {
+							padding:       5px 0;
+							margin:        0;
+							border-bottom: 1px solid #ccc;
+						}
+
+						.product_description {
+							margin: 20px 10px 0 0;
+						}
+
+						.product_images {
+							overflow: auto;
+						}
+
+						.product_images .img_box {
+							margin: 10px 10px 10px 0;
+							border: 1px solid #ccc;
+							float:  left;
+						}
+
+						/* Caution! Ensure accessibility in print and other media types... */
+						/* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+						@media projection, screen {
+							.ui-tabs-hide {
+								display: none;
+							}
+						}
+
+						/* Hide useless elements in print layouts... */
+						@media print {
+							.ui-tabs-nav {
+								display: none;
+							}
+						}
+
+						/* Skin */
+						.ui-tabs-nav {
+							list-style: none;
+							margin:     0px 0px 2px 0px;
+							padding:    0px;
+						}
+
+						body .ui-tabs-nav li {
+							float:   left;
+							margin:  0px 0px 0px 0px;
+							padding: 0px;
+						}
+
+						.ui-tabs-nav a, .ui-tabs-nav a span {
+							float: left;
+						}
+
+						/* fixes dir=ltr problem and other quirks IE */
+						body .ui-tabs-nav a {
+							white-space: nowrap; /* @ IE 6 */
+							outline:     0;
+						}
+
+						/* @ Firefox, prevent dotted border after click */
+						body .ui-tabs-nav .ui-state-active a {
+							z-index: 2;
+						}
+
+						.ui-tabs-nav a span {
+							font-size: 16px;
+						}
+
+						.ui-tabs-nav .ui-tabs-selected a span {
+						}
+
+						.ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited,
+						.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited {
+							cursor: text;
+						}
+
+						/* @ Opera, use pseudo classes otherwise it confuses cursor... */
+						.ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
+						.ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active {
+							cursor: pointer;
+						}
+
+						/* @ Opera, we need to be explicit again here now... */
+						.ui-tabs-disabled {
+							opacity: .4;
+							filter:  alpha(opacity=40);
+						}
+
+						.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited {
+						}
+
+						/* For jquery > 1.10 */
+
+						.ui-tabs-nav .ui-tabs-active a span {
+						}
+
+						.ui-tabs-nav .ui-tabs-active a:link, .ui-tabs-nav .ui-tabs-active a:visited,
+						.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited {
+							cursor: text;
+						}
+
+						/* @ Opera, use pseudo classes otherwise it confuses cursor... */
+						.ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
+						.ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active {
+							cursor: pointer;
+						}
+
+						/* @ Opera, we need to be explicit again here now... */
+						.ui-tabs-disabled {
+							opacity: .4;
+							filter:  alpha(opacity=40);
+						}
+
+						.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited {
+						}
+
+						/* Additional IE specific bug fixes... */
+						* html .ui-tabs-nav {
+							display: inline-block;
+						}
+
+						/* auto clear @ IE 6 & IE 7 Quirks Mode */
+						*:first-child + html .ui-tabs-nav {
+							display: inline-block;
+						}
+
+						/* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+
+						.tabs #tabbed_description_part {
+							line-height:   1.7em;
+							margin-bottom: 10px;
+							margin-top:    10px;
+							width:         100%;
+						}
+
+						.tabs .ui-tabs-nav {
+							display:       inline-block;
+							margin-left:   0;
+							padding-left:  0;
+							width:         100%;
+							border-bottom: 3px solid #E7E7E7;
+							overflow:      inherit !important;
+						}
+
+						.tabs .ui-tabs-nav li {
+							display:      block;
+							float:        left;
+							padding-left: 0;
+							position: relative;
+							top:      3px;
+						}
+
+						.tabs .ui-tabs-nav li a {
+							color:           #333333;
+							display:         inline-block;
+							padding:         10px 15px;
+							text-decoration: none;
+						}
+
+						.tabs .ui-tabs-nav li.ui-state-active a {
+							border-bottom: 3px solid #000000;
+						}
+
+						.tabs .ui-tabs-panel {
+							padding: 15px 0;
+						}
+
+						{/literal}
+					</style>
+				{/block}
+				<base href="{$BASE_URL}" />
+			</head>
+		{/block}
+		{block name="module_product_details_body"}
+			<body>
+				<div class="container popup_content" id="content_page">
+					{block name="module_product_details_body_title"}
+						<h1>{$NAME}</h1>
+					{/block}
+					<div class="row content_text">
+						{block name="module_product_details_body_container_left"}
+							<div class="col-xs-12 col-sm-7">
+								<div class="row product-info">
+									<dl class="col-xs-12">
+										{if $MODEL}
+											{block name="module_product_details_body_container_left_model"}
+												<dt class="col-xs-3">{$txt.text_model}</dt>
+												<dd class="col-xs-9">{$MODEL}</dd>
+											{/block}
+										{/if}
+										{if $SHIPPING_TIME}
+											{block name="module_product_details_body_container_left_shipping_time"}
+												<dt class="col-xs-3">{$txt.text_shippingtime}</dt>
+												<dd class="col-xs-9">{$SHIPPING_TIME}</dd>
+											{/block}
+										{/if}
+										{if $PRODUCTS_QUANTITY > 0 && $SHOW_PRODUCTS_QUANTITY}
+											{block name="module_product_details_body_container_left_quantity"}
+												<dt class="col-xs-3">{$txt.text_stock}</dt>
+												<dd class="col-xs-9">{$PRODUCTS_QUANTITY} {if $UNIT}{$UNIT}{else}{$txt.text_pieces}{/if}</dd>
+											{/block}
+										{/if}
+										{if $WEIGHT}
+											{block name="module_product_details_body_container_left_wight"}
+												<dt class="col-xs-3">{$info.text_weight}:</dt>
+												<dd class="col-xs-9">{$WEIGHT} {$info.text_weight_unit}</dd>
+											{/block}
+										{/if}
+										{if $ATTRIBUTES_ARRAY || $PROPERTIES_ARRAY}
+											{foreach item=attribute from=$ATTRIBUTES_ARRAY}
+												{if $attribute.option}
+													{block name="module_product_details_body_container_left_attribute"}
+														<dt class="col-xs-3">{$attribute.option}:</dt>
+														<dd class="col-xs-9">{$attribute.value}&nbsp;</dd>
+													{/block}
+												{/if}
+											{/foreach}
+											{foreach item=property from=$PROPERTIES_ARRAY}
+												{block name="module_product_details_body_container_left_property"}
+													<dt class="col-xs-3">{$property.properties_name}:</dt>
+													<dd class="col-xs-9">{$property.values_name}&nbsp;</dd>
+												{/block}
+											{/foreach}
+										{/if}
+									</dl>
+								</div>
+							</div>
+						{/block}
+
+						{block name="module_product_details_body_container_right"}
+							<div class="col-xs-12 col-sm-5 price-container">
+								<span class="price">{$PRICE}</span> <br />
+								{if $VPE_ARRAY.vpe_text}{$VPE_ARRAY.vpe_text}<br />{/if}
+								<span class="tax-shipping-text">{$PRODUCTS_TAX_INFO}{$PRODUCTS_SHIPPING_LINK}</span>
+							</div>
+						{/block}
+
+						{block name="module_product_details_body_description"}
+							<div class="col-xs-12 product_description">
+								<div class="description tabs">
+									<div id="description-1">
+										{$DESCRIPTION}
+									</div>
+								</div>
+							</div>
+						{/block}
+
+						{if $IMAGES_ARRAY}
+							{block name="module_product_details_body_images"}
+								<div class="col-xs-12 product_images">
+									{foreach item=image from=$IMAGES_ARRAY}
+										{block name="module_product_details_body_image"}
+											<div class="img_box">
+												<img src="{$image.IMAGE}"
+													 alt="{$image.IMAGE_ALT}"
+													 title="{$image.IMAGE_ALT}" />
+											</div>
+										{/block}
+									{/foreach}
+								</div>
+							{/block}
+						{/if}
+					</div>
+				</div>
+				{block name="module_product_details_body_scripts"}
+					<script type="text/javascript" src="gm/javascript/jquery/jquery.js"></script>
+					<script type="text/javascript" src="gm/javascript/jquery/jquery-migrate.min.js"></script>
+					<script type="text/javascript" src="gm/javascript/jquery/ui/jquery-ui.js"></script>
+					<script type="text/javascript">
+						$("#tabbed_description_part").tabs();
+					</script>
+				{/block}
+			</body>
+		{/block}
+	</html>
+{/block}

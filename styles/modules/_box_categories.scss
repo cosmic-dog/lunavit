@@ -1,0 +1,353 @@
+/* Vertical categories box
+   ========================================================================== */
+
+.panel > .navbar-categories-left {
+	margin: 0;
+	
+	> ul {
+		
+		// styling top level
+		
+		> li {
+			border-bottom: 1px solid $panel-default-border;
+			
+			&:first-of-type {
+				> a {
+					@include border-top-radius($border-radius-base);
+				}
+			}
+			
+			&:last-of-type {
+				@include border-bottom-radius($border-radius-base);
+				
+				> a {
+					@include border-bottom-radius($border-radius-base);
+				}
+			}
+		}
+		
+		// icons in top level
+		
+		> li {
+			> a {
+				font-size: $gx-categories-headline-size;
+				
+				&:before {
+					@extend .gm-icon-before;
+					float:     right;
+					font-size: 16px;
+					content:   '\e800'; /* chevron-right */
+					@include transition(300ms ease transform);
+				}
+			}
+			&.dropdown {
+				&.open {
+					> a {
+						color: $gx-cat-left-open-color;
+						
+						@include background($gx-cat-left-bg-open,
+						                    $gx-cat-left-bg-open-image-url,
+						                    $gx-cat-left-bg-open-image-position,
+						                    $gx-cat-left-bg-open-image-repeat,
+						                    $gx-cat-left-bg-open-image-size,
+						                    $gx-cat-left-bg-open-image-attachment);
+						
+						&:before {
+							color:             $gx-cat-left-open-color;
+							transform:         rotate(90deg);
+							-webkit-transform: rotate(90deg);
+							-moz-transform:    rotate(90deg);
+							-o-transform:      rotate(90deg);
+							-ms-transform:     rotate(90deg);
+						}
+					}
+					
+					&.active {
+						> a {
+							color: $gx-cat-left-active-color;
+							
+							@include background($gx-cat-left-bg-active,
+							                    $gx-cat-left-bg-active-image-url,
+							                    $gx-cat-left-bg-active-image-position,
+							                    $gx-cat-left-bg-active-image-repeat,
+							                    $gx-cat-left-bg-active-image-size,
+							                    $gx-cat-left-bg-active-image-attachment);
+							
+							&:before {
+								color: $gx-cat-left-active-color;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		// increasing padding each recursion
+		// mixin crashing in PHP 5.4
+		
+		// $categories-left-level-depth: 10;
+		// $categories-left-level-padding: 15px;
+		// @mixin categories-levels($depth) {
+		//   @if ($depth < $categories-left-level-depth) {
+		//     > li {
+		//       > a {
+		//         padding-left: ($depth * $categories-left-level-padding);
+		//       }
+		//       &.active > a {
+		
+		//         // negative margin 
+		//         // to overlap box border
+		
+		//         margin: 0 -1px;
+		//         padding-left: ($depth * $categories-left-level-padding + 1);
+		//       }
+		//       > ul {
+		//         @include categories-levels($depth + 1);
+		//       }
+		//     }
+		//   }
+		// }
+		// @include categories-levels(1);
+		
+		// static code
+		
+		> li > a {
+			padding-left: 15px;
+		}
+		> li.active > a {
+			margin:       0 -1px;
+			padding-left: 16px;
+		}
+		> li > ul > li > a {
+			padding-left: 30px;
+		}
+		> li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 31px;
+		}
+		> li > ul > li > ul > li > a {
+			padding-left: 45px;
+		}
+		> li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 46px;
+		}
+		> li > ul > li > ul > li > ul > li > a {
+			padding-left: 60px;
+		}
+		> li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 61px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > a {
+			padding-left: 75px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 76px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > a {
+			padding-left: 90px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 91px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > a {
+			padding-left: 105px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 106px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > a {
+			padding-left: 120px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 121px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > a {
+			padding-left: 135px;
+		}
+		> li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li.active > a {
+			margin:       0 -1px;
+			padding-left: 136px;
+		}
+		
+		// styling for all levels
+		
+		li {
+			
+			//  colors
+			
+			a {
+				&,
+				&:before {
+					color: $gx-cat-left-color;
+				}
+				
+				@include background($gx-cat-left-bg,
+				                    $gx-cat-left-bg-image-url,
+				                    $gx-cat-left-bg-image-position,
+				                    $gx-cat-left-bg-image-repeat,
+				                    $gx-cat-left-bg-image-size,
+				                    $gx-cat-left-bg-image-attachment);
+				
+				&:hover {
+					color: $gx-cat-left-hover-color;
+					
+					@include background($gx-cat-left-bg-hover,
+					                    $gx-cat-left-bg-hover-image-url,
+					                    $gx-cat-left-bg-hover-image-position,
+					                    $gx-cat-left-bg-hover-image-repeat,
+					                    $gx-cat-left-bg-hover-image-size,
+					                    $gx-cat-left-bg-hover-image-attachment);
+					
+					&:before {
+						color: $gx-cat-left-hover-color;
+					}
+				}
+			}
+			&.active > a {
+				@include background($gx-cat-left-bg-active,
+				                    $gx-cat-left-bg-active-image-url,
+				                    $gx-cat-left-bg-active-image-position,
+				                    $gx-cat-left-bg-active-image-repeat,
+				                    $gx-cat-left-bg-active-image-size,
+				                    $gx-cat-left-bg-active-image-attachment);
+				&,
+				&:before {
+					color: $gx-cat-left-active-color;
+				}
+				
+				&:hover {
+					@include background($gx-cat-left-bg-active,
+					                    $gx-cat-left-bg-active-image-url,
+					                    $gx-cat-left-bg-active-image-position,
+					                    $gx-cat-left-bg-active-image-repeat,
+					                    $gx-cat-left-bg-active-image-size,
+					                    $gx-cat-left-bg-active-image-attachment);
+					
+					&,
+					&:before {
+						color: $gx-cat-left-active-color;
+					}
+				}
+			}
+			
+			// dropdown appearance
+			
+			.dropdown-menu {
+				margin:   0;
+				padding:  0;
+				position: relative;
+				float:    none;
+				z-index:  0;
+				@include box-shadow(none);
+			}
+			
+			.enter-category {
+				display: none;
+				&.show {
+					display: block;
+				}
+			}
+			
+		}
+	}
+}
+
+.box-categories {
+	border-bottom: none;
+	
+	.navbar-categories-left {
+		> ul {
+			> li {
+				a {
+					white-space: normal;
+					
+					&.has-image {
+						@media (min-width: $screen-sm-min) {
+							&:before {
+								margin-top: 4px;
+							}
+						}
+						
+						.cat-image {
+							display:      inline-block;
+							margin-right: 10px;
+							max-height:   25px;
+							max-width:    25px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Alternative styling for left categories if sub categories should be displayed unfolded
+
+@media (min-width: $screen-sm-min) {
+	.navbar-categories-left {
+		.level-1 {
+			.unfolded {
+				a {
+					@include background($gx-cat-left-bg,
+					                    $gx-cat-left-bg-image-url,
+					                    $gx-cat-left-bg-image-position,
+					                    $gx-cat-left-bg-image-repeat,
+					                    $gx-cat-left-bg-image-size,
+					                    $gx-cat-left-bg-image-attachment);
+					
+					&:before {
+						content: none;
+					}
+					
+					&:hover {
+						@include background($gx-cat-left-bg-hover,
+						                    $gx-cat-left-bg-hover-image-url,
+						                    $gx-cat-left-bg-hover-image-position,
+						                    $gx-cat-left-bg-hover-image-repeat,
+						                    $gx-cat-left-bg-hover-image-size,
+						                    $gx-cat-left-bg-hover-image-attachment);
+					}
+				}
+				
+				&.active {
+					> a {
+						@include background($gx-cat-left-bg-active,
+						                    $gx-cat-left-bg-active-image-url,
+						                    $gx-cat-left-bg-active-image-position,
+						                    $gx-cat-left-bg-active-image-repeat,
+						                    $gx-cat-left-bg-active-image-size,
+						                    $gx-cat-left-bg-active-image-attachment);
+					}
+				}
+				
+				&.level-1-child {
+					> a {
+						@include background($gx-cat-left-bg-open,
+						                    $gx-cat-left-bg-open-image-url,
+						                    $gx-cat-left-bg-open-image-position,
+						                    $gx-cat-left-bg-open-image-repeat,
+						                    $gx-cat-left-bg-open-image-size,
+						                    $gx-cat-left-bg-open-image-attachment);
+					}
+					
+					&.active {
+						> a {
+							@include background($gx-cat-left-bg-active,
+							                    $gx-cat-left-bg-active-image-url,
+							                    $gx-cat-left-bg-active-image-position,
+							                    $gx-cat-left-bg-active-image-repeat,
+							                    $gx-cat-left-bg-active-image-size,
+							                    $gx-cat-left-bg-active-image-attachment);
+						}
+					}
+				}
+			}
+		}
+	}
+}

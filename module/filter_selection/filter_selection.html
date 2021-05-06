@@ -1,0 +1,38 @@
+{load_language_text section="product_listing"}
+
+{block name="module_filter_section"}
+	{if isset($FILTER_SELECTION_ARRAY) && count($FILTER_SELECTION_ARRAY) > 0}
+		<div class="filter-selection-container">
+	{else}
+		<div class="filter-selection-container hidden">
+	{/if}
+			
+		{block name="module_filter_section_title"}
+			<p><strong>{$txt.text_current_filter}</strong></p>
+		{/block}
+		
+		{foreach name=filter_selection item=feature from=$FILTER_SELECTION_ARRAY}
+			{block name="module_filter_section_list"}
+				<ul class="filter-item">
+					{block name="module_filter_section_list_filter"}
+						<li>
+							{$feature.feature_name}:
+							{block name="module_filter_section_sublist"}
+								<ul class="filter-selection">
+									{assign var="feature_value_count" value=$feature.feature_values|count}
+									{foreach name=filter_values_selection item=feature_value from=$feature.feature_values}
+										{block name="module_filter_section_sublist_values"}
+											<li>
+												{$feature_value}{if $feature_value_count > 1 && $smarty.foreach.filter_values_selection.last !== true}, {/if}
+											</li>
+										{/block}
+									{/foreach}
+								</ul>
+							{/block}
+						</li>
+					{/block}
+				</ul>
+			{/block}
+		{/foreach}
+	</div>
+{/block}

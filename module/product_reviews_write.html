@@ -1,0 +1,170 @@
+{load_language_text section="reviews"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_product_reviews_write"}
+	{block name="module_product_reviews_write_title"}
+		<h1>{$txt.heading_reviews_write}</h1>
+	{/block}
+		
+	{if $error}
+		{block name="module_product_reviews_write_error_alert"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+		{/block}
+	{else}
+		{block name="module_product_reviews_write_alert"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$GM_ERROR type="danger"}
+		{/block}
+	
+		{block name="module_product_reviews_write_form"}
+			<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}" class="form-horizontal">
+				<fieldset>
+					{block name="module_product_reviews_write_legend"}
+						<legend>
+							{$txt.heading_product} {$PRODUCTS_NAME}
+						</legend>
+					{/block}
+		
+					{if $CONTACT_CONTENT}
+						{block name="module_product_reviews_write_contact_content"}
+							<div class="row">
+								<label class="control-label col-sm-3">&nbsp;</label>
+			
+								<div class="col-sm-9 input-container">
+									<p>{$CONTACT_CONTENT}</p>
+								</div>
+							</div>
+						{/block}
+					{/if}
+					
+					{block name="module_product_reviews_write_author"}
+						<div class="row">
+							{block name="module_product_reviews_write_author_label"}
+								<label class="control-label col-sm-3">{$txt.label_author}</label>
+							{/block}
+							
+							{block name="module_product_reviews_write_author_container"}
+								<div class="col-sm-9 input-container">
+									<p>{$AUTHOR}</p>
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_product_reviews_write_text"}
+						<div class="form-group mandatory">
+							{block name="module_product_reviews_write_text_label"}
+								<label for="{$id}" class="control-label col-sm-3">
+									{$txt.label_message}
+								</label>
+							{/block}
+							
+							{block name="module_product_reviews_write_text_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_product_reviews_write_text_input"}
+										<textarea placeholder="{$txt.label_message}"
+												  id="{$TEXTAREA_NAME}"
+												  name="{$TEXTAREA_NAME}"
+												  class="form-control">{$TEXTAREA_VALUE}</textarea>
+									{/block}
+									{if $reviews_min_length}
+										{block name="module_product_reviews_write_text_hint"}
+											<span class="reviews-length-info">{$txt.review_info_1} {$reviews_min_length} {$txt.review_info_2}</span>
+										{/block}
+									{/if}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_product_reviews_write_rating"}
+						<div class="form-group mandatory">
+							{block name="module_product_reviews_write_rating_label"}
+								<label for="{$INPUT_RATING_NAME}-{$INPUT_RATING_VALUE}" class="control-label col-sm-3">
+									{$txt.label_rating}
+								</label>
+							{/block}
+							
+							{block name="module_product_reviews_write_rating_container"}
+								<div class="col-sm-9 input-container">
+									{for $i=1 to 5}
+										<span class="radio">
+											<label for="{$INPUT_RATING_NAME}-{$i}">
+												{block name="module_product_reviews_write_rating_input"}
+													<input type="radio" id="{$INPUT_RATING_NAME}-{$i}" name="{$INPUT_RATING_NAME}" value="{$i}" {if $i === $INPUT_RATING_VALUE}checked="checked"{/if} />
+													{for $j=1 to $i}
+														<span class="fa fa-star"></span>
+													{/for}
+												{/block}
+											</label>
+										</span>
+									{/for}
+								</div>
+							{/block}
+						</div>
+					{/block}
+		
+		
+					{if $GM_VALIDATION_ACTIVE == 'true'}
+						{block name="module_product_reviews_write_validation"}
+							<div class="form-group mandatory">
+								{block name="module_product_reviews_write_validation_label"}
+									<label for="vvcode" class="control-label col-sm-3">
+										{$txt.label_captcha}
+									</label>
+								{/block}
+								
+								{block name="module_product_reviews_write_validation_container"}
+									<div class="col-sm-9 col-lg-6 input-container">
+										{block name="module_product_reviews_write_validation_input"}
+											{$GM_CAPTCHA}
+										{/block}
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/if}
+		
+					{if $GM_PRIVACY_LINK != '0'}
+						{block name="module_product_reviews_write_privacy"}
+							{if $show_privacy_checkbox}
+								{block name="module_product_reviews_write_privacy_checkbox"}
+									<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $privacy_accepted} checked="checked"{/if}/>
+									<label for="privacy_accepted">{$GM_PRIVACY_LINK}</label>
+								{/block}
+							{else}
+								{block name="module_product_reviews_write_privacy_link"}
+									<span>{$GM_PRIVACY_LINK}</span>
+								{/block}
+							{/if}
+						{/block}
+					{/if}
+				</fieldset>
+				
+				{block name="module_product_reviews_write_buttons"}
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3">
+							{block name="module_product_reviews_write_buttons_back"}
+								<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+									{$button.back}
+								</a>
+							{/block}
+						</div>
+						<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+							{block name="module_product_reviews_write_buttons_submit"}
+								<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+									{$button.send}
+								</button>
+							{/block}
+						</div>
+					</div>
+				{/block}
+				
+				{block name="module_product_reviews_write_mandatory"}
+					<p class="mandatory-info">
+						{$txt.text_must}
+					</p>
+				{/block}
+			</form>
+		{/block}
+	{/if}
+{/block}

@@ -1,0 +1,35 @@
+#checkout_payment {
+  table.klarna_partpayinfo {
+    margin: 1em 0;
+
+    td {
+      padding: 0 1ex;
+
+      &.ppi-label {
+        font-weight: bold;
+      }
+
+      &.ppi-value {
+        text-align: right;
+      }
+    }
+
+  }
+
+  li.klarna2_partpay,
+  li.klarna2_invoice {
+    span.klarna-label {
+      display: inline-block;
+      width: 25em;
+    }
+
+    input[type="text"], select {
+      display: inline;
+      width: auto;
+    }
+  }
+
+  div.klarna_consent {
+    margin-top: 1em;
+  }
+}

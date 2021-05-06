@@ -1,0 +1,20 @@
+{load_language_text section="also_purchased"}
+
+{if $module_content != ''}
+	{block name="module_yoochoose_view_products"}
+		{block name="module_yoochoose_view_products_title"}
+			<div class="headline">{$HEADER}</div><br />
+		{/block}
+		{block name="module_yoochoose_view_products_product_listing"}
+			{assign var="fullscreenPage" value={template_setting name="gx-product-info-full-width"}}
+			{product_listing
+				products=$module_content
+				id="yoochoose_also_clicked"
+				truncate=$TRUNCATE_PRODUCTS_NAME
+				showManufacturerImages=$showManufacturerImages
+				showProductRibbons=$showProductRibbons
+				fullscreenPage=$fullscreenPage
+				hoverable=true}
+		{/block}
+	{/block}
+{/if}

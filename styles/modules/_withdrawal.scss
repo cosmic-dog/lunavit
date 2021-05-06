@@ -1,0 +1,11 @@
+body.page-withdrawal {
+	@media (max-width: $screen-md-max) {
+		.btn {
+			&.btn-primary {
+				&.btn-block {
+					white-space: inherit;
+				}
+			}
+		}
+	}
+}

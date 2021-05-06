@@ -1,0 +1,28 @@
+{load_language_text section="ssl_check"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_ssl_check"}
+	{block name="module_ssl_check_title"}
+	    <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>{$txt.heading_ssl_check}</strong></font>
+	    <br />
+	    <br />
+	{/block}
+	{block name="module_ssl_check_content"}
+	    <table width="100%" border="0" cellspacing="4" cellpadding="0">
+	      <tr>
+	        <td class="main">{$txt.text_information}</td>
+	        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+	            <tr>
+	              <td nowrap="nowrap" class="infoboxheading" width="250">{$txt.title_infobox}</td>
+	            </tr>
+	            <tr>
+	              <td class="main" >{$txt.text_infobox}</td>
+	            </tr>
+	          </table></td>
+	      </tr>
+	    </table>
+	{/block}
+	{block name="module_ssl_check_button_continue"}
+	    <p align="right">{$BUTTON_CONTINUE}</p>
+	{/block}
+{/block}

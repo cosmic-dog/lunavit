@@ -1,0 +1,122 @@
+{load_language_text section="reviews"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_products_reviews"}
+	<div data-gambio-widget="more_text">
+		{if $module_content|@count > 0 && $smarty.session.customers_status.customers_status_read_reviews === '1'}
+			{block name="module_products_reviews_title"}
+				<h2>{$txt.heading_reviews}</h2>
+			{/block}
+		
+			{block name="module_products_reviews_list"}
+				<ul class="list-group">
+					{foreach name=aussen key=key item=module_data from=$module_content}
+						{block name="module_products_reviews_item"}
+							<li class="rating-item list-group-item clearfix" {if isset($rich_snippet_content.$key)}{$rich_snippet_content.$key.product_itemprop_reviews}{$rich_snippet_content.$key.review_itemscope}{/if}>
+								{block name="module_products_reviews_item_rating"}
+									<div class="rating-stars rating-stars-{$module_data.RATING_CLEAN * 10}" {if isset($rich_snippet_content.$key)}{$rich_snippet_content.$key.review_itemprop_reviewRating}{$rich_snippet_content.$key.rating_itemscope}{/if}>
+										
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<span class="fa fa-star"></span>
+										<div class="rating-stars-mask">
+											<div class="rating-stars-inside">
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+											</div>
+										</div>
+				
+										{if isset($rich_snippet_content.$key)}
+											{$rich_snippet_content.$key.rating_itemprop_ratingValue}
+										{/if}
+									</div>
+								{/block}
+								{block name="module_products_reviews_item_author_date"}
+									<div class="rating-caption">
+										{block name="module_products_reviews_item_author"}
+											<span{if isset($rich_snippet_content.$key)}{$rich_snippet_content.$key.review_itemprop_author}{$rich_snippet_content.$key.author_itemscope}{/if}>
+												<span{if isset($rich_snippet_content.$key)}{$rich_snippet_content.$key.author_itemprop_name}{/if}>
+													{$module_data.AUTHOR},
+												</span>
+											</span>
+										{/block}
+										{block name="module_products_reviews_item_date"}
+											<span>
+												{if isset($rich_snippet_content.$key)}
+													{$rich_snippet_content.$key.review_itemprop_datePublished}
+												{/if}
+												{$module_data.DATE}
+											</span>
+										{/block}
+									</div>
+								{/block}
+								{block name="module_products_reviews_item_comment"}
+									<div class="rating-comment">
+										<div class="more-text-container">
+											{block name="module_products_reviews_item_comment_review"}
+												{product_review long=$module_data.TEXT short=$module_data.TEXT|truncate:150:"" link="<a href=\"{$module_data.LINK}\" class=\"btn btn-default pull-right more-text-link\" title=\"{$txt.text_reviews_link}\">{$txt.text_reviews_link}</a>" out-remainder='review_remainder' out-link='review_link'}
+											{/block}
+											
+											{block name="module_products_reviews_item_comment_text"}
+												<span class="more-text-split"{if isset($rich_snippet_content.$key)}{$rich_snippet_content.$key.review_itemprop_reviewBody}{/if}>
+													{$module_data.TEXT}
+												</span>
+												<span class="more-text-full hide">
+													{$review_remainder}
+												</span>
+											{/block}
+											
+											{block name="module_products_reviews_item_comment_link"}
+												<br />
+												{$review_link}
+											{/block}
+										</div>
+									</div>
+								{/block}
+							</li>
+						{/block}
+					{/foreach}
+				</ul>
+			{/block}
+		{elseif $module_content|@count <= 0 && $smarty.session.customers_status.customers_status_read_reviews === '1'}
+			{block name="module_products_reviews_no_reviews_title"}
+				<h2>{$txt.heading_reviews}</h2>
+			{/block}
+	
+			{block name="module_products_reviews_no_reviews_text"}
+				<p class="no-rating-hint">{$txt.no_reviews}</p>
+			{/block}
+		{else}
+			{block name="module_products_reviews_not_allowed_title"}
+				<h2>{$txt.heading_reviews}</h2>
+			{/block}
+	
+			{block name="module_products_reviews_not_allowed_text"}
+				<p>{$txt.reading_not_allowed}</p>
+			{/block}
+		{/if}
+	
+		{if $smarty.session.customers_status.customers_status_write_reviews === '1'}
+			{block name="module_products_reviews_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-4 col-md-offset-8 text-right">
+						{block name="module_products_reviews_buttons_submit"}
+							<a class="btn btn-primary btn-block" href="{$BUTTON_LINK}" title="{$button.your_opinion}">
+								{$button.your_opinion}
+							</a>
+						{/block}
+					</div>
+				</div>
+			{/block}
+		{elseif $smarty.session.customers_status.customers_status_id === '1'}
+			{block name="module_products_reviews_login_hint"}
+				<p class="no-login-hint">{$txt.no_login_hint} <a href="login.php">{$txt.login}</a></p>
+			{/block}
+		{/if}
+	</div>
+{/block}

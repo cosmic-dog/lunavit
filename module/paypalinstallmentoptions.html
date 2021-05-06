@@ -1,0 +1,154 @@
+{load_language_text section="paypal3"}
+
+{block name="module_paypalinstallmentoptions"}
+	<div class="pp_cs_popup_inner">
+		{block name="module_paypalinstallmentoptions_close"}
+			<button title="Close" type="button" class="mfp-close">×</button>
+		{/block}
+		
+		{block name="module_paypalinstallmentoptions_heading"}
+			<div class="heading">
+				<div class="powered-by-paypal">
+					<img class="powered-by-paypal-vertical" src="{$tpl_path}/assets/images/pp_credit-german_v_rgb.png" alt="{$pptxt.generic_installments} {$pptxt.powered_by} PayPal" title="{$pptxt.generic_installments} {$pptxt.powered_by} PayPal">
+				</div>
+			</div>
+		{/block}
+		{block name="module_paypalinstallmentoptions_subheading"}
+			<div class="subheading">{$txt.pay_by_monthly_installments}</div>
+		{/block}
+		{block name="module_paypalinstallmentoptions_info"}
+			<div class="infotext">{$txt.popup_infotext}</div>
+		{/block}
+	
+		{if $amount_too_high}
+			{block name="module_paypalinstallmentoptions_amount_too_high"}
+				<div class="infotext" style="margin: 2em 0; font-size: 1.8em; font-weight: bold;">{$txt.amount_too_high}</div>
+			{/block}
+		{else}
+			{block name="module_paypalinstallmentoptions_amount_ok"}
+				<div class="row qualifying-options">
+					{if $qualifyingOptions}
+						{foreach from=$qualifyingOptions item=creditoption key=plan}
+							{block name="module_paypalinstallmentoptions_amount_ok_creditoption"}
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 credit-plan-outer">
+									<div class="credit-plan">
+										{block name="module_paypalinstallmentoptions_amount_ok_creditoption_heading"}
+											<div class="credit-plan-heading">
+												{$txt.plan} {$plan + 1}
+												{if $representativeFinancingCode == $creditoption->credit_financing->financing_code}<span class="lowest-apr-marker">*</span>{/if}
+											</div>
+										{/block}
+										{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table"}
+											<table class="credit-plan-details">
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_amount"}
+													<tr>
+														<td class="pp_cs_label">{$txt.net_loan_amount}</td>
+														<td class="pp_cs_data">{$cashPurchasePrice}</td>
+													</tr>
+												{/block}
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_nominal_rate"}
+													<tr>
+														<td class="pp_cs_label">{$txt.nominal_rate}</td>
+														<td class="pp_cs_data">{$creditoption->credit_financing->nominal_rate|number_format:2:',':''}%</td>
+													</tr>
+												{/block}
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_effective_apr"}
+													<tr>
+														<td class="pp_cs_label">{$txt.effective_apr}</td>
+														<td class="pp_cs_data">{$creditoption->credit_financing->apr|number_format:2:',':''}%</td>
+													</tr>
+												{/block}
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_total_interest"}
+													<tr>
+														<td class="pp_cs_label">{$txt.total_interest}</td>
+														<td class="pp_cs_data">{$creditoption->total_interest->value|number_format:2:',':''}&nbsp;{$creditoption->total_interest->currency_code}</td>
+													</tr>
+												{/block}
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_total_cost"}
+													<tr>
+														<td class="pp_cs_label">{$txt.total_cost}</td>
+														<td class="pp_cs_data">{$creditoption->total_cost->value|number_format:2:',':''}&nbsp;{$creditoption->total_cost->currency_code}</td>
+													</tr>
+												{/block}
+												{block name="module_paypalinstallmentoptions_amount_ok_creditoption_table_monthly_payment"}
+													<tr>
+														<td class="pp_cs_label">{$creditoption->credit_financing->term} {$txt.monthly} {$txt.installments} {$txt.installments_of}</td>
+														<td class="pp_cs_data">{$creditoption->monthly_payment->value|number_format:2:',':''}&nbsp;{$creditoption->monthly_payment->currency_code}</td>
+													</tr>
+												{/block}
+											</table>
+										{/block}
+									</div>
+								</div>
+							{/block}
+						{/foreach}
+					{else}
+						{block name="module_paypalinstallmentoptions_amount_ok_no_qualifying"}
+							{$txt.sorry_no_qualifying_options}
+						{/block}
+					{/if}
+				</div>
+			{/block}
+		{/if}
+	
+		{if $nonQualifyingOptions}
+			{block name="module_paypalinstallmentoptions_non_qualifying"}
+				<div class="row non-qualifying-options">
+					{block name="module_paypalinstallmentoptions_non_qualifying_intro"}
+						<div class="non-qualifying-intro">
+							{$txt.intro_non_qualifying}
+						</div>
+					{/block}
+					{foreach from=$nonQualifyingOptions item=creditoption key=plan}
+						{block name="module_paypalinstallmentoptions_non_qualifying_creditoption"}
+							<div class="col-xs-12 col-md-4 col-lg-3 credit-plan-outer">
+								<div class="credit-plan">
+									{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_heading"}
+										<div class="credit-plan-heading">
+											{$txt.plan} {$plan + 1}
+											{if $representativeFinancingCode == $creditoption->credit_financing->financing_code}<span class="lowest-apr-marker">*</span>{/if}
+										</div>
+									{/block}
+									{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_table"}
+										<table class="credit-plan-details">
+											{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_table_amount"}
+												<tr>
+													<td class="pp_cs_label">{$txt.min_amount}</td>
+													<td class="pp_cs_data">{$creditoption->min_amount->value|number_format:2:',':''}&nbsp;{$creditoption->min_amount->currency_code}</td>
+												</tr>
+											{/block}
+											{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_table_nominal_rate"}
+												<tr>
+													<td class="pp_cs_label">{$txt.nominal_rate}</td>
+													<td class="pp_cs_data">{$creditoption->credit_financing->nominal_rate|number_format:2:',':''}%</td>
+												</tr>
+											{/block}
+											{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_table_effective_apr"}
+												<tr>
+													<td class="pp_cs_label">{$txt.effective_apr}</td>
+													<td class="pp_cs_data">{$creditoption->credit_financing->apr|number_format:2:',':''}%</td>
+												</tr>
+											{/block}
+											{block name="module_paypalinstallmentoptions_non_qualifying_creditoption_table_monthly_payment"}
+												<tr>
+													<td class="pp_cs_label">{$creditoption->credit_financing->term} {$txt.monthly} {$txt.installments}</td>
+													<td class="pp_cs_data">&nbsp;</td>
+												</tr>
+											{/block}
+										</table>
+									{/block}
+								</div>
+							</div>
+						{/block}
+					{/foreach}
+				</div>
+			{/block}
+		{/if}
+		{block name="module_paypalinstallmentoptions_representative_example"}
+			<div class="info-representative"><span class="lowest-apr-marker">*</span> {$txt.info_representative_example}</div>
+		{/block}
+		{block name="module_paypalinstallmentoptions_lender"}
+			<div class="lender">{$txt.lender}: {$lender}</div>
+		{/block}
+	</div>
+{/block}

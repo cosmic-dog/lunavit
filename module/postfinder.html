@@ -1,0 +1,300 @@
+{load_language_text section="postfinder" name="postfinder"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_postfinder"}
+	{block name="module_postfinder_title"}
+		<h1>{$postfinder.postfinder_heading}</h1>
+	{/block}
+
+	{block name="module_postfinder_alert"}
+		{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$error type="danger"}
+	{/block}
+	
+	{if $NO_RESULT}
+		{block name="module_postfinder_no_result_alert"}
+			{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$postfinder.postfinder_no_result type="danger"}
+		{/block}
+	{/if}
+
+	{block name="module_postfinder_form"}
+		<form action="{$FORM_ACTION}" method="GET" class="form-horizontal">
+			{block name="module_postfinder_intro"}
+				<fieldset>
+					{block name="module_postfinder_intro_legend"}
+						<legend>
+							{$postfinder.postfinder_intro}
+						</legend>
+					{/block}
+					
+					{block name="module_postfinder_intro_street"}
+						<div class="form-group">
+							{block name="module_postfinder_intro_street_label"}
+								<label for="street" class="control-label col-sm-3">
+									{$postfinder.postfinder_label_street}
+								</label>
+							{/block}
+							{block name="module_postfinder_intro_street_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_postfinder_intro_street_input"}
+										<input type="text"
+											   placeholder="{$postfinder.postfinder_placeholder_street}"
+											   id="street"
+											   name="street"
+											   class="form-control"
+											   value="{$STREET}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_postfinder_intro_streetno"}
+						<div class="form-group">
+							{block name="module_postfinder_intro_streetno_label"}
+								<label for="streetno" class="control-label col-sm-3">
+									{$postfinder.postfinder_label_streetno}
+								</label>
+							{/block}
+							{block name="module_postfinder_intro_streetno_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_postfinder_intro_streetno_input"}
+										<input type="text"
+											   placeholder="{$postfinder.postfinder_placeholder_streetno}"
+											   id="streetno"
+											   name="streetno"
+											   class="form-control"
+											   value="{$STREETNO}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_postfinder_intro_zip"}
+						<div class="form-group">
+							{block name="module_postfinder_intro_zip_label"}
+								<label for="zip" class="control-label col-sm-3">
+									{$postfinder.postfinder_label_zip}
+								</label>
+							{/block}
+							{block name="module_postfinder_intro_zip_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_postfinder_intro_zip_input"}
+										<input type="text"
+											   placeholder="{$postfinder.postfinder_placeholder_zip}"
+											   id="zip"
+											   name="zip"
+											   class="form-control"
+											   value="{$ZIP}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_postfinder_intro_city"}
+						<div class="form-group">
+							{block name="module_postfinder_intro_city_label"}
+								<label for="city" class="control-label col-sm-3">
+									{$postfinder.postfinder_label_city}
+								</label>
+							{/block}
+							{block name="module_postfinder_intro_city_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_postfinder_intro_city_input"}
+										<input type="text"
+											   placeholder="{$postfinder.postfinder_placeholder_city}"
+											   id="city"
+											   name="city"
+											   class="form-control"
+											   value="{$CITY}" />
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				</fieldset>
+			{/block}
+		
+			{if $CHECKOUT_STARTED}
+				<input type="hidden" name="checkout_started" value="1">
+			{/if}
+			
+			{block name="module_postfinder_buttons"}
+				<div class="row form-group">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_postfinder_buttons_back"}
+							<a class="btn btn-default btn-block" href="#" onclick="history.go(-1)">{$button.back}</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_postfinder_buttons_submit"}
+							<button type="submit" class="btn btn-primary btn-block" name="pfinder_search_pstation" title="{$postfinder.postfinder_search_pstation}">
+								{$postfinder.postfinder_search_pstation}
+							</button>
+						{/block}
+					</div>
+				</div>
+			{/block}
+			
+			{block name="module_postfinder_abook"}
+				<fieldset>
+					{block name="module_postfinder_abook_legend"}
+						<legend>
+							{$postfinder.postfinder_use_address}
+						</legend>
+					{/block}
+			
+					{foreach name=abook item=abentry from=$ABOOK}
+						{block name="module_postfinder_abook_item"}
+							{assign var="STR_address" value=$abentry.entry_firstname|cat:" "|cat:$abentry.entry_lastname|cat:"<br />"}
+							{assign var="STR_address" value=$STR_address|cat:$abentry.entry_street_address|cat:" "|cat:$abentry.entry_house_number|cat:"<br/>"}
+							{assign var="STR_address" value=$STR_address|cat:$abentry.entry_postcode|cat:" "|cat:$abentry.entry_city|cat:"<br/>"}
+				
+							{assign var="STR_url" value=$PAGE_URL|cat:"ab="|cat:$abentry.address_book_id}
+				
+							<div class="row">
+								{block name="module_postfinder_abook_item_address"}
+									<div class="col-sm-6 col-mg-8 col-lg-8 input-container">
+										{if $STR_address}
+											<p>
+												{$STR_address}
+											</p>
+										{else}
+											&nbsp;
+										{/if}
+									</div>
+								{/block}
+								
+								{block name="module_postfinder_abook_item_action"}
+									<div class="col-sm-6 col-mg-4 col-lg-4 input-container">
+										{if $postfinder.postfinder_use_address}
+											{if $STR_url}
+												{block name="module_postfinder_abook_item_action_link"}
+													<a class="btn btn-primary btn-block" href="{$STR_url}" title="{$postfinder.postfinder_use_address}">
+														{$postfinder.postfinder_use_address}
+													</a>
+												{/block}
+											{else}
+												{block name="module_postfinder_abook_item_action_button"}
+													<button type="submit" class="btn btn-primary btn-block" title="{$postfinder.postfinder_use_address}">
+														{$postfinder.postfinder_use_address}
+													</button>
+												{/block}
+											{/if}
+										{else}
+											{block name="module_postfinder_abook_item_action_empty"}
+												&nbsp;
+											{/block}
+										{/if}
+										&nbsp;
+									</div>
+								{/block}
+							</div>
+						{/block}
+					{/foreach}
+				</fieldset>
+			{/block}
+		</form>
+	{/block}
+	
+	{if $PACKSTATIONS}
+		{block name="module_postfinder_packstation"}
+			{block name="module_postfinder_packstation_head"}
+				<ul class="row postfinder-head">
+			
+					<li class="col-sm-1">{$postfinder.postfinder_distance}</li>
+					<li class="col-sm-4">{$postfinder.postfinder_location}</li>
+					<li class="col-sm-3">{$postfinder.postfinder_psnumber}</li>
+					<li class="col-sm-4">&nbsp;</li>
+			
+				</ul>
+			{/block}
+	
+			{foreach name=pstations item=ps from=$PACKSTATIONS}
+				{block name="module_postfinder_packstation_item"}
+					<ul class="row postfinder-body">
+						
+						{block name="module_postfinder_packstation_item_distance"}
+							<li class="col-sm-1">
+								{$ps->distance} m
+							</li>
+						{/block}
+						
+						{block name="module_postfinder_packstation_item_address"}
+							<li class="col-sm-4">
+								{$ps->address->street} {$ps->address->streetNo}
+								<br/>
+								{$ps->address->zip} {$ps->address->city}
+								{if $ps->address->remark}
+									<br/>
+									{$ps->address->remark}
+								{/if}
+							</li>
+						{/block}
+						
+						{block name="module_postfinder_packstation_item_packstation_filiale"}
+							<li class="col-sm-3">
+								{if $ps->automatType == 4}
+									Packstation&nbsp;{$ps->packstationId}
+								{else}
+									Filiale&nbsp;{$ps->depotServiceNo}
+								{/if}
+							</li>
+						{/block}
+						
+						{block name="module_postfinder_packstation_item_form"}
+							<li class="col-sm-4">
+								<form action="{$FORM_ACTION}" method="POST" class="">
+									<fieldset>
+										{block name="module_postfinder_packstation_item_form_postnumber"}
+											<div class="form-group input-container">
+												<label class="control-label">
+													{$postfinder.postfinder_postnumber}
+												</label>
+												<div class="input-container">
+													<input type="number" class="form-control" id="postnumber" name="postnumber" placeholder="1234567" maxlength="10" />
+												</div>
+											</div>
+										{/block}
+				
+										<input type="hidden" name="pszip" value="{$ps->address->zip}" />
+										<input type="hidden" name="pscity" value="{$ps->address->city}" />
+										
+										{block name="module_postfinder_packstation_item_form_buttons"}
+											{if $ps->automatType == 4}
+												<input type="hidden" name="psid" value="{$ps->packstationId}" />
+												<div class="form-group">
+													{block name="module_postfinder_packstation_item_form_buttons_packstation_submit"}
+														<button name="ps2ab" id="ps2ab" class="btn btn-primary btn-block" type="submit" title="{$txt.title_add_a_quickie}">
+															{$postfinder.btn_ps2ab}
+														</button>
+													{/block}
+												</div>
+											{else}
+												<input type="hidden" name="depotid" value="{$ps->depotServiceNo}">
+												<div class="form-group">
+													{block name="module_postfinder_packstation_item_form_buttons_filiale_submit"}
+														<button name="branch2ab" id="branch2ab" class="btn btn-primary btn-block" type="submit" title="{$txt.title_add_a_quickie}">
+															{$postfinder.btn_ps2ab}
+														</button>
+													{/block}
+												</div>
+											{/if}
+										{/block}
+									</fieldset>
+								</form>
+							</li>
+						{/block}
+					</ul>
+				{/block}
+			{/foreach}
+		{/block}
+	{/if}
+	
+	{if $RESULT}
+		{block name="module_postfinder_result"}
+			<pre>{$RESULT}</pre>
+		{/block}
+	{/if}
+{/block}

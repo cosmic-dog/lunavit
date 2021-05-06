@@ -1,0 +1,77 @@
+{load_language_text section="reviews"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_product_reviews_info"}
+	{block name="module_product_reviews_info_title"}
+		<h1>
+			{$txt.heading_product_reviews}
+			<a href="{$PRODUCTS_LINK}" title="{$PRODUCTS_NAME}">
+				{$PRODUCTS_NAME}
+			</a>
+		</h1>
+	{/block}
+	
+	{block name="module_product_reviews_info_about"}
+		{$rich_snippet_content.review_itemprop_about}
+	{/block}
+	
+	{block name="module_product_reviews_info_review"}
+		<ul{$rich_snippet_content.review_itemscope}>
+			{block name="module_product_reviews_info_review_rating"}
+				<dt>{$txt.title_rating}</dt>
+				<dd{$rich_snippet_content.review_itemprop_reviewRating}{$rich_snippet_content.rating_itemscope}>
+					{$RATING}
+					{$rich_snippet_content.rating_itemprop_ratingValue}
+				</dd>
+			{/block}
+
+			{block name="module_product_reviews_info_review_author"}
+				<dt>{$txt.label_author}</dt>
+				<dd{$rich_snippet_content.review_itemprop_author}{$rich_snippet_content.author_itemscope}{$rich_snippet_content.author_itemprop_name}>
+					{$AUTHOR}
+				</dd>
+			{/block}
+
+			{block name="module_product_reviews_info_review_date"}
+				<dt>{$txt.label_date}</dt>
+				<dd>
+					{$rich_snippet_content.review_itemprop_datePublished}
+					{$DATE}
+				</dd>
+			{/block}
+
+			{block name="module_product_reviews_info_review_text"}
+				<dt>{$txt.label_text}</dt>
+				<dd{$rich_snippet_content.review_itemprop_reviewBody}>
+					{$REVIEWS_TEXT|default:'&nbsp;'}
+				</dd>
+			{/block}
+
+			{block name="module_product_reviews_info_review_product"}
+				<dt>{$txt.heading_product}</dt>
+				<dd>
+					<img src="{$IMAGE_URL}" title="{$PRODUCTS_NAME}" alt="{$PRODUCTS_NAME}" />
+				</dd>
+			{/block}
+		</ul>
+	{/block}
+	
+	{block name="module_product_reviews_info_buttons"}
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				{block name="module_product_reviews_info_buttons_back"}
+					<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+						{$button.back}
+					</a>
+				{/block}
+			</div>
+			<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+				{block name="module_product_reviews_info_buttons_submit"}
+					<a class="btn btn-primary btn-block" href="{$PRODUCTS_LINK}" title="{$button.to_the_product}">
+						{$button.to_the_product}
+					</a>
+				{/block}
+			</div>
+		</div>
+	{/block}
+{/block}

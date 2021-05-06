@@ -1,0 +1,97 @@
+/* Checkout Processfunnel
+   ========================================================================== */
+
+.checkout-processfunnel {
+	@include reset-list();
+	
+	height: 30px;
+	margin: 15px 0 30px;
+	
+	li {
+		height:      30px;
+		line-height: 30px;
+		padding:     0;
+		
+		&:not(:first-child) {
+			padding-left: 3px;
+			
+			.step-text {
+				padding-left: 20px;
+			}
+		}
+		
+		&:not(:last-child):after,
+		&:not(:first-child):before {
+			border-top:    15px inset transparent;
+			border-bottom: 15px inset transparent;
+			content:       "";
+			height:        0;
+			position:      absolute;
+			top:           0;
+			width:         0;
+		}
+		
+		&:not(:first-child):before {
+			border-left: 20px solid #FFFFFF;
+			left:        3px;
+			z-index:     3;
+		}
+		
+		&:not(:last-child):after {
+			border-left: 20px solid #F3F3F3;
+			right:       -20px;
+			z-index:     4;
+		}
+		
+		@media (max-width: $screen-xs-max) {
+			&:first-child {
+				.step-text {
+					padding-left: 15px;
+				}
+			}
+			
+			&:not(:last-child) {
+				&:not(:first-child) {
+					.step-text {
+						padding-left: 25px;
+					}
+				}
+			}
+		}
+		
+		.step-text {
+			display:          inline-block;
+			font-size:        14px;
+			line-height:      32px;
+			height:           30px;
+			overflow:         hidden;
+			background-color: #F3F3F3;
+			color:            #666666;
+			text-transform:   uppercase;
+			text-align:       center;
+			width:            100%;
+			
+			@media (min-width: $screen-sm-min) {
+				&.visble-xs {
+					display: none;					
+				}
+			}
+		}
+		
+		&.active {
+			.step-text {
+				background-color: $brand-primary;
+				color:            #FFFFFF;
+				
+				@media (max-width: $screen-xs-max) {
+					font-size: 12px;
+					line-height: 30px;
+				}
+			}
+			
+			&:after {
+				border-left-color: $brand-primary;
+			}
+		}
+	}
+}

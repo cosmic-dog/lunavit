@@ -1,0 +1,14 @@
+{load_language_text section="paypal3"}
+
+{block name="module_paypalinstallmentspecificoutofbounds"}
+	<div class="paypalinstallmentcontainer">
+		<div class="paypalinstallmentgeneric" data-gambio-widget="paypalinstallmentsinfo">
+			<img class="powered-by-paypal-horizontal" src="{$tpl_path}/assets/images/pp_credit-german_h_rgb.png" title="{$txt.generic_installments} {$txt.powered_by} PayPal">
+			{block name="module_paypalinstallmentspecificoutofbounds_info"}
+				<div class="outofboundsinfo">
+					{$txt.out_of_bounds}
+				</div>
+			{/block}
+		</div>
+	</div>
+{/block}

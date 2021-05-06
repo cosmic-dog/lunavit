@@ -1,0 +1,47 @@
+{load_language_text section="product_navigator"}
+
+{block name="module_product_navigator"}
+	<div id="product_navigation" class="panel-pagination">
+		<nav>
+			{block name="module_product_navigator_pagination"}
+				<ul class="pagination">
+					{if $FIRST!=''}
+						{block name="module_product_navigator_pagination_first"}
+							<li>
+								<a href="{$FIRST}">{$txt.text_first}</a>
+							</li>
+						{/block}
+					{/if}
+		
+					{if $PREVIOUS!=''}
+						{block name="module_product_navigator_pagination_previous"}
+							<li>
+								<a href="{$PREVIOUS}">{$txt.text_back}</a>
+							</li>
+						{/block}
+					{/if}
+		
+					{if $NEXT!=''}
+						{block name="module_product_navigator_pagination_next"}
+							<li>
+								<a href="{$NEXT}">{$txt.text_next}</a>
+							</li>
+						{/block}
+					{/if}
+		
+					{if $LAST!=''}
+						{block name="module_product_navigator_pagination_last"}
+							<li>
+								<a href="{$LAST}">{$txt.text_last}</a>
+							</li>
+						{/block}
+					{/if}
+				</ul>
+			{/block}
+			
+			{block name="module_product_navigator_products_count"}
+				<span><strong>{$PRODUCTS_COUNT}</strong> {$txt.text_total}</span>
+			{/block}
+		</nav>
+	</div>
+{/block}

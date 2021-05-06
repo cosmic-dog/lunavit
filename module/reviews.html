@@ -1,0 +1,57 @@
+{load_language_text section="reviews"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_reviews"}
+	{block name="module_reviews_title"}
+		<h1>{$txt.heading_reviews}</h1>
+	{/block}
+	
+	{block name="module_reviews_pagination_top"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" bar=$NAVBAR count=$NAVIGATION_PAGES_COUNT}
+	{/block}
+	
+	{foreach item=product from=$module_content}
+		{block name="module_reviews_item"}
+			<ul class="row">
+				{block name="module_reviews_item_product_image"}
+					<li class="col-sm-3">
+						<a href="{$product.PRODUCTS_LINK}" title="{$product.PRODUCTS_NAME}">
+							<img src="{$product.PRODUCTS_IMAGE}" alt="{$product.PRODUCTS_NAME}" title="{$product.PRODUCTS_NAME}" />
+						</a>
+					</li>
+				{/block}
+				
+				{block name="module_reviews_item_product_name_rating"}
+					<li class="col-sm-3">
+						<a href="{$product.PRODUCTS_LINK}" title="{$product.PRODUCTS_NAME}">
+							{$product.PRODUCTS_NAME}
+						</a>
+						<br />
+						{$product.RATING}
+					</li>
+				{/block}
+				
+				{block name="module_reviews_item_author"}
+					<li class="col-sm-2">
+						{$txt.text_author} {$product.AUTHOR}
+					</li>
+				{/block}
+				
+				{block name="module_reviews_item_text_link"}
+					<li class="col-sm-4">
+						{$product.REVIEW_TEXT|truncate:150:" ..."}
+						<br />
+						<a href="{$product.PRODUCTS_LINK}" class="btn btn-primary" title="{$txt.text_reviews_link}">
+							{$txt.text_reviews_link}
+						</a>
+					</li>
+				{/block}
+			</ul>
+		{/block}
+	{/foreach}
+	
+	{block name="module_reviews_pagination_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" bar=$NAVBAR}
+	{/block}
+{/block}
+

@@ -1,0 +1,73 @@
+{load_language_text section="paypal3"}
+
+{block name="module_paypalinstallmentspecific"}
+	<div class="paypalinstallmentcontainer">
+		<div class="paypalinstallmentspecific" data-gambio-widget="paypalinstallmentsinfo">
+			<img class="powered-by-paypal-horizontal" src="{$tpl_path}/assets/images/pp_credit-german_h_rgb.png" title="{$txt.generic_installments} {$txt.powered_by} PayPal">
+			{if $annualPercentageRate > 0}
+				{block name="module_paypalinstallmentspecific_ppi_intro"}
+					<div class="ppi_introtext">
+						{$txt.financing_from} {$totalAmount} {$txt.in} {$numberOfInstallments} {$txt.monthly_payments_dative} {$txt.with_installments_by_paypal}
+					</div>
+				{/block}
+				{block name="module_paypalinstallmentspecific_legal_intro"}
+					<div class="legal_intro">
+						{$txt.representative_example}:
+					</div>
+				{/block}
+				{block name="module_paypalinstallmentspecific_table"}
+					<div class="credit-info-table">
+						{block name="module_paypalinstallmentspecific_table_amount"}
+							<div class="row">
+								<div class="pp_cs_label col-md-12 col-lg-8">{$txt.net_loan_amount}</div>
+								<div class="pp_cs_data col-md-12 col-lg-4">{$cashPurchasePrice}</div>
+							</div>
+						{/block}
+						{block name="module_paypalinstallmentspecific_table_nominal_rate"}
+							<div class="row">
+								<div class="pp_cs_label col-md-12 col-lg-8">{$txt.nominal_rate}</div>
+								<div class="pp_cs_data col-md-12 col-lg-4">{$borrowingRate}%</div>
+							</div>
+						{/block}
+						{block name="module_paypalinstallmentspecific_table_effective_apr"}
+							<div class="row">
+								<div class="pp_cs_label col-md-12 col-lg-8">{$txt.effective_apr}</div>
+								<div class="pp_cs_data col-md-12 col-lg-4">{$annualPercentageRate}%</div>
+							</div>
+						{/block}
+						{block name="module_paypalinstallmentspecific_table_total_cost"}
+							<div class="row">
+								<div class="pp_cs_label col-md-12 col-lg-8">{$txt.total_cost}</div>
+								<div class="pp_cs_data col-md-12 col-lg-4">{$totalAmount}</div>
+							</div>
+						{/block}
+						{block name="module_paypalinstallmentspecific_table_installment"}
+							<div class="row">
+								<div class="pp_cs_label col-md-12 col-lg-8">{$numberOfInstallments} {$txt.monthly_payments_nominative} {$txt.by_amount_of}</div>
+								<div class="pp_cs_data col-md-12 col-lg-4">{$installmentAmount}</div>
+							</div>
+						{/block}
+					</div>
+				{/block}
+				
+				{block name="module_paypalinstallmentspecific_lender"}
+					<div class="lender">{$txt.lender}: {$lender}</div>
+				{/block}
+			{else}
+				{block name="module_paypalinstallmentspecific_annual_persentage_leq_0_ppi_intro"}
+					<div class="ppi_introtext">
+						{$txt.financing_from}: {$installmentAmount} {$txt.per_month}
+					</div>
+				{/block}
+			{/if}
+			
+			{block name="module_paypalinstallmentspecific_installment_info"}
+				<div class="popup_installments_info">{$txt.info_on_financing_options}</div>
+			{/block}
+			
+			{block name="module_paypalinstallmentspecific_installment_options"}
+				<div class="pp_cs_popup">{$installmentOptions}</div>
+			{/block}
+		</div>
+	</div>
+{/block}

@@ -1,0 +1,101 @@
+{load_language_text section="shopping_cart"}
+{load_language_text section="checkout_shipping" name="shipping"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="gift_cart" name="gift"}
+{load_language_text section="general" name="general_txt"}
+{load_language_text section="shared_shopping_cart" name="sharedCart"}
+
+{block name="module_shopping_cart"}
+	{block name="module_shopping_cart_title"}
+		<h1 class="no-underline">{$txt.heading_cart}</h1>
+	{/block}
+	
+	{block name="module_shopping_cart_alert"}
+		<div class="global-error-messages">
+			{include file="get_usermod:{$tpl_path}snippets/shopping_cart_messages.html"}
+		</div>
+	{/block}
+	
+	{block name="module_shopping_cart_wrapper"}
+		<div data-gambio-widget="product_cart_handler" data-product_cart_handler-actions="[]">
+			{block name="module_shopping_cart_empty_cart"}
+				<div class="cart-empty{if $cart_empty != true} hidden{/if}" >
+					{include file="get_usermod:{$tpl_path}snippets/empty_cart.html"}
+				</div>
+			{/block}
+			
+			{block name="module_shopping_cart_not_empty_cart"}
+				<div class="cart-not-empty{if $cart_empty == true} hidden{/if}" >
+					{block name="module_shopping_cart_not_empty_cart_form"}
+						{$FORM_ACTION}
+							<div class="hidden-options">
+								{$HIDDEN_OPTIONS}
+							</div>
+					
+							{block name="module_shopping_cart_not_empty_cart_order_details"}
+								{$MODULE_order_details}
+							{/block}
+				
+							{* CHECKOUT-BUTTON *}
+							{block name="module_shopping_cart_not_empty_cart_checkout_button"}
+								<div class="shopping-cart-button col-xs-12 col-md-4 pull-right {if $MODULE_gift_cart != ''}has-gift-cart{/if}">
+									{include file="get_usermod:{$tpl_path}snippets/shopping_cart_button.html"}
+								</div>
+							{/block}
+				
+							{block name="module_shopping_cart_not_empty_cart_info_message_if"}
+								<div class="alert alert-info info-message col-xs-12 col-md-7 {if $info_message_1 == ''}hidden{/if}">
+								{if $info_message_1 != ''}
+									{block name="module_shopping_cart_not_empty_cart_info_message"}
+										{$info_message_1}{$min_order} {$info_message_2}{$order_amount}
+									{/block}
+								{/if}
+								</div>
+							{/block}
+
+							{block name="module_shopping_cart_not_empty_cart_shipping_and_payment_if"}
+								{if $customer_status_allow_checkout == '1'}
+									{block name="module_shopping_cart_not_empty_cart_shipping_and_payment"}
+										<div class="shopping-cart-shipping-payment-text col-xs-12 col-md-8">
+											<span class="gm-chevron-right"></span> {$txt.text_about_shipping_and_payment}
+											<a class="grey_link js-open-modal" href="{$SHIPPING_AND_PAYMENT_INFO_LINK}"
+												   title="{$SHIPPING_AND_PAYMENT_CONTENT_TITLE}"
+												   data-modal-type="info"
+												   data-modal-settings='{literal}{{/literal}"title": "{$SHIPPING_AND_PAYMENT_CONTENT_TITLE}",
+													"sectionSelector": ".content_text", "bootstrapClass": "modal-lg"{literal}}{/literal}'>
+												{$SHIPPING_AND_PAYMENT_CONTENT_TITLE}
+											</a>.
+										</div>
+									{/block}
+								{/if}
+							{/block}
+				
+						</form>
+					{/block}
+					
+					{block name="module_shopping_cart_not_empty_cart_klarna"}
+						{$KLARNA_WIDGET}
+					{/block}
+				</div>
+			{/block}
+		</div>
+	{/block}
+	
+	{$MODULE_gift_cart}
+	<div class="hidden">
+		{$MODULE_shared_cart}
+		{$cart_shipping_costs_selection}
+	</div>
+
+	{block name="module_shopping_cart_yoochoose_if"}
+		<!-- #BOF YOOCHOOSE -->
+		{if $MODULE_yoochoose_shopping_cart != ''}
+			{block name="module_shopping_cart_yoochoose"}
+				<div class="yoochoose-container col-xs-12 col-md-8">
+					{$MODULE_yoochoose_shopping_cart}
+				</div>
+			{/block}
+		{/if}
+		<!-- #EOF YOOCHOOSE -->
+	{/block}
+{/block}

@@ -1,0 +1,296 @@
+{load_language_text section="product_info"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="customers_status" name="customer"}
+
+{block name="module_product_info_standard"}
+	{block name="module_product_info_standard_navigator"}
+		{$PRODUCT_NAVIGATOR}
+	{/block}
+	
+	<div class="product-info product-info-default row"{$RICH_SNIPPET_ARRAY.product_itemscope}>
+		
+		{block name="module_product_info_standard_modal"}
+			{include file="get_usermod:{$tpl_path}snippets/product_info/images/product_images_modal.html"}
+		{/block}
+
+		{block name="module_product_info_standard_content"}
+			<div class="product-info-content col-xs-12">
+
+				{block name="module_product_info_standard_content_row"}
+					<div class="row">
+						
+						{block name="module_product_info_standard_product_name"}
+							<div class="product-info-title-mobile col-xs-12 visible-xs-block visible-sm-block">
+								{block name="module_product_info_standard_product_name_span"}
+									<span>{$PRODUCTS_NAME}</span>
+								{/block}
+
+								{block name="module_product_info_standard_product_review_data_if"}
+									<div>
+										{if $showRating && $AGGREGATE_REVIEW_DATA.averageRating && $AGGREGATE_REVIEW_DATA.averageRating != 0}
+											{block name="module_product_info_standard_product_review_data"}
+												{include file="get_usermod:{$tpl_path}snippets/rating_stars.html" rating_rounded=$AGGREGATE_REVIEW_DATA.averageRating rating_count=$AGGREGATE_REVIEW_DATA.count }
+											{/block}
+										{/if}
+									</div>
+								{/block}
+							</div>
+						{/block}
+
+						{block name="module_product_info_standard_product_ribbons"}
+							{product_ribbons
+							showManufacturerImages=$showManufacturerImages
+							showProductRibbons=$showProductRibbons
+							product_id=$PRODUCTS_ID
+							out=arr_ribbons
+							}
+						{/block}
+
+						{block name="module_product_info_standard_product_images_if"}
+							{if $images}
+								{block name="module_product_info_standard_images"}
+									<div class="product-info-stage col-xs-12 col-md-8{if $images|count lt 2} centered{/if}">
+
+										{block name="module_product_info_standard_product_images_snippet_include"}
+											{include file="get_usermod:{$tpl_path}snippets/product_info/images/product_images.html"}
+										{/block}
+
+										{block name="module_product_info_standard_product_images_manufacturer_ribbon_if"}
+											{if $arr_ribbons.manufacturer|count > 0}
+												{block name="module_product_info_standard_product_images_manufacturer_ribbon_include"}
+													{include file="get_usermod:{$tpl_path}snippets/ribbon/ribbon_manufacturer.html"
+													ribbon="manufacturer"
+													id=$arr_ribbons.manufacturer.0.ID
+													text=$arr_ribbons.manufacturer.0.IMAGE_ALT
+													img=$arr_ribbons.manufacturer.0.IMAGE
+													url=$arr_ribbons.manufacturer.0.URL
+													}
+												{/block}
+											{/if}
+										{/block}
+					
+									</div>
+								{/block}
+							{/if}
+						{/block}
+						
+						{block name="module_product_info_standard_sticky_box"}
+							{assign var="stickybox" value={template_setting name="gx-product-info-details-sticky"}}
+							<div class="product-info-details col-xs-12 col-md-4" data-gambio-widget="{if $stickybox}stickybox {/if}cart_handler product_min_height_fix">
+				
+								{block name="module_product_info_standard_sticky_box_overlays"}
+									<div class="loading-overlay"></div>
+									<div class="magnifier-overlay"></div>
+									<div class="magnifier-target">
+										<div class="preloader"></div>
+									</div>
+								{/block}
+
+								{block name="module_product_info_standard_sticky_box_ribbon_if"}
+									{if $arr_ribbons.ribbons}
+										{block name="module_product_info_standard_sticky_box_ribbon_include"}
+											{include file="get_usermod:{$tpl_path}snippets/ribbon/ribbon.html" ribbons=$arr_ribbons}
+										{/block}
+									{/if}
+								{/block}
+				
+								{block name="module_product_info_standard_sticky_box_ts_rating"}
+									{$TS_PRODUCT_RATING}
+								{/block}
+								
+								{block name="module_product_info_standard_sticky_box_form"}
+									<form action="{$FORM_ACTION_URL}" class="form-horizontal js-product-form{if $GM_GPRINT} customizer{/if} product-info">
+					
+										{block name="module_product_info_standard_sticky_box_rating"}
+											<div class="hidden-xs hidden-sm">
+												{block name="module_product_info_standard_sticky_box_rating_if"}
+													{if $showRating && $AGGREGATE_REVIEW_DATA.averageRating && $AGGREGATE_REVIEW_DATA.averageRating != 0}
+														{block name="module_product_info_standard_sticky_box_rating2"}
+															<span {$RICH_SNIPPET_ARRAY.product_itemprop_aggregate_rating}{$RICH_SNIPPET_ARRAY.aggregate_rating_itemscope}>
+																<span style="display: none"{$RICH_SNIPPET_ARRAY.aggregate_rating_itemprop_ratingValue}>{$AGGREGATE_REVIEW_DATA.averageRating}</span>
+																<span style="display: none"{$RICH_SNIPPET_ARRAY.aggregate_rating_itemprop_ratingCount}>{$AGGREGATE_REVIEW_DATA.count}</span>
+															</span>
+															<a href="#product-ratings">
+																{include file="get_usermod:{$tpl_path}snippets/rating_stars.html" rating_rounded=$AGGREGATE_REVIEW_DATA.averageRating rating_count=$AGGREGATE_REVIEW_DATA.count }
+															</a>
+														{/block}
+													{/if}
+												{/block}
+											</div>
+										{/block}
+										
+										{block name="module_product_info_standard_sticky_box_product_title"}
+											<h1 class="product-info-title-desktop hidden-xs hidden-sm">{$RICH_SNIPPET_ARRAY.product_itemprop_name_start}{$PRODUCTS_NAME}{$RICH_SNIPPET_ARRAY.product_itemprop_name_end}</h1>
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_product_options_if"}
+											{if $PRODUCTS_MODEL !='' || $SHOW_PRODUCTS_MODEL || $SHIPPING_NAME || $SHOW_SHIPPING_TIME || $PRODUCTS_QUANTITY || $SHOW_PRODUCTS_QUANTITY || $additional_fields}
+												{block name="module_product_info_standard_sticky_box_product_options"}
+													<dl class="dl-horizontal">
+														{block name="module_product_info_standard_sticky_box_model_include"}
+															{include file="get_usermod:{$tpl_path}snippets/product_info/model.html"}
+														{/block}
+
+														{block name="module_product_info_standard_sticky_box_shipping_time_include"}
+															{include file="get_usermod:{$tpl_path}snippets/product_info/shipping_time.html"}
+														{/block}
+
+														{block name="module_product_info_standard_sticky_box_stock_include"}
+															{include file="get_usermod:{$tpl_path}snippets/product_info/stock.html"}
+														{/block}
+	
+														{block name="module_product_info_standard_sticky_box_additional_fields"}
+															{$additional_fields}
+														{/block}
+							
+														{block name="module_product_info_standard_sticky_box_weight_if"}
+															{if $SHOW_PRODUCTS_WEIGHT}
+																{block name="module_product_info_standard_sticky_box_weight"}
+																	<dt>{$txt.text_weight}</dt>
+																	<dd class="products-details-weight-container"><span>{$PRODUCTS_WEIGHT}</span> {$txt.text_weight_unit} {if $PRODUCTS_QUANTITY_UNIT}{$PRODUCTS_QUANTITY_UNIT}{else}{$txt.text_weight_qty_unit}{/if}</dd>
+																{/block}
+															{/if}
+														{/block}
+
+														{block name="module_product_info_standard_sticky_box_min_order_if"}
+															{if $GM_MIN_ORDER}
+																{block name="module_product_info_standard_sticky_box_min_order"}
+																	<dt class="product-details-order-min">{$txt.text_min_order}</dt>
+																	<dd class="product-details-order-min">{$GM_MIN_ORDER}</dd>
+																{/block}
+															{/if}
+														{/block}
+													</dl>
+												{/block}
+											{/if}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_properties_selection_form"}
+											{$properties_selection_form}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_module_product_options"}
+											{$MODULE_product_options}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_attribute_images"}
+											<div class="attribute-images"></div>
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_customizer"}
+											{include file="get_usermod:{$tpl_path}snippets/product_info/customizer.html" position=3}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_legal_age"}
+											{include file="get_usermod:{$tpl_path}snippets/product_info/legal_age.html"}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_graduated_price_if"}
+											{if $MODULE_graduated_price != '' && $QUANTITY}
+												{block name="module_product_info_standard_sticky_box_graduated_price"}
+													{$MODULE_graduated_price}
+												{/block}
+											{/if}
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_cart_error_message"}
+											<div class="cart-error-msg alert alert-danger" role="alert"></div>
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_price_container"}
+											<div class="price-container" {$RICH_SNIPPET_ARRAY.product_itemprop_offers}{$RICH_SNIPPET_ARRAY.offer_itemscope}>
+												{block name="module_product_info_standard_sticky_box_price_calc_container"}
+													<div class="price-calc-container" id="attributes-calc-price">
+
+														{block name="module_product_info_standard_sticky_box_price_include"}
+															{include file="get_usermod:{$tpl_path}snippets/product_info/price.html"}
+														{/block}
+							
+														{block name="module_product_info_standard_sticky_box_quantity_if"}
+															{if $QUANTITY}
+																{block name="module_product_info_standard_sticky_box_quantity_unit_if"}
+																	{if $PRODUCTS_QUANTITY_UNIT}
+																		{block name="module_product_info_standard_sticky_box_quantity_unit"}
+																			{$PRODUCTS_QUANTITY_UNIT}:
+																		{/block}
+																	{/if}
+																{/block}
+
+																{block name="module_product_info_standard_sticky_box_product_box_bottom"}
+																	{include file="get_usermod:{$tpl_path}snippets/product_info/product_box_bottom.html"}
+																{/block}
+															{else}
+																<input type="hidden" name="products_id" id="products-id" value="{$PRODUCTS_ID}" />
+																{$RICH_SNIPPET_ARRAY.offer_itemprop_out_of_stock}
+															{/if}
+														{/block}
+							
+													</div>
+												{/block}
+											</div>
+										{/block}
+					
+										{block name="module_product_info_standard_sticky_box_klarna_widget"}
+											{$KLARNA_WIDGET}
+										{/block}
+					
+									</form>
+								{/block}
+
+								{block name="module_product_info_standard_sticky_box_paypal_ec_button_if"}
+									{if $QUANTITY}
+										{block name="module_product_info_standard_sticky_box_paypal_ec_button"}
+											{paypal_ec_button page='product'}
+										{/block}
+									{/if}
+								{/block}
+							</div>
+						{/block}
+			
+						{block name="module_product_info_standard_description"}
+							<div class="product-info-description col-md-8" data-gambio-widget="tabs">
+								{include file="get_usermod:{$tpl_path}snippets/product_info/product_description.html"}
+							</div>
+						{/block}
+			
+						{block name="module_product_info_standard_available_if"}
+							{if $PRODUCTS_DATE_AVIABLE != ''}
+								{block name="module_product_info_standard_available"}
+									<div class="products_info_available col-md-8">
+										{$PRODUCTS_DATE_AVIABLE}
+									</div>
+								{/block}
+							{/if}
+						{/block}
+			
+						{block name="module_product_info_standard_social_share"}
+							<div class="product-info-share col-md-8">
+								{include file="get_usermod:{$tpl_path}snippets/product_info/social_share.html"}
+							</div>
+						{/block}
+			
+						{block name="module_product_info_standard_reviews_if"}
+							{if $showRating}
+								{if $MODULE_products_reviews != ''}
+									{block name="module_product_info_standard_reviews"}
+										<div id="product-ratings" class="product-info-rating col-md-8">
+											{$MODULE_products_reviews}
+										</div>
+									{/block}
+								{/if}
+							{/if}
+						{/block}
+			
+					</div><!-- // .row -->
+				{/block}
+			</div><!-- // .product-info-content -->
+		{/block}
+	
+		{block name="module_product_info_standard_product_lists"}
+			<div class="product-info-listings col-xs-12 clearfix" data-gambio-widget="product_hover">
+				{include file="get_usermod:{$tpl_path}snippets/product_info/product_lists.html"}
+			</div>
+		{/block}
+	
+	</div><!-- // .product-info -->
+{/block}

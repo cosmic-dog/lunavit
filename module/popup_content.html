@@ -1,0 +1,46 @@
+{block name="module_popup_content"}
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		{block name="module_popup_content_head"}
+			<head>
+				<title>{$CONTENT_HEADING}</title>
+				<base href="{$BASE_HREF}" />
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				{if $content_data.STYLE_EDIT_MODE != 'sos'}
+		
+					{if $smarty.const.ENABLE_SSL}
+						<link type="text/css" rel="stylesheet" href="{$smarty.const.HTTPS_SERVER}{$smarty.const.DIR_WS_CATALOG}{$tpl_path}gm_dynamic.css.php?{$content_data.CSS_PARAMS}" />
+					{else}
+						<link type="text/css" rel="stylesheet" href="{$smarty.const.HTTP_SERVER}{$smarty.const.DIR_WS_CATALOG}{$tpl_path}gm_dynamic.css.php?{$content_data.CSS_PARAMS}" />
+					{/if}
+				{/if}
+		
+				<!--[if lt IE 9]>
+				<link type="text/css" rel="stylesheet" href="{$tpl_path}styles/ie8.css" />
+				<![endif]-->
+		
+				<style>
+					body {
+						padding-top: 0;
+					}
+				</style>
+			</head>
+		{/block}
+		{block name="module_popup_content_body"}
+			<body style="background: transparent; height: auto;">
+				{block name="module_popup_content_body_content"}
+					<div id="content_page" class="popup_content">
+						{if $LIGHTBOX_MODE == '0'}
+							{block name="module_popup_content_body_content_title"}
+								<h2>{$CONTENT_HEADING}</h2>
+							{/block}
+						{/if}
+						{block name="module_popup_content_body_content_text"}
+							<div class="content_text">{$HTML}</div>
+						{/block}
+					</div>
+				{/block}
+			</body>
+		{/block}
+	</html>
+{/block}

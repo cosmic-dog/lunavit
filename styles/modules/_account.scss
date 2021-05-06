@@ -1,0 +1,56 @@
+#create_account {
+	#captcha {
+		padding-left: 0;
+	}
+}
+
+.page-account {
+	.account-options-container {
+		ul {
+			list-style:   none;
+			padding-left: 0;
+			
+			li {
+				border-bottom: 1px transparent;
+				border-top:    1px solid #EEEEEE;
+				padding:       3px 0 3px;
+				
+				&:last-of-type {
+					border-bottom: 1px solid #EEEEEE;
+				}
+				
+				a {
+					color:       #333333;
+					display:     inline-block;
+					font-size:   14px;
+					line-height: 37px;
+				}
+			}
+		}
+	}
+	
+	td {
+		&.downloads {
+			max-width: 100px;
+		}
+		
+		ul {
+			&.download-products-list {
+				list-style:   none;
+				padding-left: 0;
+				margin:       0;
+				
+				li {
+					padding-bottom: 10px;
+					
+					span {
+						&.download-info {
+							display: block;
+							padding: 6px 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}

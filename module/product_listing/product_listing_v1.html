@@ -1,0 +1,52 @@
+{load_language_text section="product_listing"}
+{load_language_text section="product_info" name="info"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_product_listing"}
+	{block name="module_product_listing_filter_section"}
+		{$FILTER_SELECTION}
+	{/block}
+	
+	{block name="module_product_listing_manufacturer"}
+		{manufacturer_data
+			manufacturer_id=$gm_manufacturers_id
+			out=manufacturer
+		}
+	{/block}
+	
+	{block name="module_product_listing_category_description"}
+		{include file="get_usermod:{$tpl_path}snippets/category_description.html" img_alt=$CATEGORIES_GM_ALT_TEXT category_title=$CATEGORIES_HEADING_TITLE
+			category_name=$CATEGORIES_NAME manufacturer=$manufacturer}
+	{/block}
+		
+	<!-- #BOF YOOCHOOSE -->
+	{if $MODULE_yoochoose_category_topsellers != ''}
+		{block name="module_product_listing_yoochoose"}
+			{$MODULE_yoochoose_category_topsellers}
+		{/block}
+	{/if}
+	<!-- #EOF YOOCHOOSE -->
+	
+	{block name="module_product_listing_filter"}
+		{include file="get_usermod:{$tpl_path}snippets/product_listing/product_listing_filter.html" formname="panel"}
+	{/block}
+	
+	{block name="module_product_listing_container"}
+		<div class="container-fluid" data-gambio-widget="product_hover" data-product_hover-scope=".productlist-viewmode-grid">
+			<div class="row product-filter-target productlist productlist-viewmode {if $VIEW_MODE == 'tiled'}productlist-viewmode-grid{else}productlist-viewmode-list{/if}" data-gambio-widget="cart_handler">
+		
+				{block name="module_product_listing_main"}
+				{include file="get_usermod:{$tpl_path}snippets/product_listing/product_listing_main.html"}
+				{/block}
+			</div>
+		</div>
+	{/block}
+	
+	{block name="module_product_listing_filter2"}
+		{include file="get_usermod:{$tpl_path}snippets/product_listing/product_listing_filter.html" formname="panel2"}
+	{/block}
+
+	{block name="module_product_listing_pagination"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/pagination_info.html" info=$NAVIGATION_INFO}
+	{/block}
+{/block}

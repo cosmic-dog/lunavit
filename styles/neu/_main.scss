@@ -1,0 +1,17 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3 {
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 50px;
+    
+    &:after {
+        width: 170px;
+        height: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

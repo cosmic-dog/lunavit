@@ -1,0 +1,18 @@
+
+/* Modals
+   ========================================================================== */
+
+.modal-dialog {
+	.modal-content {
+		@include background($gx-modal-bg,
+		                    $gx-modal-bg-image-url,
+		                    $gx-modal-bg-image-position,
+		                    $gx-modal-bg-image-repeat,
+		                    $gx-modal-bg-image-size,
+		                    $gx-modal-bg-image-attachment);
+		
+		.modal-title {
+			font-size: $font-size-h4;
+		}
+	}
+}

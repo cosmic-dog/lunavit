@@ -1,0 +1,36 @@
+{load_language_text section="reviews"}
+
+{block name="module_product_reviews"}
+	{block name="module_product_reviews_title"}
+		<h1>
+			{$txt.heading_reviews}
+			<a href="{$PRODUCTS_LINK}" title="$PRODUCTS_NAME">
+				{$PRODUCTS_NAME}
+			</a>
+		</h1>
+	{/block}
+	{block name="module_product_reviews_list"}
+		<ul>
+			{foreach item=module_data from=$module_content}
+				{block name="module_product_reviews_item"}
+					{block name="module_product_reviews_item_author"}
+						<dt>{$txt.title_author}</dt>
+						<dd>{$module_data.AUTHOR}</dd>
+					{/block}
+				
+					{block name="module_product_reviews_item_rating"}
+						<dt>{$txt.title_rating}</dt>
+						<dd>
+							<img src="{$module_data.RATING_IMAGE_URL}" title="{$PRODUCTS_NAME}" alt="{$PRODUCTS_NAME}" />
+						</dd>
+					{/block}
+				
+					{block name="module_product_reviews_item_date"}
+						<dt>{$txt.title_date}</dt>
+						<dd>{$module_data.DATE}</dd>
+					{/block}
+				{/block}
+			{/foreach}
+		</ul>
+	{/block}
+{/block}

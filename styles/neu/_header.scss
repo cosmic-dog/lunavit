@@ -1,0 +1,221 @@
+.neu-inline-middle {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    float: none !important;
+}
+
+.neu-hide {
+    //display: none !important;
+}
+
+header {
+    &.neu-header:not(.sticky) {
+        height: auto !important;
+    }
+
+    &.sticky.neu-header {
+        height: 64px !important;
+    }
+}
+
+body.page-index #stage #slider {
+    margin-top: -10px !important;
+}
+
+.neu {
+    &-header {
+        background: green !important;
+
+        &-top {
+            background: $dark-color;
+        }
+
+        &.sticky {
+            .inside {
+                display: none;
+            }
+        }
+
+        .inside {
+            padding-top: 30px;
+            padding-bottom: 30px;
+
+            .row {
+                //border: 1px solid red;
+            }
+        }
+
+        &-left {
+            float: left;
+        }
+
+        &-right {
+            float: right;
+        }
+
+        #categories {
+            .neu-navbar-topbar-item {
+                display: none;
+            }
+        }
+
+        .level-1-child > a {
+            font-weight: 600;
+
+            .fa {
+                margin-left: 3px;
+            }
+        }
+    }
+
+    &-logo-container img {
+        width: 243px;
+        height: 22px;
+    }
+
+    &-logo-container h4 {
+        font-size: 22px;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #fff;
+        margin-left: 2px;
+        padding-left: 20px;
+        position: relative;
+        top: 3px;
+
+        &:before {
+            width: 1px;
+            height: 16px;
+            content: '';
+            background: #fff;
+            position: absolute;
+            top: 4px;
+            left: 1px;
+        }
+    }
+
+    &-navbar-search {
+        display: inline-block;
+        vertical-align: bottom;
+
+        &-inner {
+            white-space: nowrap;
+            padding-right: 32px;
+        }
+
+        input, button {
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        input {
+            height: auto;
+            background: transparent;
+            color: #fff;
+            border: none;
+            border-bottom: 1px solid #fff;
+            padding: 4px;
+
+            &:focus {
+                outline: none;
+                box-shadow:none;
+                border-color: #999;
+            }
+        }
+
+        button {
+            border: none;
+            outline: none !important;
+            width: 18px;
+            height: 18px;
+            margin-left: 10px;
+            background: url(/images/neu/icons/search.png) 0 0 no-repeat;
+            background-size: 18px 18px;
+
+            &:focus {
+                border-bottom: 1px solid #999;
+            }
+        }
+    }
+
+    &-navbar-topbar {
+        margin-left: 40px;
+        display: inline-block;
+        vertical-align: bottom;
+        background: none !important;
+
+        &-items {
+            padding: 0 !important;
+            margin: 0;
+            margin-bottom: 0;
+        }
+
+        &-item {
+            margin-right: 16px;
+            list-style: none;
+            display: inline-block;
+            vertical-align: bottom;
+            line-height: 1;
+            
+            &:first-child {
+                margin-right: 40px;
+            }
+
+            & > a {
+                color: #fff;
+            }
+
+            .languages-btn {
+                text-transform: capitalize;
+                text-decoration: none !important;
+
+                span {
+                    margin-right: 6px;
+                }
+            }
+
+            .whishlist-btn {
+                width: 20px;
+                height: 18px;
+                display: block;
+                background: url(/images/neu/icons/wishlist-empty.png) 0 0 no-repeat;
+                background-size: 20px 18px;
+
+            }
+
+            .account-btn {
+                width: 12px;
+                height: 18px;
+                display: block;
+                background: url(/images/neu/icons/account.png) 0 0 no-repeat;
+                background-size: 12px 18px;
+            }
+
+            .cart-btn {
+                width: 16px;
+                height: 18px;
+                display: block;
+                background: url(/images/neu/icons/shopping-cart.png) 0 0 no-repeat;
+                background-size: 16px 18px;
+            }
+
+            .dropdown-menu {
+                margin-top: 18px !important;
+                margin-right: 0 !important;
+                left: auto;
+                right: -11px !important;
+            }
+        }
+    }
+
+    &-navbar-cart {
+        display: inline-block;
+        vertical-align: bottom;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+    }
+}

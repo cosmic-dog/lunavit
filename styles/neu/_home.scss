@@ -1,0 +1,11 @@
+.neu-home {
+    &-content {
+        text-align: center;
+
+        p {
+            &:not(:last-child) {
+                margin-bottom: 80px;
+            }
+        }
+    }
+}

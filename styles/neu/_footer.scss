@@ -1,0 +1,32 @@
+.neu-footer {
+    background: $footer-bg;
+
+    &-top {
+        text-align: center;
+
+        ul {
+            width: 100%;
+            max-width: 260px;
+            list-style: none;
+            padding: 0;
+            display: inline-block;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        li {
+            list-style-type: none;
+
+            &:first-child {
+                font-weight: 400;
+                text-transform: uppercase;
+                text-decoration: underline;
+                margin-bottom: 20px;
+            }
+
+            a {
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{load_language_text section="specials"}
+{load_language_text section="product_listing" name="product"}
+{load_language_text section="index" name="index"}
+
+{block name="module_specials"}
+	{block name="module_specials_title"}
+		<h1>{$txt.heading_text}</h1>
+	{/block}
+	
+	{block name="module_specials_pagination_top"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" bar=$NAVBAR count=$NAVIGATION_PAGES_COUNT}
+	{/block}
+	
+	{block name="module_specials_product_listing"}
+		{product_listing products=$module_content id="specials" template="snippets/product_listing/product_listing.html" showManufacturerImages=$showManufacturerImages showProductRibbons=$showProductRibbons showRating=$showRating}
+	{/block}
+	
+	{block name="module_specials_pagination_bottom"}
+		{include file="get_usermod:{$tpl_path}snippets/navigation/pagination.html" info=$NAVIGATION_INFO bar=$NAVBAR count=$NAVIGATION_PAGES_COUNT}
+	{/block}
+{/block}

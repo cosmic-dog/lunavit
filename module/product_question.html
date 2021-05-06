@@ -1,0 +1,184 @@
+{load_language_text section="contact_us"}
+{load_language_text section="buttons" name="button"}
+
+{block name="module_product_questing"}
+	<div class="mfp-bg mfp-ready"></div>
+	
+	<div tabindex="-1"
+		 class="mfp-wrap mfp-close-btn-in product-question-modal"
+		 data-gambio-widget="product_question"
+		 data-product_question-product-id="{$content_data.PRODUCTS_ID}"
+		 data-product_question-modal-mode>
+		<div class="mfp-container">
+			<div class="mfp-content">
+				{block name="module_product_questing_modal"}
+					<div class="modal-dialog modal-md">
+						<div class="modal-content">
+							{block name="module_product_questing_modal_header"}
+								<div class="modal-header">
+									<h4 class="modal-title">{$content_data.TELL_A_FRIEND_TITLE} &quot;{$content_data.PRODUCTS_NAME}&quot;</h4>
+								</div>
+							{/block}
+							
+							{block name="module_product_questing_modal_body"}
+								<div class="modal-body">
+									{if $content_data.MAIL_OUT}
+										{block name="module_product_questing_modal_body_mail_out_alert"}
+											{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$content_data.MAIL_OUT type="success"}
+										{/block}
+									{else}
+										{if $content_data.VVCODE_ERROR}
+											{block name="module_product_questing_modal_body_vvcode_error_alert"}
+												{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$content_data.VVCODE_ERROR type="danger"}
+											{/block}
+										{/if}
+										{if $content_data.ERROR}
+											{block name="module_product_questing_modal_body_alert"}
+												{include file="get_usermod:{$tpl_path}snippets/alert_message.html" message=$content_data.ERROR type="danger"}
+											{/block}
+										{/if}
+			
+										{foreach item=attribute from=$content_data.attributes}
+											{block name="module_product_questing_modal_body_attribute"}
+												{$attribute.name}: {$attribute.value}<br />
+											{/block}
+										{/foreach}
+									
+										{block name="module_product_questing_modal_body_form"}
+											<form id="product-question-form"
+												  action="#"
+												  method="post"
+												  class="form-horizontal">
+												
+												<fieldset>
+													<div class="col-sm-12 required_info">
+														<div class="pull-right">{$txt.text_required}<br /><br /></div>
+													</div>
+													
+													{block name="module_product_questing_modal_body_form_friend_name"}
+														<div class="form-group">
+															{block name="module_product_questing_modal_body_form_friend_name_label"}
+																<label for="tell_a_friend_name"
+																	   class="control-label col-sm-3">{$content_data.NAME}</label>
+															{/block}
+															{block name="module_product_questing_modal_body_form_friend_name_container"}
+																<div class="col-sm-9 input-container">
+																	{block name="module_product_questing_modal_body_form_friend_name_input"}
+																		<input type="text"
+																			   class="form-control"
+																			   name="name"
+																			   id="tell_a_friend_name"
+																			   value="{$content_data.INPUT_NAME}" />
+																	{/block}
+																</div>
+															{/block}
+														</div>
+													{/block}
+													{block name="module_product_questing_modal_body_form_friend_email"}
+														<div class="form-group mandatory">
+															{block name="module_product_questing_modal_body_form_friend_email_label"}
+																<label for="tell_a_friend_email"
+																	   class="control-label col-sm-3">{$content_data.EMAIL}</label>
+															{/block}
+															{block name="module_product_questing_modal_body_form_friend_email_container"}
+																<div class="col-sm-9 input-container">
+																	{block name="module_product_questing_modal_body_form_friend_email_input"}
+																		<input type="text"
+																			   class="form-control"
+																			   name="email"
+																			   id="tell_a_friend_email"
+																			   value="{$content_data.OWN_MAIL}" />
+																	{/block}
+																</div>
+															{/block}
+														</div>
+													{/block}
+													{block name="module_product_questing_modal_body_form_messagel"}
+														<div class="form-group">
+															{block name="module_product_questing_modal_body_form_messagel_label"}
+																<label for="tell_a_friend_message"
+																	   class="control-label col-sm-3">{$content_data.MESSAGE}</label>
+															{/block}
+															{block name="module_product_questing_modal_body_form_messagel_container"}
+																<div class="col-sm-9 input-container">
+																	{block name="module_product_questing_modal_body_form_messagel_input"}
+																		<textarea class="form-control"
+																				  name="message"
+																				  id="tell_a_friend_message">{$content_data.INPUT_MESSAGE}</textarea>
+																	{/block}
+																</div>
+															{/block}
+														</div>
+													{/block}
+													{if $content_data.VALIDATION_ACTIVE == 'true'}
+														{block name="module_product_questing_modal_body_form_validation"}
+															<div class="form-group vvcode mandatory">
+																{block name="module_product_questing_modal_body_form_validation_label"}
+																	<label class="control-label col-sm-3">{$content_data.VALIDATION}</label>
+																{/block}
+																{block name="module_product_questing_modal_body_form_validation_container"}
+																	<div id="captcha_wrapper" class="col-sm-9">
+																		{block name="module_product_questing_modal_body_form_validation_input"}
+																			{$content_data.GM_CAPTCHA}
+																		{/block}
+																	</div>
+																{/block}
+															</div>
+														{/block}
+													{/if}
+				
+													{if $content_data.GM_PRIVACY_LINK != '0'}
+														{block name="module_product_questing_modal_body_form_privacy"}
+															<div class="checkbox-inline">
+																{if $content_data.show_privacy_checkbox}
+																	{block name="module_product_questing_modal_body_form_privacy_checkbox"}
+																		<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $content.privacy_accepted} checked="checked"{/if}/>
+																		<label for="privacy_accepted">{$content_data.GM_PRIVACY_LINK}</label>
+																	{/block}
+																{else}
+																	{block name="module_product_questing_modal_body_form_privacy_link"}
+																		<span>{$content_data.GM_PRIVACY_LINK}</span>
+																	{/block}
+																{/if}
+															</div>
+														{/block}
+													{/if}
+				
+													{* ADD FAKE INPUT FIELD FOR ANTI SPAM BOT MECHANISM *}
+													<label for="form-input" class="form-input"></label>
+													<input id="form-input" type="text" name="lastname" value="">
+												</fieldset>
+											</form>
+										{/block}
+									{/if}
+								</div>
+							{/block}
+							
+							{block name="module_product_questing_modal_footer"}
+								<div class="modal-footer">
+									{if $content_data.MAIL_OUT}
+										{block name="module_product_questing_modal_footer_close"}
+											<button title="{$button.close}"
+													type="button"
+													class="btn btn-primary btn-close-question-window">{$button.close}</button>
+										{/block}
+									{else}
+										{block name="module_product_questing_modal_footer_send"}
+											<button title="{$button.send}"
+													type="button"
+													class="btn btn-primary btn-send-question">{$button.send}</button>
+										{/block}
+									{/if}
+								</div>
+							{/block}
+						</div>
+						
+						{block name="module_product_questing_modal_close"}
+							<button title="{$button.close}" type="button" class="mfp-close btn-close-question-window">×</button>
+						{/block}
+					</div>
+				{/block}
+			</div>
+		</div>
+	</div>
+{/block}

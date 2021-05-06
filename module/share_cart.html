@@ -1,0 +1,53 @@
+{load_language_text section="shared_shopping_cart"}
+
+{if $ACTIVATE_SHARED_CART == 'true'}
+	{block name="module_share_cart"}
+		<div class="redeem-code-wrapper share-cart-layer">
+			{block name="module_share_cart_form"}
+				<form action="shop.php?do=SharedShoppingCart/StoreShoppingCart">
+					<div class="share-cart-content-wrapper">
+		
+						<!-- URL INPUT FIELD -->
+						{block name="module_share_cart_url"}
+							<div class="row">
+								<div class="shared_cart_label">
+									{block name="module_share_cart_url_label"}
+										<label for="shared_cart_url">URL:</label>
+									{/block}
+								</div>
+								<div class="col-sm-12">
+									{block name="module_share_cart_url_input"}
+										<input type="text" value="" class="form-control shared_cart_url" id="shared_cart_url" readonly/>
+									{/block}
+								</div>
+							</div>
+						{/block}
+		
+						<!-- LINK GENERATION BUTTON -->
+						{block name="module_share_cart_generation_button"}
+							<div class="row">
+								<div class="col-sm-12">
+									<input data-gambio-_widget="share_cart" data-clipboard-target="#shared_cart_url" type="button" value="{$txt.text_copy}" class="btn btn-primary" />
+								</div>
+							</div>
+						{/block}
+		
+						<!-- COPY WRAPPER -->
+						{block name="module_share_cart_notice_wrapper"}
+							<div class="share-cart-response-wrapper" style="display: none;">
+								<!-- NOTICE -->
+								{block name="module_share_cart_notice"}
+									<div class="row text">
+										<div class="col-sm-12">
+											<p>{$txt.text_notice}</p>
+										</div>
+									</div>
+								{/block}
+							</div>
+						{/block}
+					</div>
+				</form>
+			{/block}
+		</div>
+	{/block}
+{/if}

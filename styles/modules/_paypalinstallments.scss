@@ -1,0 +1,279 @@
+img.ppinstallments_selection {
+	max-width: 20em;
+	background-color: #fff;
+	padding: 1.5em;
+	border-radius: 0.4em;
+}
+
+div.shopping-cart-button {
+	div.paypalinstallmentcontainer {
+		padding: 0;
+	}
+}
+
+div.paypalinstallmentcontainer {
+	float: left;
+	width: 100%;
+	max-width: 40em;
+	padding: 0 15px;
+}
+
+#checkout_payment {
+	div.paypalinstallmentcontainer {
+		padding: 0;
+		width: 23em;
+	}
+	div.paypalinstallmentspecific {
+		margin: 1em 0;
+	}
+	div.paypalinstallmentgeneric {
+		margin: 1em 0;
+		.introtext {
+			text-align: left;
+			padding: .2ex 0;
+		}
+		.popup_installments_info {
+			text-align: left;
+		}
+	}
+	li.list-group-item.paypal3_installments {
+		&:not(.active) {
+			div.paypalinstallmentgeneric {
+				background-color: $gx-total-box-bottom-bg;
+			}
+		}
+	}
+}
+
+
+#checkout_payment .paypal3-plus-checkout {
+	div.paypalinstallmentcontainer {
+		float: none;
+		display: inline-block;
+	}
+	img.ppinstallments_selection {
+		max-width: 100%;
+		padding: 1ex 0;
+		border-radius: 0;
+	}
+}
+
+div.paypalinstallmentgeneric {
+	padding: 1ex;
+	background-color: #ffffff;
+	color: #333;
+	margin: 1em auto;
+	clear: both;
+
+	img.powered-by-paypal-horizontal {
+		max-width: 100%;
+		margin-bottom: 1ex;
+	}
+
+	.introtext {
+		text-align: center;
+		font-weight: bold;
+		padding: .2ex 1ex;
+	}
+
+	.installments {
+		text-transform: uppercase;
+		color: #003087;
+		font-size: 1.5em;
+		text-align: center;
+		font-weight: bolder;
+		font-style: oblique;
+	}
+
+	.powered-by-paypal {
+		img.powered-by-paypal-vertical {
+			width: 100%;
+			padding: 1.5ex;
+			display: inline-block;
+		}
+	}
+
+	.popup_installments_info {
+		color: #3D92D5;
+		cursor: pointer;
+		text-decoration: underline;
+		text-align: center;
+	}
+}
+
+div.paypalinstallmentspecific {
+	padding: 1ex;
+	max-width: 25em;
+	clear: both;
+	background-color: #ffffff;
+	margin: 1em auto;
+
+	img.powered-by-paypal-horizontal {
+		max-width: 100%;
+		margin-bottom: 1ex;
+	}
+	
+	.ppi_introtext {
+		font-weight: bold;
+	}
+
+	.legal_intro {
+
+	}
+
+	div.credit-info-table
+	{
+		background-color: #eeeeee;
+		div.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		.pp_cs_label {
+			padding: 0 0 0 2px;
+		}
+
+		.pp_cs_data {
+			padding: 0 2px 0 0;
+			font-weight: bold;
+			text-align: right;
+		}
+	}
+
+	.lender {
+
+	}
+
+	.popup_installments_info {
+		color: #3D92D5;
+		font-size: 1.1em;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+	.pp_cs_popup {
+		display: none;
+	}
+}
+
+body.page-shopping-cart {
+	div.paypalinstallmentcontainer {
+		div.paypalinstallmentspecific {
+			background-color: $gx-total-box-bottom-bg;
+			div.credit-info-table {
+				background-color: $gx-wrapper-bg;
+			}
+		}
+	}
+	div.paypalinstallmentgeneric {
+		background-color: $gx-total-box-bottom-bg;
+	}
+}
+
+body > div.pp_cs_popup {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.8);
+
+	div.pp_cs_popup_inner {
+		top: 0; left: 0; bottom: 0; right: 0;
+		position: absolute;
+		margin: auto;
+		height: 90%;
+		width: 80%;
+		background-color: #ffffff;
+		padding: 1ex;
+		border: 2px solid #3D92D5;
+		border-radius: 0.4em;
+		overflow-y: auto;
+
+		.heading {
+			text-align: center;
+			max-width: 36em;
+			margin: 1ex auto;
+
+			.powered-by-paypal {
+				img.powered-by-paypal-vertical {
+					width: 100%;
+					padding: 1.5ex;
+					display: inline-block;
+				}
+			}
+		}
+
+		.subheading {
+			font-size: 1.1em;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.infotext {
+			text-align: center;
+		}
+
+		.netloan {
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.info-representative {
+			clear: both;
+			text-align: center;
+		}
+
+		.lender {
+			text-align: center;
+		}
+
+		.qualifying-options, .non-qualifying-options {
+			text-align: center;
+			margin: 0;
+		}
+
+		.non-qualifying-options {
+			.non-qualifying-intro {
+				margin-top: 2em;
+			}
+		}
+
+		.credit-plan-outer {
+			padding: 1ex 1em;
+		}
+
+		.credit-plan {
+			border: 1px solid #000000;
+			padding: 1ex;
+
+			.credit-plan-heading {
+				font-size: 1.1em;
+				font-weight: bold;
+			}
+
+			table.credit-plan-details {
+				width: 100%;
+
+				td {
+					padding: 0 .5ex;
+				}
+
+				td.pp_cs_label {
+					text-align: left;
+				}
+
+				td.pp_cs_data {
+					font-weight: bold;
+					text-align: right;
+				}
+
+			}
+		}
+	}
+
+	button.mfp-close {
+		color: #000000;
+	}
+}

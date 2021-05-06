@@ -1,0 +1,15 @@
+{block name="module_show_product_thumbs"}
+	<body bgcolor="#FFFFFF">
+		<table align="center">
+			<tr>
+				{foreach name=thumbnails item=images_data from=$images_data_array}
+					{block name="module_show_product_thumbs_item"}
+						<td align=left style="{$images_data.style}">
+							<a href="popup_image.php?pID={$PRODUCTS_ID}&imgID={$images_data.image_nr}" target="_parent">{$images_data.img}</a>
+						</td>
+					{/block}
+				{/foreach}
+			</tr>
+		</table>
+	</body>
+{/block}
