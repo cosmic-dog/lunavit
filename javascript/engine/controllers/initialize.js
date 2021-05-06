@@ -1,0 +1,1 @@
+gambio.controllers.module('initialize', ['hooks'], () => ({init: done => done()}));
