@@ -1,0 +1,851 @@
+{load_language_text section="create_account"}
+{load_language_text section="buttons" name="button"}
+{load_language_text section="price_offer" name="price_offer"}
+{load_language_text section="general" name="general"}
+
+{block name="module_create_account_guest"}
+	
+	{block name="checkout_started_if"}
+		{if $CHECKOUT_STARTED}
+			{block name="module_create_account_guest_checkout_funnel"}
+				{include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=1}
+			{/block}
+			
+			{block name="module_create_account_guest_checkout_title"}
+				<h1>{$general.YOUR_ORDER}</h1>
+				<br/>
+			{/block}
+		{else}
+			{block name="module_create_account_guest_title"}
+				<h1>{$txt.heading_create_guest_account}</h1>
+			{/block}
+		{/if}
+	{/block}
+
+	{block name="module_create_account_guest_form"}
+		<form id="{$FORM_ID}" action="{$FORM_ACTION_URL}" method="{$FORM_METHOD}" class="form-horizontal">
+			
+			{block name="module_create_account_guest_personal"}
+				<fieldset>
+					{block name="module_create_account_guest_personal_legend"}
+						<legend>
+							{$txt.title_personal}
+						</legend>
+					{/block}
+	
+					{block name="module_create_account_guest_personal_gender_if"}
+						{if $gender == '1'}
+							{block name="module_create_account_guest_personal_gender"}
+								<div class="form-group{if $form_data.gender.required == '1'} mandatory{/if}{if $error_gender} has-feedback has-error{/if}">
+									{block name="module_create_account_guest_personal_gender_label"}
+										<label class="control-label col-sm-3">
+											{$txt.text_gender}
+										</label>
+									{/block}
+									
+									{block name="module_create_account_guest_personal_gender_container"}
+										<div class="col-sm-9 input-container">
+											{block name="module_create_account_guest_personal_gender_m_span"}
+												<span class="radio-inline">
+													{block name="module_create_account_guest_personal_gender_m_label"}
+														<label for="{$form_data.gender.name}-m">
+															{block name="module_create_account_guest_personal_gender_m_input"}
+																<input type="radio" id="{$form_data.gender.name}-m"  name="{$form_data.gender.name}" value="{$form_data.gender.m.value}"{if $form_data.gender.m.checked} checked{/if}/>
+																{$txt.text_male}
+															{/block}
+														</label>
+													{/block}
+												</span>
+											{/block}
+											<span>&nbsp;</span>
+											{block name="module_create_account_guest_personal_gender_f_span"}
+												<span class="radio-inline">
+													{block name="module_create_account_guest_personal_gender_f_label"}
+														<label for="{$form_data.gender.name}-f">
+															{block name="module_create_account_guest_personal_gender_f_input"}
+																<input type="radio" id="{$form_data.gender.name}-f"  name="{$form_data.gender.name}" value="{$form_data.gender.f.value}"{if $form_data.gender.f.checked} checked{/if}/>
+																{$txt.text_female}
+															{/block}
+														</label>
+													{/block}
+												</span>
+											{/block}
+										</div>
+									{/block}
+
+									{block name="module_create_account_guest_personal_gender_error_if"}
+										{if $error_gender}
+											{block name="module_create_account_guest_personal_gender_error"}
+												<div class="help-block">
+													<span class="col-sm-3">
+														&nbsp;
+													</span>
+													<span class="col-sm-9 help-block">
+														{$error_gender}
+													</span>
+												</div>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_create_account_guest_personal_firstname"}
+						<div class="form-group{if $form_data.firstname.required == '1'} mandatory{/if}{if $error_first_name} has-feedback has-error{/if}">
+							{block name="module_create_account_guest_personal_firstname_label"}
+								<label for="{$form_data.firstname.name}" class="control-label col-sm-3">
+									{$txt.text_firstname}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_personal_firstname_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_personal_firstname_input"}
+										<input type="text"
+											   placeholder="{$txt.text_firstname}"
+											   id="{$form_data.firstname.name}"
+											   name="{$form_data.firstname.name}"
+											   class="form-control"
+											   value="{$form_data.firstname.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_personal_firstname_error_if"}
+										{if $error_first_name}
+											{block name="module_create_account_guest_personal_firstname_error"}
+												<span class="help-block">
+													{$error_first_name}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_create_account_guest_personal_lastname"}
+						<div class="form-group{if $form_data.lastname.required == '1'} mandatory{/if}{if $error_last_name} has-feedback has-error{/if}">
+							{block name="module_create_account_guest_personal_lastname_label"}
+								<label for="{$form_data.lastname.name}" class="control-label col-sm-3">
+									{$txt.text_lastname}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_personal_lastname_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_personal_lastname_input"}
+										<input type="text"
+											   placeholder="{$txt.text_lastname}"
+											   id="{$form_data.lastname.name}"
+											   name="{$form_data.lastname.name}"
+											   class="form-control"
+											   value="{$form_data.lastname.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_personal_lastname_error_if"}
+										{if $error_last_name}
+											{block name="module_create_account_guest_personal_lastname_error"}
+												<span class="help-block">
+													{$error_last_name}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+
+					{block name="module_create_account_guest_personal_birthdate_if"}
+						{if $birthdate=='1'}
+							{block name="module_create_account_guest_personal_birthdate"}
+								<div class="form-group{if $form_data.birthdate.required == '1'} mandatory{/if}{if $error_birth_day != ''} has-feedback has-error{/if}">
+									{block name="module_create_account_guest_personal_birthdate_label"}
+										<label for="{$id}" class="control-label col-sm-3">
+											{$txt.text_birthdate}
+										</label>
+									{/block}
+									
+									{block name="module_create_account_guest_personal_birthdate_container"}
+										<div class="col-sm-9 col-lg-6 input-container">
+											{block name="module_create_account_guest_personal_birthdate_input"}
+												<input type="text"
+													   placeholder="{$txt.text_birthdate}"
+													   id="{$form_data.birthdate.name}"
+													   name="{$form_data.birthdate.name}"
+													   class="form-control form-type-date" value="{$form_data.birthdate.value}"
+													   data-jse-widget="datepicker"
+													   data-datepicker-default-date="{$form_data.birthdate.default_value}"
+													   data-datepicker-year-range="-110:+0"
+												/>
+											{/block}
+
+											{block name="module_create_account_guest_personal_birthdate_error_if"}
+												{if $error_birth_day}
+													{block name="module_create_account_guest_personal_birthdate_error"}
+														<span class="help-block">
+															{$error_birth_day}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_create_account_guest_personal_email"}
+						<div class="form-group{if $form_data.email.required == '1'} mandatory{/if}{if $error_mail} has-feedback has-error{/if}">
+							{block name="module_create_account_guest_personal_email_label"}
+								<label for="{$form_data.email.name}" class="control-label col-sm-3">
+									{$txt.text_email}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_personal_email_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_personal_email_input"}
+										<input type="email"
+											   placeholder="{$txt.text_email}"
+											   id="{$form_data.email.name}"
+											   name="{$form_data.email.name}"
+											   class="form-control"
+											   value="{$form_data.email.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_personal_email_error_if"}
+										{if $error_mail}
+											{block name="module_create_account_guest_personal_email_error"}
+												<span class="help-block">
+													{$error_mail}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_create_account_guest_personal_email_confirm"}
+						<div class="form-group{if $form_data.email_confirm.required == '1'} mandatory{/if}{if $error_mail} has-feedback has-error{/if}">
+							{block name="module_create_account_guest_personal_email_confirm_label"}
+								<label for="{$form_data.email_confirm.name}" class="control-label col-sm-3">
+									{$txt.text_email_confirm}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_personal_email_confirm_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_personal_email_confirm_input"}
+										<input type="email"
+											   placeholder="{$txt.text_email_confirm}"
+											   id="{$form_data.email_confirm.name}"
+											   name="{$form_data.email_confirm.name}"
+											   class="form-control"
+											   value="{$form_data.email_confirm.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_personal_email_confirm_error_if"}
+										{if $error_mail}
+											{block name="module_create_account_guest_personal_email_confirm_error"}
+												<span class="help-block">
+													{$error_mail}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+			
+				</fieldset>
+			{/block}
+
+			{block name="module_create_account_guest_company_if"}
+				{if $company=='1'}
+					{block name="module_create_account_guest_company"}
+						<fieldset>
+							{block name="module_create_account_guest_company_legend"}
+								<legend>
+									{$txt.title_company}
+								</legend>
+							{/block}
+
+							{block name="module_create_account_guest_company_b2b_if"}
+								{if $show_b2b_status}
+									{block name="module_create_account_guest_company_b2b"}
+										<div class="form-group{if $form_data.b2b_status.required == '1'} mandatory{/if}">
+											{block name="module_create_account_guest_company_b2b_label"}
+												<label class="control-label col-sm-3">
+													{$txt.text_b2b_status}
+												</label>
+											{/block}
+											
+											{block name="module_create_account_guest_company_b2b_container"}
+												<div class="col-sm-9 input-container">
+													{block name="module_create_account_guest_company_b2b_1_span"}
+														<span class="radio-inline">
+															{block name="module_create_account_guest_company_b2b_1_label"}
+																<label for="{$form_data.b2b_status.name}-1">
+																	{block name="module_create_account_guest_company_b2b_1_input"}
+																		<input type="radio" id="{$form_data.b2b_status.name}-1"  name="{$form_data.b2b_status.name}" value="1"{if $form_data.b2b_status.checked == '1'} checked="checked"{/if} />
+																		{$txt.text_yes}
+																	{/block}
+																</label>
+															{/block}
+														</span>
+													{/block}
+													<span>&nbsp;</span>
+													{block name="module_create_account_guest_company_b2b_0_span"}
+														<span class="radio-inline">
+															{block name="module_create_account_guest_company_b2b_0_label"}
+																<label for="{$form_data.b2b_status.name}-0">
+																	{block name="module_create_account_guest_company_b2b_0_input"}
+																		<input type="radio" id="{$form_data.b2b_status.name}-0"  name="{$form_data.b2b_status.name}" value="0"{if $form_data.b2b_status.checked == '0'} checked="checked"{/if} />
+																		{$txt.text_no}
+																	{/block}
+																</label>
+															{/block}
+														</span>
+													{/block}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{else}
+									<input type="hidden" name="{$form_data.b2b_status.name}" value="{$form_data.b2b_status.checked}" />
+								{/if}
+							{/block}
+							
+							{block name="module_create_account_guest_company_company"}
+								<div class="form-group{if $form_data.company.required == '1'} mandatory{/if}{if $error_company} has-feedback has-error{/if}">
+									{block name="module_create_account_guest_company_company_label"}
+										<label for="{$form_data.company.name}" class="control-label col-sm-3">
+											{$txt.text_company}
+										</label>
+									{/block}
+									
+									{block name="module_create_account_guest_company_company_container"}
+										<div class="col-sm-9 col-lg-6 input-container">
+											{block name="module_create_account_guest_company_company_input"}
+												<input type="text"
+													   placeholder="{$txt.text_company}"
+													   id="{$form_data.company.name}"
+													   name="{$form_data.company.name}"
+													   class="form-control"
+													   value="{$form_data.company.value}" />
+											{/block}
+
+											{block name="module_create_account_guest_company_company_error_if"}
+												{if $error_company}
+													{block name="module_create_account_guest_company_company_error"}
+														<span class="help-block">
+															{$error_company}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+								</div>
+							{/block}
+
+							{block name="module_create_account_guest_company_vat_if"}
+								{if $vat=='1'}
+									{block name="module_create_account_guest_company_vat"}
+										<div class="form-group{if $error_vat} has-feedback has-error{/if}">
+											{block name="module_create_account_guest_company_vat_label"}
+												<label for="{$form_data.vat.name}" class="control-label col-sm-3">
+													{$txt.text_ustid}
+												</label>
+											{/block}
+											
+											{block name="module_create_account_guest_company_vat_container"}
+												<div class="col-sm-9 col-lg-6 input-container">
+													{block name="module_create_account_guest_company_vat_input"}
+														<input type="text"
+															   placeholder="{$txt.text_ustid}"
+															   id="{$form_data.vat.name}"
+															   name="{$form_data.vat.name}"
+															   class="form-control" value="{$form_data.vat.value}" />
+													{/block}
+
+													{block name="module_create_account_guest_company_vat_error_if"}
+														{if $error_vat}
+															{block name="module_create_account_guest_company_vat_error"}
+																<span class="help-block">
+																	{$error_vat}
+																</span>
+															{/block}
+														{/if}
+													{/block}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			{block name="module_create_account_guest_address"}
+				<fieldset data-gambio-widget="zones_handler">
+					{block name="module_create_account_guest_address_legend"}
+						<legend>
+							{$txt.title_address}
+						</legend>
+					{/block}
+					
+					{block name="module_create_account_guest_address_street"}
+						<div class="form-group{if $form_data.street_address.required == '1' || $form_data.house_number.required == '1'} mandatory{/if}">
+							{block name="module_create_account_guest_split_street_information_if"}
+								{if $split_street_information == '1'}
+									<div {if $error_street || $error_house_number}class="has-feedback has-error"{/if}>
+										{block name="module_create_account_guest_address_street_split_street_label"}
+											<label for="{$form_data.street_address.name}" class="control-label col-sm-3">
+												{$txt.text_street_number}
+											</label>
+										{/block}
+									</div>
+							
+									{block name="module_create_account_guest_address_street_split_container"}
+										<div class="col-sm-6 col-lg-4 input-container {if $error_street} has-feedback has-error{/if}">
+											{block name="module_create_account_guest_address_street_split_street_input"}
+												<input type="text"
+													   placeholder="{$txt.text_street}"
+													   id="{$form_data.street_address.name}"
+													   name="{$form_data.street_address.name}"
+													   class="form-control"
+													   value="{$form_data.street_address.value}" />
+											{/block}
+
+											{block name="module_create_account_guest_address_street_split_street_error_if"}
+												{if $error_street}
+													{block name="module_create_account_guest_address_street_split_street_error"}
+														<span class="help-block">{$error_street}</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+									
+									{block name="module_create_account_guest_address_street_split_housenr_container"}
+										<div class="col-sm-3 col-lg-2 input-container {if $error_house_number} has-feedback has-error{/if}">
+											{block name="module_create_account_guest_address_street_split_housenr_input"}
+												<input type="text"
+													   placeholder="{$txt.text_house_number}"
+													   id="{$form_data.house_number.name}"
+													   name="{$form_data.house_number.name}"
+													   class="form-control"
+													   value="{$form_data.house_number.value}" />
+											{/block}
+
+											{block name="module_create_account_guest_address_street_split_housenr_error_if"}
+												{if $error_house_number}
+													{block name="module_create_account_guest_address_street_split_housenr_error"}
+														<span class="help-block">{$error_house_number}</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+								{else}
+									<div {if $error_street}class="has-feedback has-error"{/if}>
+										{block name="module_create_account_guest_address_street_no_split_street_label"}
+											<label for="{$form_data.street_address.name}" class="control-label col-sm-3">
+												{$txt.text_street_number}
+											</label>
+										{/block}
+									</div>
+						
+									{block name="module_create_account_guest_address_street_no_split_street_container"}
+										<div class="col-sm-9 col-lg-6 input-container {if $error_street} has-feedback has-error{/if}">
+											{block name="module_create_account_guest_address_street_no_split_street_input"}
+												<input type="text"
+													   placeholder="{$txt.text_street_number}"
+													   id="{$form_data.street_address.name}"
+													   name="{$form_data.street_address.name}"
+													   class="form-control"
+													   value="{$form_data.street_address.value}" />
+											{/block}
+
+											{block name="module_create_account_guest_address_street_no_split_street_error_if"}
+												{if $error_street}
+													{block name="module_create_account_guest_address_street_no_split_street_error"}
+														<span class="help-block">
+															{$error_street}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</div>
+					{/block}
+
+					{block name="module_create_account_guest_address_additional_if"}
+						{if $additional_address_info=='1'}
+							{block name="module_create_account_guest_address_additional"}
+								<div class="form-group">
+									{block name="module_create_account_guest_address_additional_label"}
+										<label for="{$form_data.additional_address_info.name}" class="control-label col-sm-3">
+											{$txt.text_additional_info}
+										</label>
+									{/block}
+									
+									{block name="module_create_account_guest_address_additional_container"}
+										<div class="col-sm-9 col-lg-6 input-container">
+											{block name="module_create_account_guest_address_additional_input"}
+												<textarea id="{$form_data.additional_address_info.name}"
+														  class="form-control"
+														  name="{$form_data.additional_address_info.name}"
+														  placeholder="{$txt.text_additional_info}">{$form_data.additional_address_info.value}</textarea>
+											{/block}
+										</div>
+									{/block}
+								</div>
+							{/block}
+						{/if}
+					{/block}
+
+					{block name="module_create_account_guest_address_suburb_if"}
+						{if $suburb=='1'}
+							{block name="module_create_account_guest_address_suburb"}
+								<div class="form-group{if $form_data.suburb.required == '1'} mandatory{/if}{if $error_suburb} has-feedback has-error{/if}">
+									{block name="module_create_account_guest_address_suburb_label"}
+										<label for="{$form_data.suburb.name}" class="control-label col-sm-3">
+											{$txt.text_suburb}
+										</label>
+									{/block}
+									
+									{block name="module_create_account_guest_address_suburb_container"}
+										<div class="col-sm-9 col-lg-6 input-container">
+											{block name="module_create_account_guest_address_suburb_input"}
+												<input type="text"
+													   placeholder="{$txt.text_suburb}"
+													   id="{$form_data.suburb.name}"
+													   name="{$form_data.suburb.name}"
+													   class="form-control"
+													   value="{$form_data.suburb.value}" />
+											{/block}
+										</div>
+									{/block}
+
+									{block name="module_create_account_guest_address_suburb_error_if"}
+										{if $error_suburb}
+											{block name="module_create_account_guest_address_suburb_error"}
+												<span class="help-block">
+													{$error_suburb}
+												</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						{/if}
+					{/block}
+					
+					{block name="module_create_account_guest_address_city_postcode"}
+						<div class="element-set form-group{if ($form_data.city.required == '1') || ($form_data.postcode.required == '1')} mandatory{/if}{if $error_post_code || $error_city} has-feedback has-error{/if}">
+							{block name="module_create_account_guest_address_city_label"}
+								<label for="{$form_data.postcode.name}" class="control-label col-sm-3">
+									{$txt.text_code} / {$txt.text_city}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_address_postcode_container"}
+								<div class="col-sm-3 col-lg-2 input-container">
+									{block name="module_create_account_guest_address_postcode_input"}
+										<input type="text" placeholder="{$txt.text_code}" id="{$form_data.postcode.name}" name="{$form_data.postcode.name}" class="form-control" value="{$form_data.postcode.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_address_postcode_error_if"}
+										{if $error_post_code}
+											{block name="module_create_account_guest_address_postcode_error"}
+												<span class="help-block">{$error_post_code}</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+							
+							{block name="module_create_account_guest_address_city_container"}
+								<div class="col-sm-6 col-lg-4 input-container">
+									{block name="module_create_account_guest_address_city_input"}
+										<input type="text" placeholder="{$txt.text_city}" id="{$form_data.city.name}" name="{$form_data.city.name}" class="form-control" value="{$form_data.city.value}" />
+									{/block}
+
+									{block name="module_create_account_guest_address_city_error_if"}
+										{if $error_city}
+											{block name="module_create_account_guest_address_city_error"}
+												<span class="help-block">{$error_city}</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_create_account_guest_address_state"}
+						<div class="form-group{if $form_data.state.required == '1'} mandatory{else} hidden{/if}{if $error_state} has-error{/if}">
+							{block name="module_create_account_guest_address_state_label"}
+								<label for="{$form_data.state.name}" class="control-label col-sm-3">
+									{$txt.text_state}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_address_state_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_address_state_input"}
+										<input type="hidden" name="selected_zone_id" value="{$form_data.state.value}" />
+										<select id="{$form_data.state.name}" name="{$form_data.state.name}" class="form-control">
+											<!-- Will be dynamically filled (see zones_handler.js). -->
+										</select>
+									{/block}
+
+									{block name="module_create_account_guest_address_state_error_if"}
+										{if $error_state}
+											{block name="module_create_account_guest_address_state_error"}
+												<span class="help-block">{$error_state}</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+					
+					{block name="module_create_account_guest_address_country"}
+						<div class="form-group{if $form_data.country.required == '1'} mandatory{/if}{if $error_country} has-error{/if}">
+							{block name="module_create_account_guest_address_country_label"}
+								<label for="{$form_data.country.name}" class="control-label col-sm-3">
+									{$txt.text_country}
+								</label>
+							{/block}
+							
+							{block name="module_create_account_guest_address_country_container"}
+								<div class="col-sm-9 col-lg-6 input-container">
+									{block name="module_create_account_guest_address_country_input"}
+										<select id="{$form_data.country.name}" name="{$form_data.country.name}" class="form-control">
+											{foreach key=countries item=country_data from=$countries_data}
+												<option value="{$country_data.countries_id}"{if $country_data.countries_id == $form_data.country.value} selected="selected"{/if}>{$country_data.countries_name}</option>
+											{/foreach}
+										</select>
+									{/block}
+
+									{block name="module_create_account_guest_address_country_error_if"}
+										{if $error_country}
+											{block name="module_create_account_guest_address_country_error"}
+												<span class="help-block">{$error_country}</span>
+											{/block}
+										{/if}
+									{/block}
+								</div>
+							{/block}
+						</div>
+					{/block}
+				</fieldset>
+			{/block}
+			
+			{block name="module_create_account_telephone_fax_if"}
+				{if $telephone || $fax}
+					{block name="module_create_account_telephone"}
+						<fieldset>
+							{block name="module_create_account_telephone_legend"}
+								<legend>
+									{$txt.title_contact}
+								</legend>
+							{/block}
+
+							{block name="module_create_account_telephone_telephone_if"}
+								{if $telephone}
+									{block name="module_create_account_telephone_telephone"}
+										<div class="form-group{if $form_data.telephone.required == '1'} mandatory{/if}{if $error_tel} has-feedback has-error{/if}">
+											{block name="module_create_account_telephone_telephone_label"}
+												<label for="{$form_data.email.name}" class="control-label col-sm-3">
+													{$txt.text_tel}
+												</label>
+											{/block}
+											
+											{block name="module_create_account_telephone_telephone_container"}
+												<div class="col-sm-9 col-lg-6 input-container">
+													{block name="module_create_account_telephone_telephone_input"}
+														<input type="tel"
+															   placeholder="{$txt.text_tel}"
+															   id="{$form_data.telephone.name}"
+															   name="{$form_data.telephone.name}"
+															   class="form-control" value="{$form_data.telephone.value}" />
+													{/block}
+
+													{block name="module_create_account_telephone_telephone_error_if"}
+														{if $error_tel}
+															{block name="module_create_account_telephone_telephone_error"}
+																<span class="help-block">
+																	{$error_tel}
+																</span>
+															{/block}
+														{/if}
+													{/block}
+												</div>
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+
+							{block name="module_create_account_telephone_fax_if2"}
+								{if $fax}
+									{block name="module_create_account_telephone_fax"}
+										<div class="form-group{if $error_fax} has-feedback has-error{/if}">
+											{block name="module_create_account_telephone_fax_label"}
+												<label for="{$form_data.fax.name}" class="control-label col-sm-3">
+													{$txt.text_fax}
+												</label>
+											{/block}
+											
+											{block name="module_create_account_telephone_fax_container"}
+												<div class="col-sm-9 col-lg-6 input-container">
+													{block name="module_create_account_telephone_fax_input"}
+														<input type="tel"
+															   placeholder="{$txt.text_fax}"
+															   id="{$form_data.fax.name}"
+															   name="{$form_data.fax.name}"
+															   class="form-control" value="{$form_data.fax.value}" />
+													{/block}
+												</div>
+											{/block}
+
+											{block name="module_create_account_telephone_fax_error_if"}
+												{if $error_fax}
+													{block name="module_create_account_telephone_fax_error"}
+														<span class="help-block">
+															{$error_fax}
+														</span>
+													{/block}
+												{/if}
+											{/block}
+										</div>
+									{/block}
+								{/if}
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+
+			{if $validation_active == 'true'}
+				<fieldset{if $error_vvcode} class="has-error"{/if}>
+					{block name="module_create_account_form_validation2"}
+						<legend>
+							{$txt.title_captcha}
+						</legend>
+
+						<div class="form-group mandatory">
+							{block name="module_create_account_vvcode_label2"}
+								<label class="control-label col-sm-3">
+									{$txt.text_input_captcha}
+								</label>
+							{/block}
+
+							<div class="col-sm-9 col-lg-6 input-container">
+								{block name="module_create_account_body_form_validation_container2"}
+									<div id="captcha" class="col-sm-9">
+
+										{block name="module_create_account_body_form_validation_input2"}
+											{$form_data.captcha}
+										{/block}
+
+										{block name="module_create_account_vvcode_error_if2"}
+											{if $error_vvcode}
+												{block name="module_create_account_vvcode_error2"}
+													<span class="help-block">
+													</span>
+												{/block}
+											{/if}
+										{/block}
+
+									</div>
+								{/block}
+							</div>
+						</div>
+					{/block}
+				</fieldset>
+			{/if}
+
+			{block name="module_create_account_guest_privacy_if"}
+				{if $show_privacy}
+					{block name="module_create_account_guest_privacy"}
+						<fieldset{if $error_privacy} class="has-error"{/if}>
+							{block name="module_create_account_guest_privacy_legend"}
+								<legend>
+									{$txt.title_privacy}
+								</legend>
+							{/block}
+	
+							{block name="module_create_account_guest_privacy_checkbox_if"}
+								{if $show_privacy_checkbox}
+									{block name="module_create_account_guest_privacy_checkbox"}
+										<input id="privacy_accepted" type="checkbox" name="privacy_accepted" value="1"{if $form_data.privacy_accepted.value} checked="checked"{/if}/>
+										<label for="privacy_accepted">{$PRIVACY_LINK}</label>
+									{/block}
+								{else}
+									{block name="module_create_account_guest_privacy_link"}
+										<span>{$PRIVACY_LINK}</span>
+									{/block}
+								{/if}
+							{/block}
+	
+							{block name="module_create_account_guest_privacy_error_if"}
+								{if $error_privacy}
+									{block name="module_create_account_guest_privacy_error"}
+										<span class="help-block">
+											{$error_privacy}
+										</span>
+									{/block}
+								{/if}
+							{/block}
+						</fieldset>
+					{/block}
+				{/if}
+			{/block}
+			
+			<input type="hidden" name="{$HIDDEN_FIELD_NAME}" value="{$HIDDEN_FIELD_VALUE}" />
+			
+			{block name="module_create_account_guest_buttons"}
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 col-md-3">
+						{block name="module_create_account_guest_buttons_back"}
+							<a class="btn btn-default btn-block" href="{$BUTTON_BACK_LINK}" title="{$button.back}">
+								{$button.back}
+							</a>
+						{/block}
+					</div>
+					<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-6 text-right">
+						{block name="module_create_account_guest_buttons_submit"}
+							<button type="submit" class="btn btn-primary btn-block" title="{$button.send}">
+								{$button.continue}
+							</button>
+						{/block}
+					</div>
+				</div>
+			{/block}
+			
+			{block name="module_create_account_guest_mandatory"}
+				<p class="mandatory-info">
+					{$price_offer.text_required}
+				</p>
+			{/block}
+		</form>
+	{/block}
+{/block}
