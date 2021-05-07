@@ -14,4 +14,23 @@ h1, h2, h3 {
         left: 50%;
         transform: translateX(-50%);
     }
+
+    em {
+        font-style: normal;
+        font-size: 0.7em;
+        display: block;
+        margin-bottom: 6px;
+    }
+}
+
+ul {
+    &.clean {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            list-style-type: none;
+        }
+    }
 }

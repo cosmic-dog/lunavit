@@ -128,13 +128,13 @@
 							<div id="main">
 								<div class="main-inside">
 									{content_manager group=3210129}
-									<h1>Testio</h1>
-									{content_manager group=3210129}
+									
 																		
 									{block name="index_inner_wrapper_main_breadcrumb"}
 										{include file="get_usermod:{$tpl_path}snippets/navigation/breadcrumb.html" breadcrumb=$navtrail}
 									{/block}
 
+									
 									{block name="index_inner_wrapper_main_banner"}
 										{include file="get_usermod:{$tpl_path}snippets/banner.html" banner=$BANNER}
 									{/block}
@@ -175,7 +175,28 @@
 				</div>
 			{/block}
 
-			{block name="index_inner_wrapper_footer"}{footer}{/block}
+			{if ""|detect_page == 'Index'}
+				{content_manager group=3210131}
+			{/if}
+
+			{content_manager group=3210132}
+
+			<footer class="neu-footer">
+				{include file="get_usermod:{$tpl_path}snippets/header/header_custom_content.html" content={content_manager group=4321001}}
+
+				{block name="index_outer_wrapper_header_categories_top_if"}
+					{if $CATEGORIES_TOP}
+						{block name="index_outer_wrapper_header_categories_top"}
+							{$CATEGORIES_TOP=$CATEGORIES_TOP|replace:"###CONTENT_TOP###":$CONTENT_TOP}
+							{$CATEGORIES_TOP}
+						{/block}
+					{else}
+						{block name="index_content_top"}{$CONTENT_TOP}{/block}
+					{/if}
+				{/block}
+
+				{block name="index_inner_wrapper_footer"}{footer}{/block}
+			</footer>
 
 			{block name="index_inner_wrapper_trusted_shops_if"}
 				{if $TRUSTED_SHOPS_REVIEW_STICKER|strpos:"variant: 'skyscraper_horizontal'" !== false}

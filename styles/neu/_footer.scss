@@ -1,8 +1,50 @@
 .neu-footer {
-    background: $footer-bg;
+    background: $footer-bg !important;
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 40px;
+
+    .neu-logo-container {
+        margin-bottom: 16px;
+    }
+
+    #categories {
+        border: none;
+        background: transparent;
+        margin-bottom: 50px;
+
+        nav {
+            background: transparent;
+            min-height: auto !important;
+        }
+
+        ul {
+            background: transparent;
+
+            a {
+                color: #fff;
+                font-size: 14px !important;
+                font-weight: 400;
+                background: transparent !important;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+
+        .dropdown-menu {
+            display: none !important;
+        }
+
+        .neu-navbar-topbar-item {
+            display: none;
+        }
+    }
 
     &-top {
         text-align: center;
+        padding-bottom: 30px;
 
         ul {
             width: 100%;
@@ -16,9 +58,11 @@
 
         li {
             list-style-type: none;
+            color: #fff;
 
             &:first-child {
-                font-weight: 400;
+                font-weight: 600;
+                font-size: 14px;
                 text-transform: uppercase;
                 text-decoration: underline;
                 margin-bottom: 20px;
@@ -26,7 +70,36 @@
 
             a {
                 color: #fff;
+                font-weight: 400;
+                display: inline-block;
             }
+        }
+    }
+
+    &-bottom {
+        padding: 40px 0 10px;
+        text-align: center;
+        background: #fff;
+
+        .made-in-germany {
+            margin-bottom: 40px;
+
+            img {
+                height: 46px;
+            }
+        }
+
+        .kundenbewertung {
+            img {
+                height: 120px;
+                filter: grayscale(60%);
+            }
+        }
+
+        p {
+            margin-top: 40px;
+            font-weight: 400;
+            color: $gray;
         }
     }
 }
