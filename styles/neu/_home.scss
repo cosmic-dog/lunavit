@@ -1,17 +1,43 @@
 .neu-home {
+    &-banner-line {
+        width: 100%;
+        height: 400px;
+        text-align: center;
+        margin-top: 80px;
+        position: relative;
+
+        div {
+            height: 100%;
+            position: absolute;
+            left: calc(-100vw / 2 + 1154px / 2);
+            right: calc(-100vw / 2 + 1154px / 2);
+            background-size: cover;
+            background-position: center;
+        }
+
+        p {
+            width: 90%;
+            max-width: 620px;
+            padding: 30px 20px;
+            margin: 0;
+            color: #fff;
+            font-weight: 400;
+            border: 2px solid #fff;
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
     &-content {
         text-align: center;
 
-        p {
-            &:not(:last-child) {
-                margin-bottom: 80px;
-            }
-        }
     }
 
     &-icons {
         padding: 30px 0 26px;
-        margin: 40px 0 100px;
+        margin: 40px 0 80px;
         background: $gray-light;
         text-align: center;
 

@@ -1,7 +1,11 @@
+.neu-btn-wrap {
+    text-align: center;
+}
+
 .btn {
     width: auto;
-    height: 48px;
-    line-height: 48px;
+    height: 45px;
+    line-height: 42px;
     background: $cta-color;
     padding: 0 40px;
     font-size: 20px;
@@ -9,10 +13,21 @@
     font-weight: 400;
     border: 2px solid transparent;
     transition: all 0.3s;
+    outline: none !important;
 
-    &:hover {
+    &:hover, &:focus {
         background:#fff;
         border-color: $cta-color;
         color: $cta-color;
+    }
+
+    &.btn-second {
+        background: $btn-second;
+
+        &:hover, &:focus {
+            background:#fff;
+            border-color: $btn-second;
+            color: $btn-second;
+        }
     }
 }

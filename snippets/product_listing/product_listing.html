@@ -30,7 +30,7 @@
 				}
 			{/block}
 		{/foreach}
-	
+		
 		{block name="snippets_product_listing_listing_product_mustache"}
 			<script type="text/mustache">
 				<template>
@@ -48,5 +48,11 @@
 				</template>
 			</script>
 		{/block}
+
+		{if $content_data.SWIPER_DATA.allProductsBtn}
+			<div class="neu-btn-wrap">
+				<a href="#" class="btn btn-second">View all products</a>
+			</div>
+		{/if}
 	</div>
 {/block}

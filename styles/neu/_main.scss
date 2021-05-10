@@ -6,6 +6,7 @@ h1, h2, h3 {
     font-weight: 400;
     text-transform: uppercase;
     text-align: center;
+    margin-top: 60px;
     margin-bottom: 50px;
     
     &:after {
@@ -31,6 +32,32 @@ ul {
 
         li {
             list-style-type: none;
+        }
+    }
+}
+
+.neu-main {
+    .productlist {
+        padding-top: 30px;
+    }
+
+    .productlist-viewmode-grid .product-container .product-tile {
+        .title-description {
+            height: auto;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        .title a {
+            font-weight: 400;
+        }
+
+        .price {
+            font-weight: 600;
+
+            .current-price-container:before {
+                display: none;
+            }
         }
     }
 }
